@@ -7,9 +7,13 @@ K_e = (1 / pc.RATIO_VC_ORIFICE**2 - 1)**2
 nu = pc.viscosity_kinematic(15*u.degC)
 
 # inputs that should maybe go in expert inputs/materials database
-PI_HS_min = 3
-PI_HS_max = 6
+PI_HS_min = 3 # this is a worldly truth - constant!
+PI_HS_max = 6 # constant
 width_PVC_sheet = 1.067*u.m
+# ex width_PVC_sheet = floc.baffles.baffle.manufactured_width
+# this is a vendor dependent material. this should be defined in the templates
+
+# keyword arguments are going to be optional inputs 
 
 @u.wraps(1/u.s, [u.m, None, u.degK], False)
 def G_avg(hl, Gt, T):
