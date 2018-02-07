@@ -10,7 +10,7 @@
     - hl : {% set hl = 40 * u.cm %}{{ hl }} # headloss, now in optional_inputs
     - depth_end : {% set depth_end = 2 * u.m %}{{ depth_end }} # depth of water at end of flocculator... will be set by sed tank
     - width_PVC_sheet : {% set width_PVC_sheet = 1.067*u.m %}{{ width_PVC_sheet }} # this should be a constant in another template
-    - volume : {% set volume = floctest.vol_floc(q, hl, gt, temp) %}{{ volume }}
+    - volume : {% set volume = floctest.vol_floc(q, hl, Gt, temp) %}{{ volume }}
   - dp:
     - L : {% set L = 10*u.m %}{{ L }} # will be set by sed tank
     - W_tot : {% set W_tot = volume/(L*depth_end) %}{{W_tot}}
