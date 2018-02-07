@@ -4,7 +4,7 @@ from aide_design.units import unit_registry as u
 import aide_design
 import numpy as np
 import os
-import flochydraulicfunctiontest as floctest
+import ETF_draft as floctest
 
 # This will be passed in from aide_gui and represents all the variables that
 # the user has designed.

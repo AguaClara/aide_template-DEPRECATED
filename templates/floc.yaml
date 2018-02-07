@@ -1,19 +1,41 @@
 {% macro render() %}{% include "floc.yaml"%}{% endmacro %}
 
-- ent_tank:
+{% set q = q_plant %}
+{% set Gt = 37000 %}
+{% set hl = 40 * u.cm %}
+{% set depth_end = 2 * u.m %}
+{% set width_PVC_sheet = 1.067*u.m %}
+{% set L = 10*u.m %}
 
-- floc_tank:
+# calculate volumes for all the parts of ETF
+{% set vol_ET = 1 * u.m**3 %}
+{% set vol_floc = floctest.vol_floc(q, hl, Gt, temp) %}
+{% set vol_ETF = vol_ET + vol_floc %}
+
+{% set W_min = floctest.width_floc_min(q, hl, Gt, temp) %}
+{% set W_tot = vol_ETF/(L*depth_end) %}
+{% set num_chan = floctest.num_channel(q, hl, Gt, temp, W_tot) %}
+
+- ETF:
   - hp:
-    - q : {% set q = q_plant %}{{ q_plant }}
-    - temp : {{ temp }}
-    - Gt : {% set Gt = 37000 %}{{ Gt }} # collision potential, now in optional_inputs
-    - hl : {% set hl = 40 * u.cm %}{{ hl }} # headloss, now in optional_inputs
-    - depth_end : {% set depth_end = 2 * u.m %}{{ depth_end }} # depth of water at end of flocculator... will be set by sed tank
-    - width_PVC_sheet : {% set width_PVC_sheet = 1.067*u.m %}{{ width_PVC_sheet }} # this should be a constant in another template
-    - volume : {% set volume = floctest.vol_floc(q, hl, Gt, temp) %}{{ volume }}
-  - dp:
-    - L : {% set L = 10*u.m %}{{ L }} # will be set by sed tank
-    - W_tot : {% set W_tot = volume/(L*depth_end) %}{{W_tot}}
-    -
-- baffles:
-  - hp:
+    - volume : {{ vol_ETF }}
+  - ent_tank:
+    - hp:
+      - volume : {{ vol_ET }}
+    - dp:
+  - floc:
+    - hp:
+      - q : {{ q_plant }}
+      - temp : {{ temp }}
+      - Gt : {{ Gt }} # collision potential, now in optional_inputs
+      - hl : {{ hl }} # headloss, now in optional_inputs
+      - depth_end : {{ depth_end }} # depth of water at end of flocculator... will be set by sed tank
+      - width_PVC_sheet : {{ width_PVC_sheet }} # this should be a constant in another template
+      - volume : {{ vol_floc }}
+    - dp:
+      - L : {{ L }} # will be set by sed tank
+      - W_min : {{ W_min }}
+      - W_tot : {{W_tot}} # this need
+      - num_chan : {{ num_chan }}
+  - baffles:
+    - hp:

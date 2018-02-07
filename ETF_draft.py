@@ -46,4 +46,11 @@ def width_floc_min(q_plant, hl, Gt, T):
 
     This takes the maximum of the minimum required to achieve H/S > 3 and the
     minimum required for constructability based on the width of the human hip."""
-    return max(width_HS_min(flow_plant, headloss_floc_BOD, Gt_BOD, T_BOD).magnitude,width_min_const.magnitude)
+    return max(width_HS_min(q_plant, hl, Gt, T).magnitude, width_min_const.magnitude)
+
+@u.wraps(None, [u.m**3/u.s, u.m, None, u.degK, u.m], False)
+def num_channel(q_plant, hl, Gt, T, W_tot):
+     num = W_tot/(width_floc_min(q_plant, hl, Gt, T).magnitude)
+# floor function with step size 2
+     num = np.floor(num/2)*2
+     return int(max(num,2))
