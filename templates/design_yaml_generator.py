@@ -24,7 +24,7 @@ env = jinja2.Environment(
 # Load the environment with the modules specified above.
 env.globals.update(modules_dict)
 
-template = env.get_template('plant.yaml')
+template = env.get_template('plant.yaml.j2')
 #template = env.get_template('test.yaml.j2')
 
 # Run the Jinja engine on the template and print the resulting string
