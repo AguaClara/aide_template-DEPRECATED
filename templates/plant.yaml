@@ -14,9 +14,6 @@
 - hp: # hydraulic parameters do not show up in the Fusion environment (like gt and q_plant)
   - q: {{ q_plant }}
   - temp : {{ temp }}
-  - gt : {% set Gt = 37,000 %}{{ Gt }} # collision potential... a constant
-  - hl : {% set hl = 40 * u.cm %} {{ hl }} #headloss
-  - volume : {% set volume = floctest.vol_floc(q_plant, hl, Gt, temp) %}{{ volume }}
 - dp: # design parameters are put into Fusion... only parameters related to the physical construction.
   - n_sed_tanks: {{ np.ceil(q_plant/sed.q) }}
 - sed:

@@ -1,24 +1,18 @@
 {% macro render() %}{% include "floc.yaml.j2"%}{% endmacro %}
 
+- ent_tank:
+
 - floc_tank:
   - hp:
     - q : {{ q_plant }}
     - temp : {{ temp }}
-    - gt : {% set Gt = 37,000 %}{{ Gt }} # collision potential... may or may not be user input
-    - hl : {% set hl = 40 * u.cm %} {{ hl }} # headloss... should be a user input
-    - depth_end : {% set depth_end = 2 * u.m %}{{ depth_end }} # depth of water at end of flocculator... should be a user input
-    - hs_min : {% set hs_min = 3 %}{{ hs_min }} # min h/s ratio
-    - hs_max : {% set hs_max = 6 %}{{ hs_max }} # max h/s ratio
-    - width_PVC_sheet : {% %} # this should be a constant in materials database
-    # which one of these should we be using? width_min_PVC_sheet or width_min_const for the minimum constructability limit?
-    - width_min_PVC_sheet : {% set width_min_PVC_sheet = width_PVC_sheet/2 %}{{width_min_PVC_sheet}}
-    - width_min_const : {% set min_floc_width = 45 * u.cm%}{{ min_floc_width }} # for construction purposes, needs to be larger than a human hip
-    # not sure if we need to define pi_vc in this yaml, but this was an example
-    - pi_vc : {% set pi_vc = "pc.RATIO_VC_ORIFICE" %}{{pi_vc}} # defined in expert inputs as 0.63
+    - gt : {% set Gt = 37,000 %}{{ Gt }} # collision potential, now in optional_inputs
+    - hl : {% set hl = 40 * u.cm %}{{ hl }} # headloss, now in optional_inputs
+    - depth_end : {% set depth_end = 2 * u.m %}{{ depth_end }} # depth of water at end of flocculator... will be set by sed tank
+    - width_PVC_sheet : {% set width_PVC_sheet = 1.067*u.m %}{{ width_PVC_sheet }} # this should be a constant in another template
     - volume : {% set volume = floctest.vol_floc(q, hl, gt, temp) %}{{ volume }}
   - dp:
-    # Monroe, how is this equation for L impacted when width changes greatly?
-    - L : {% set L = volume/width_min_PVC_sheet/2/depth_end %}{{ L }}
+    - L : {% set L = 10*u.m %}{{ L }} # will be set by sed tank
     - W_tot : {% set W_tot = volume/(L*depth_end) %}{{W_tot}}
 - baffles:
   - hp:
