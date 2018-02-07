@@ -1,5 +1,5 @@
 {# macros are Jinja functions. The "render" function here renders the sed yaml. #}
-{% macro render() %}{% include "sed.yaml.j2"%}{% endmacro %}
+{% macro render() %}{% include "sed.yaml"%}{% endmacro %}
 
 - hp :
   - q : {% set q = 6 * u.L/u.s %}{{ q }}

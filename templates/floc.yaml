@@ -1,4 +1,4 @@
-{% macro render() %}{% include "floc.yaml.j2"%}{% endmacro %}
+{% macro render() %}{% include "floc.yaml"%}{% endmacro %}
 
 - ent_tank:
 

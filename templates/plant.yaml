@@ -9,7 +9,7 @@
 # The goal is to have a filled-out set of parameters to feed to Fusion that can
 # tell Fusion how to build the plant.
 
-{% import "sed.yaml.j2" as sed %}
+{% import "sed.yaml" as sed %}
 
 - hp: # hydraulic parameters do not show up in the Fusion environment (like gt and q_plant)
   - q: {{ q_plant }}
