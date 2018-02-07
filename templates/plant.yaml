@@ -19,4 +19,4 @@
 - sed:
   {{ sed.render()|indent }}
 - floc:
-  {% include "floc.yaml" %|indent}
+  {% include "floc.yaml" %}
