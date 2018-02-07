@@ -14,7 +14,7 @@ user_parameters_dict = {"q_plant": 20 * u.L/u.s, "temp": 20 * u.degC}
 modules_dict = {"u": u, "aide_design": aide_design, "np": np, "floctest": floctest}
 
 # We tell jinja to look within the design_templates folder
-folder_path = os.path.dirname(os.path.abspath(__file__))+"/design_templates"
+folder_path = os.path.dirname(os.path.abspath(__file__))+"/templates"
 env = jinja2.Environment(
     loader=jinja2.loaders.FileSystemLoader(folder_path),
     trim_blocks=True,
