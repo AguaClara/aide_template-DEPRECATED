@@ -1,5 +1,6 @@
 {% macro render() %}{% include "floc.yaml"%}{% endmacro %}
 
+# define constants and inputs
 {% set q = q_plant %}
 {% set Gt = 37000 %}
 {% set hl = 40 * u.cm %}
@@ -7,14 +8,32 @@
 {% set width_PVC_sheet = 1.067*u.m %}
 {% set L = 10*u.m %}
 
-# calculate volumes for all the parts of ETF
-{% set vol_ET = 1 * u.m**3 %}
-{% set vol_floc = floctest.vol_floc(q, hl, Gt, temp) %}
-{% set vol_ETF = vol_ET + vol_floc %}
+# create a loop to iterate until the length of the entrance tank is within 1%
+{% set A_ET_PV = 1 * u.m**3 %} # planview area of the entrance tank
 
-{% set W_min = floctest.width_floc_min(q, hl, Gt, temp) %}
-{% set W_tot = vol_ETF/(L*depth_end) %}
-{% set num_chan = floctest.num_channel(q, hl, Gt, temp, W_tot) %}
+{% for _ in range(1, 1000) %}
+  # use design algorithm to calculate
+  {% set vol_floc = floctest.vol_floc(q, hl, Gt, temp) %}
+  {% set A_floc_PV = vol_floc/(depth_end + hl/2) %}
+  {% set A_ETF_PV = A_ET_PV + A_floc_PV %}
+
+  # calculate width of the flocculator channels and entrance tank
+  {% set W_min = floctest.width_floc_min(q, hl, Gt, temp) %}
+  {% set W_tot = A_ETF_PV/L %}
+  {% set num_chan = floctest.num_channel(q, hl, Gt, temp, W_tot) %}
+  {% set W_chan = W_tot/num_chan %}
+
+  # calculate length of the entrance tank
+  {%  %}
+
+  # check how much A_ET_PV has changed
+  {% A_new = L_ET*W_chan %}
+  {% A_ratio = A_ET_PV/A_new %}
+  {% if A_ratio < 1.01 and A_ratio > 0.99 %}{% break %}{% endif %}
+  {% A_ET_PV = A_new %}
+{% endfor %}
+
+{% A_ET_PV = A_new %}
 
 - ETF:
   - hp:

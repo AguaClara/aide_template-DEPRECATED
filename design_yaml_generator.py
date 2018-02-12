@@ -18,7 +18,8 @@ folder_path = os.path.dirname(os.path.abspath(__file__))+"/templates"
 env = jinja2.Environment(
     loader=jinja2.loaders.FileSystemLoader(folder_path),
     trim_blocks=True,
-    lstrip_blocks=True
+    lstrip_blocks=True,
+    extensions=['jinja2.ext.loopcontrols']
 )
 
 # Load the environment with the modules specified above.

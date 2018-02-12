@@ -1,4 +1,5 @@
 from aide_design.play import*
+from aide_design.unit_process_design.prefab import lfom_prefab_functional as lfom
 
 # expansion minor loss coefficient for 180 degree bend
 K_e = (1 / pc.RATIO_VC_ORIFICE**2 - 1)**2
@@ -45,12 +46,55 @@ def width_floc_min(q_plant, hl, Gt, T):
     """Return the minimum channel width required.
 
     This takes the maximum of the minimum required to achieve H/S > 3 and the
-    minimum required for constructability based on the width of the human hip."""
+    minimum required for constructability based on the width of the human hip.
+    """
     return max(width_HS_min(q_plant, hl, Gt, T).magnitude, width_min_const.magnitude)
 
 @u.wraps(None, [u.m**3/u.s, u.m, None, u.degK, u.m], False)
 def num_channel(q_plant, hl, Gt, T, W_tot):
+    """Return the number of channels in the entrance tank/flocculator (ETF).
+
+    This takes the total width of the flocculator and divides it by the minimum
+    channel width. A floor function is used to ensure that there are an even
+    number of channels."""
      num = W_tot/(width_floc_min(q_plant, hl, Gt, T).magnitude)
 # floor function with step size 2
      num = np.floor(num/2)*2
      return int(max(num,2))
+
+
+### This section is for Entrance Tank and LFOM calculations
+#### We need to look at Mathcad files "FlocculatorEntranceTank" and "LFOM"
+
+#### LFOM - should use the lfom_prefab_functional functions whenever possible
+@u.wraps(u.m, [u.m**3/u.s, u.m, None, u.degK, u.m], False)
+def ND_lfomhigh(q_plant, hl, Gt, T, W_tot):
+    """Return the area of the LFOM pipe required for the flow rate, safety
+    factor, and velocity."""
+    SDR = 26
+    ND_lfomhigh = ND_SDR_available(ID, SDR)
+     return hl_lfom
+
+
+@u.wraps(u.m, [u.m**3/u.s, u.m, None, u.degK, u.m], False)
+def ND_lfomhigh(q_plant, hl, Gt, T, W_tot):
+    """Return the nominal pipe diameter corresponding to the calculated minimum
+    diameter."""
+    SDR = 26
+    ND_lfomhigh = ND_SDR_available(ID, SDR)
+     return hl_lfom
+
+
+@u.wraps(u.m, [u.m**3/u.s, u.m, None, u.degK, u.m], False)
+def hl_lfom(q_plant, hl, Gt, T, W_tot):
+    """Return the headloss through the LFOM."""
+    i = 0
+    while :
+     return hl_lfom
+
+@u.wraps(u.m, [u.m**3/u.s, u.m, None, u.degK, u.m], False)
+def l_tpext(q_plant, hl, Gt, T, W_tot):
+    """Return the length of the entrance tank (ET) for the "Top Plate Extension"
+    ."""
+    l_tpext = hl_lfom / np.sin(AN_EtPlate) + 5 * u.cm
+     return l_tpext
