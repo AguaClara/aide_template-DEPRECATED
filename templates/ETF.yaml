@@ -3,7 +3,7 @@
 - ETF:
   - hp:
     - volume :
-  - ent_tank:
-    {% include "ET.yaml" %}
   - floc:
     {% include "floc.yaml" %}
+  - ent_tank:
+    {% include "ET.yaml" %}
