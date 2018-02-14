@@ -46,5 +46,5 @@
       - h_chan : {{ h_chan }}
   - baffles:
     - dp:
-        - baffle_spacing : {{ baffle_spacing }}
-        - num_baffles : {{ num_baffles }}
+      - baffle_spacing : {{ baffle_spacing }}
+    d  - num_baffles : {{ num_baffles }}
