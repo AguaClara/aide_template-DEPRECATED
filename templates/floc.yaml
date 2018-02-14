@@ -26,19 +26,25 @@
 
 {% set h_chan = depth_end + hl + freeboard %}
 
+# calculate baffle spacing and number of baffles in the Flocculator
+{% set baffle_spacing = floctest.baffle_spacing(q_plant, hl, Gt, T, W_chan) %}
+{% set num_baffles = floctest.num_baffles(q_plant, hl, Gt, T, L) %}
+
 - floc:
+  - hp:
+    - volume : {{ vol_floc }}
+    - q : {{ q_plant }}
+    - temp : {{ temp }}
+    - Gt : {{ Gt }}
+    - hl : {{ hl }}
+    - depth_end : {{ depth_end }}
   - floc_tank:
-    - hp:
-      - volume : {{ vol_floc }}
-      - q : {{ q_plant }}
-      - temp : {{ temp }}
-      - Gt : {{ Gt }}
-      - hl : {{ hl }}
-      - depth_end : {{ depth_end }}
     - dp:
       - L : {{ L }}
       - W_chan : {{ W_chan }}
       - num_chan : {{ num_chan }}
       - h_chan : {{ h_chan }}
   - baffles:
-    {% include "baffles.yaml" %}
+    - dp:
+        - baffle_spacing : {{ baffle_spacing }}
+        - num_baffles : {{ num_baffles }}

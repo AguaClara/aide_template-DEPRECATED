@@ -57,44 +57,84 @@ def num_channel(q_plant, hl, Gt, T, W_tot):
     This takes the total width of the flocculator and divides it by the minimum
     channel width. A floor function is used to ensure that there are an even
     number of channels."""
-     num = W_tot/(width_floc_min(q_plant, hl, Gt, T).magnitude)
+    num = W_tot/(width_floc_min(q_plant, hl, Gt, T).magnitude)
 # floor function with step size 2
-     num = np.floor(num/2)*2
-     return int(max(num,2))
+    num = np.floor(num/2)*2
+    return int(max(num,2))
 
+def area_ent_tank(q_plant, hl, Gt, T, depth_end):
+    """Return the planview area of the entrance tank.
 
-### This section is for Entrance Tank and LFOM calculations
-#### We need to look at Mathcad files "FlocculatorEntranceTank" and "LFOM"
+    This uses an iterative method to calculate the entrance tank area repeatedly
+    until it stabilizes to within 1% of the previous iteration."""
+    # guess the planview area before starting iteration
+    A_new = 1*u.m**2
+    A_ratio = 0
 
-#### LFOM - should use the lfom_prefab_functional functions whenever possible
+    while (A_ratio) > 1.01 and (A_ET_PV/A_new) < 0.99:
+        A_ET_PV = A_new
+
+        vol_floc = vol_floc(q_plant, hl, Gt, T)
+        A_floc_PV = vol_floc/(depth_end + hl/2)
+        A_ETF_PV = A_ET_PV + A_floc_PV
+
+        W_min = width_floc_min(q_plant, hl, Gt, T)
+
+        # eventually L_sed will be an optional input, then we'll use the line below
+        # W_tot = A_ETF_PV/opt.L_sed
+        L_sed = 10*u.m
+        W_tot = A_ETF_PV/L_sed
+
+        num_chan = num_channel(q_plant, hl, Gt, T, W_tot)
+        W_chan = W_tot/num_chan
+
+        # eventually L_ET_max will be an optional input, then we'll use the line below
+        # A_new = opt.L_ET_max*W_chan
+        L_ET_max = 2.2*u.m
+        A_new = L_ET_max*W_chan
+
+        A_ratio = A_new/A_ET_PV
+
+    return A_new
+
+### Baffle calculations
 @u.wraps(u.m, [u.m**3/u.s, u.m, None, u.degK, u.m], False)
-def ND_lfomhigh(q_plant, hl, Gt, T, W_tot):
-    """Return the area of the LFOM pipe required for the flow rate, safety
-    factor, and velocity."""
-    SDR = 26
-    ND_lfomhigh = ND_SDR_available(ID, SDR)
-     return hl_lfom
+def exp_dist_max(q_plant, hl, Gt, T, W_chan):
+    """"Return the maximum distance between expansions for the largest
+    allowable H/S ratio."""
+    g_avg = G_avg(hl, Gt, T).magnitude
+    nu = pc.viscosity_kinematic(T).magnitude
+    term1 = (K_e/(2 * (g_avg**2) * nu))**(1/4)
+    term2 = (Pi_HS_max*q_plant/W_chan)**(3/4)
+    exp_dist_max = term1*term2
+    return exp_dist_max
 
-
-@u.wraps(u.m, [u.m**3/u.s, u.m, None, u.degK, u.m], False)
-def ND_lfomhigh(q_plant, hl, Gt, T, W_tot):
-    """Return the nominal pipe diameter corresponding to the calculated minimum
-    diameter."""
-    SDR = 26
-    ND_lfomhigh = ND_SDR_available(ID, SDR)
-     return hl_lfom
-
+@u.wraps(None, [u.m**3/u.s, u.m, None, u.degK, u.m], False)
+def num_expansions(q_plant, hl, Gt, T, depth_end):
+    """"Return the minimum number of expansions per baffle space."""
+    return int(np.ceil(depth_end/(exp_dist_max(q_plant, hl, Gt, T)).magnitude))
 
 @u.wraps(u.m, [u.m**3/u.s, u.m, None, u.degK, u.m], False)
-def hl_lfom(q_plant, hl, Gt, T, W_tot):
-    """Return the headloss through the LFOM."""
-    i = 0
-    while :
-     return hl_lfom
+def height_exp(q_plant, hl, Gt, T, depth_end):
+    """Return the actual distance between expansions given the integer
+    requirement for the number of expansions per flocculator depth."""
+    return depth_end/num_expansions(q_plant, hl, Gt, T)
 
 @u.wraps(u.m, [u.m**3/u.s, u.m, None, u.degK, u.m], False)
-def l_tpext(q_plant, hl, Gt, T, W_tot):
-    """Return the length of the entrance tank (ET) for the "Top Plate Extension"
+def baffle_spacing(q_plant, hl, Gt, T, W_chan):
+    """Return the spacing between baffles based on the target velocity gradient
     ."""
-    l_tpext = hl_lfom / np.sin(AN_EtPlate) + 5 * u.cm
-     return l_tpext
+    g_avg = G_avg(hl, Gt, T).magnitude
+    nu = pc.viscosity_kinematic(T).magnitude
+    term1 = (K_e/(2 * exp_dist_max(q_plant, hl, Gt, T).magnitude * (g_avg**2) * nu))**(1/3)
+    return term1 * q_plant/W_chan
+
+@u.wraps(None, [u.m**3/u.s, u.m, None, u.degK, u.m], False)
+def num_baffles(q_plant, hl, Gt, T, L):
+    """Return the number of baffles that would fit in the channel given the
+    channel length and spacing between baffles."""
+    num = round(num_channel(q_plant, hl, Gt, T).magnitude * L /
+    baffle_spacing(q_plant, hl, Gt, T).magnitude)
+    # the one is subtracted because the equation for num gives the number of
+    # baffle spaces and there is always one less baffle than baffle spaces due to geometry
+    return int(num) - 1
