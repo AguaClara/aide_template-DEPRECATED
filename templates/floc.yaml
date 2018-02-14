@@ -8,55 +8,37 @@
 {% set L = 10*u.m %} # optional input
 {% set width_PVC_sheet = 1.067*u.m %} # materials template
 {% set hl_lfom = 20*u.cm %} # optional input
-{% set L_ET_max = 2.2*u.m %} # optional input
-{%  %}
+{% set freeboard = 10*u.cm %} # optional input
 
-# create a loop to iterate until the length of the entrance tank is within 1%
-{% set A_ET_PV = 1 * u.m**3 %} # guess for planview area of the entrance tank
+# calculate planview area of the entrance tank
+{% set A_ET_PV = floctest.area_ent_tank(q, hl, Gt, temp, depth_end) %}
 
-{% for _ in range(1, 1000) %}
-  # use design algorithm to calculate
-  {% set vol_floc = floctest.vol_floc(q, hl, Gt, temp) %}
-  {% set A_floc_PV = vol_floc/(depth_end + hl/2) %}
-  {% set A_ETF_PV = A_ET_PV + A_floc_PV %}
+# now calculate planview area of entrance tank + flocculator combined
+{% set vol_floc = floctest.vol_floc(q, hl, Gt, temp) %}
+{% set A_floc_PV = vol_floc/(depth_end + hl/2) %}
+{% set A_ETF_PV = A_ET_PV + A_floc_PV %}
 
-  # calculate width of the flocculator channels and entrance tank
-  {% set W_min = floctest.width_floc_min(q, hl, Gt, temp) %}
-  {% set W_tot = A_ETF_PV/L %}
-  {% set num_chan = floctest.num_channel(q, hl, Gt, temp, W_tot) %}
-  {% set W_chan = W_tot/num_chan %}
+# calculate width of the flocculator channels and entrance tank
+{% set W_min = floctest.width_floc_min(q, hl, Gt, temp) %}
+{% set W_tot = A_ETF_PV/L %}
+{% set num_chan = floctest.num_channel(q, hl, Gt, temp, W_tot) %}
+{% set W_chan = W_tot/num_chan %}
 
-  # check how much A_ET_PV has changed
-  {% set A_new = L_ET_max*W_chan %}
-  {% set A_ratio = A_ET_PV/A_new %}
-  {% if A_ratio < 1.01 and A_ratio > 0.99 %}{% break %}{% endif %}
-  {% set A_ET_PV = A_new %}
-{% endfor %}
+{% set h_chan = depth_end + hl + freeboard %}
 
-{% set A_ET_PV = A_new %}
-
-- ETF:
-  - hp:
-    - volume :
-  - ent_tank:
+- floc:
+  - floc_tank:
     - hp:
-      - volume :
-      - D_drain :
+      - volume : {{ vol_floc }}
+      - q : {{ q_plant }}
+      - temp : {{ temp }}
+      - Gt : {{ Gt }}
+      - hl : {{ hl }}
+      - depth_end : {{ depth_end }}
     - dp:
-      - L : {{ L_ET_max }}
-      - W : {{ W_chan }}
-  - floc:
-    - floc_tank:
-      - hp:
-        - volume : {{ vol_floc }}
-        - q : {{ q_plant }}
-        - temp : {{ temp }}
-        - Gt : {{ Gt }}
-        - hl : {{ hl }}
-        - depth_end : {{ depth_end }}
-      - dp:
-        - L : {{ L }}
-        - W_chan : {{ W_chan }}
-        - num_chan : {{ num_chan }}
+      - L : {{ L }}
+      - W_chan : {{ W_chan }}
+      - num_chan : {{ num_chan }}
+      - h_chan : {{ h_chan }}
   - baffles:
     {% include "baffles.yaml" %}
