@@ -9,9 +9,10 @@
 {% set width_PVC_sheet = 1.067*u.m %} # materials template
 {% set hl_lfom = 20*u.cm %} # optional input
 {% set L_ET_max = 2.2*u.m %} # optional input
+{%  %}
 
 # create a loop to iterate until the length of the entrance tank is within 1%
-{% set A_ET_PV = 1 * u.m**3 %} # planview area of the entrance tank
+{% set A_ET_PV = 1 * u.m**3 %} # guess for planview area of the entrance tank
 
 {% for _ in range(1, 1000) %}
   # use design algorithm to calculate
@@ -25,38 +26,37 @@
   {% set num_chan = floctest.num_channel(q, hl, Gt, temp, W_tot) %}
   {% set W_chan = W_tot/num_chan %}
 
-  # calculate length of the entrance tank
-  {%  %}
-
   # check how much A_ET_PV has changed
-  {% A_new = L_ET*W_chan %}
-  {% A_ratio = A_ET_PV/A_new %}
+  {% set A_new = L_ET_max*W_chan %}
+  {% set A_ratio = A_ET_PV/A_new %}
   {% if A_ratio < 1.01 and A_ratio > 0.99 %}{% break %}{% endif %}
-  {% A_ET_PV = A_new %}
+  {% set A_ET_PV = A_new %}
 {% endfor %}
 
-{% A_ET_PV = A_new %}
+{% set A_ET_PV = A_new %}
 
 - ETF:
   - hp:
-    - volume : {{ vol_ETF }}
+    - volume :
   - ent_tank:
     - hp:
-      - volume : {{ vol_ET }}
+      - volume :
+      - D_drain :
     - dp:
+      - L : {{ L_ET_max }}
+      - W : {{ W_chan }}
   - floc:
-    - hp:
-      - q : {{ q_plant }}
-      - temp : {{ temp }}
-      - Gt : {{ Gt }} # collision potential, now in optional_inputs
-      - hl : {{ hl }} # headloss, now in optional_inputs
-      - depth_end : {{ depth_end }} # depth of water at end of flocculator... will be set by sed tank
-      - width_PVC_sheet : {{ width_PVC_sheet }} # this should be a constant in another template
-      - volume : {{ vol_floc }}
-    - dp:
-      - L : {{ L }} # will be set by sed tank
-      - W_min : {{ W_min }}
-      - W_tot : {{W_tot}} # this need
-      - num_chan : {{ num_chan }}
+    - floc_tank:
+      - hp:
+        - volume : {{ vol_floc }}
+        - q : {{ q_plant }}
+        - temp : {{ temp }}
+        - Gt : {{ Gt }}
+        - hl : {{ hl }}
+        - depth_end : {{ depth_end }}
+      - dp:
+        - L : {{ L }}
+        - W_chan : {{ W_chan }}
+        - num_chan : {{ num_chan }}
   - baffles:
-    - hp:
+    {% include "baffles.yaml" %}

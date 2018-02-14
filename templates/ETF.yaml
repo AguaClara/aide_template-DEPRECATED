@@ -1,0 +1,9 @@
+{% macro render() %}{% include "ETF.yaml"%}{% endmacro %}
+
+- ETF:
+  - hp:
+    - volume :
+  - ent_tank:
+    {% include "ET.yaml" %}
+  - floc:
+    {% include "floc.yaml" %}
