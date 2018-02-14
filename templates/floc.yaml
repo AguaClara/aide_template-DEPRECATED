@@ -1,12 +1,14 @@
 {% macro render() %}{% include "floc.yaml"%}{% endmacro %}
 
 # define constants and inputs
-{% set q = q_plant %}
-{% set Gt = 37000 %}
-{% set hl = 40 * u.cm %}
-{% set depth_end = 2 * u.m %}
-{% set width_PVC_sheet = 1.067*u.m %}
-{% set L = 10*u.m %}
+{% set q = q_plant %} # user input
+{% set Gt = 37000 %} # optional input
+{% set hl = 40 * u.cm %} # optional input
+{% set depth_end = 2 * u.m %} # set by sed calculations
+{% set L = 10*u.m %} # optional input
+{% set width_PVC_sheet = 1.067*u.m %} # materials template
+{% set hl_lfom = 20*u.cm %} # optional input
+{% set L_ET_max = 2.2*u.m %} # optional input
 
 # create a loop to iterate until the length of the entrance tank is within 1%
 {% set A_ET_PV = 1 * u.m**3 %} # planview area of the entrance tank
