@@ -1,3 +1,0 @@
-{% macro render() %}{% include "baffles.yaml"%}{% endmacro %}
-
-- baffles:

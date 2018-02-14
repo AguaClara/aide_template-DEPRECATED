@@ -3,3 +3,10 @@
 {% set L_ET_max = 2.2*u.m %} # optional input
 
 - ent_tank:
+  - hp:
+    - volume :
+  - dp:
+    - L : {{ L_ET_max }}
+    - W : {{ W_chan }}
+    - D_drain :
+    - num_plates : 
