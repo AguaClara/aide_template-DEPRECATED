@@ -12,7 +12,7 @@ from aide_design.unit_process_design.prefab import lfom_prefab_functional as lfo
 
 # This will be passed in from aide_gui and represents all the variables that
 # the user has designed.
-user_parameters_dict = {"q_plant": 20 * u.L/u.s, "temp": 20 * u.degC}
+user_parameters_dict = {"q": 20 * u.L/u.s, "temp": 20 * u.degC, "hl_lfom" : 20*u.cm}
 
 # These are the modules we want to make available within the template environment.
 modules_dict = {"u": u, "aide_design": aide_design, "np": np, "floctest": floctest, "lfom": lfom, "con": con, "mat": mat}
@@ -29,7 +29,7 @@ env = jinja2.Environment(
 # Load the environment with the modules specified above.
 env.globals.update(modules_dict)
 
-template = env.get_template('plant.yaml')
+template = env.get_template('lfom.yaml')
 #template = env.get_template('test.yaml.j2')
 
 # Run the Jinja engine on the template and print the resulting string

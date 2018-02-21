@@ -7,3 +7,5 @@
     {% include "floc.yaml" %}
   - ent_tank:
     {% include "ET.yaml" %}
+  - lfom:
+    {% include "lfom.yaml" %}
