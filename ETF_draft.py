@@ -80,18 +80,12 @@ def area_ent_tank(q_plant, hl, Gt, T, depth_end):
 
         W_min = width_floc_min(q_plant, hl, Gt, T)
 
-        # eventually L_sed will be an optional input, then we'll use the line below
-        # W_tot = A_ETF_PV/opt.L_sed
-        L_sed = 10*u.m
-        W_tot = A_ETF_PV/L_sed
+        W_tot = A_ETF_PV/opt.L_sed
 
         num_chan = num_channel(q_plant, hl, Gt, T, W_tot)
         W_chan = W_tot/num_chan
 
-        # eventually L_ET_max will be an optional input, then we'll use the line below
-        # A_new = opt.L_ET_max*W_chan
-        L_ET_max = 2.2*u.m
-        A_new = L_ET_max*W_chan
+        A_new = opt.L_ET_max*W_chan
 
         A_ratio = A_new/A_ET_PV
 
@@ -168,3 +162,5 @@ def L_plate_ET(q_plant, W_chan):
     con.VEL_ENT_TANK_CAPTURE_BOD.magnitude * np.cos(con.AN_ENT_TANK_PLATE.to(u.rad).magnitude)))
     - (con.SPACE_ENT_TANK_PLATE.magnitude * np.tan(con.AN_ENT_TANK_PLATE.to(u.rad).magnitude))
     return L_plate
+
+###### LFOM

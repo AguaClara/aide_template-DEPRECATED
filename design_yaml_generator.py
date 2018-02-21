@@ -1,17 +1,21 @@
 import yaml
 import jinja2
 from aide_design.units import unit_registry as u
+from aide_design import constants as con
+from aide_design import materials_database as mat
 import aide_design
 import numpy as np
 import os
 import ETF_draft as floctest
+from aide_design.unit_process_design.prefab import lfom_prefab_functional as lfom
+
 
 # This will be passed in from aide_gui and represents all the variables that
 # the user has designed.
 user_parameters_dict = {"q_plant": 20 * u.L/u.s, "temp": 20 * u.degC}
 
 # These are the modules we want to make available within the template environment.
-modules_dict = {"u": u, "aide_design": aide_design, "np": np, "floctest": floctest}
+modules_dict = {"u": u, "aide_design": aide_design, "np": np, "floctest": floctest, "lfom": lfom, "con": con, "mat": mat}
 
 # We tell jinja to look within the design_templates folder
 folder_path = os.path.dirname(os.path.abspath(__file__))+"/templates"
