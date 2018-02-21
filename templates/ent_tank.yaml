@@ -1,6 +1,14 @@
 {% macro render() %}{% include "ET.yaml"%}{% endmacro %}
 
 {% set L_ET_max = 2.2*u.m %} # optional input
+{% set SDR_drain = 26 %} # materials database
+
+# calculate drain diameter
+{% set D_drain = floctest.drain_ND(q, temp, depth_end, SDR_drain) %}
+
+# calculate number of plates
+{% set num_plates = floctest.num_plates_ET(q, W_chan) %}
+{% set L_plate = floctest.L_plate_ET(q, W_chan) %}
 
 - ent_tank:
   - hp:
@@ -8,5 +16,6 @@
   - dp:
     - L : {{ L_ET_max }}
     - W : {{ W_chan }}
-    - D_drain :
-    - num_plates : 
+    - D_drain : {{ SDR_drain }}
+    - num_plates : {{ num_plates }}
+    - L_plate : {{ L_plate }}
