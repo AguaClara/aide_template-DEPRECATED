@@ -162,9 +162,9 @@ def num_plates_ET(q_plant, W_chan):
     return num_plates
 
 @u.wraps(u.m, [u.m**3/u.s, u.m], False)
-def l_plate_ET(q_plant, W_chan):
+def L_plate_ET(q_plant, W_chan):
     """Return the length of the plates in the entrance tank."""
-    l_plate = (q_plant/(num_plates_ET(q_plant, W_chan).magnitude * W_Chan *
+    L_plate = (q_plant/(num_plates_ET(q_plant, W_chan).magnitude * W_Chan *
     con.VEL_ENT_TANK_CAPTURE_BOD.magnitude * np.cos(con.AN_ENT_TANK_PLATE.to(u.rad).magnitude)))
     - (con.SPACE_ENT_TANK_PLATE.magnitude * np.tan(con.AN_ENT_TANK_PLATE.to(u.rad).magnitude))
-    return l_plate
+    return L_plate
