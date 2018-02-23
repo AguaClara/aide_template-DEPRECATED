@@ -2,13 +2,13 @@
 
 # define constants and inputs
 {% set q = q_plant %} # user input
-{% set Gt = 37000 %} # optional input
-{% set hl = 40 * u.cm %} # optional input
+{% set Gt = opt.COLL_POT %} # optional input
+{% set hl = opt.HL_FLOC %} # optional input
 {% set depth_end = 2 * u.m %} # set by sed calculations
 {% set L = 10*u.m %} # optional input
 {% set width_PVC_sheet = 1.067*u.m %} # materials template
-{% set hl_lfom = 20*u.cm %} # optional input
-{% set freeboard = 10*u.cm %} # optional input
+{% set hl_lfom = opt.HL_LFOM %} # optional input
+{% set freeboard = opt.FREEBOARD %} # optional input
 
 # calculate planview area of the entrance tank
 {% set A_ET_PV = floctest.area_ent_tank(q, hl, Gt, temp, depth_end) %}

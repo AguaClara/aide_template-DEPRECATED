@@ -1,5 +1,5 @@
 from aide_design.play import*
-from aide_design.unit_process_design.prefab import lfom_prefab_functional as lfom
+from aide_design.unit_process_design import lfom
 
 # expansion minor loss coefficient for 180 degree bend
 K_e = (1 / pc.RATIO_VC_ORIFICE**2 - 1)**2
