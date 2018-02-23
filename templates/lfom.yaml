@@ -9,7 +9,7 @@
 {% set B_orifice_rows = hl_lfom/num_lfom_rows %}
 
 # calculate nominal diameter of lfom
-{% set ND_lfom = lfom.nom_diam_lfom_pipe(q, hl_lfom, con.RATIO_LFOM_SAFETY, SDR_lfom) %}
+{% set OD_lfom = pipe.OD(lfom.nom_diam_lfom_pipe(q, hl_lfom, con.RATIO_LFOM_SAFETY, SDR_lfom)) %}
 
 # calculate the diameter of the lfom orifices
 {% set D_orifice_lfom = lfom.orifice_diameter(q, hl_lfom, mat.DIAM_DRILL_ENG) %}
@@ -24,7 +24,7 @@
   - dp:
     - num_rows : {{ num_lfom_rows }}
     - B_orifice_rows : {{ B_orifice_rows }}
-    - ND_lfom : {{ ND_lfom }}
+    - OD_lfom : {{ OD_lfom }}
     - D_orifice : {{ D_orifice_lfom }}
     - num_orifices_per_row : {{ num_orifices_per_row_lfom }} # fusion can't handle lists - how will we handle this?
     - height_rows : {{ str(height_rows_lfom.magnitude) + " " + str(height_rows_lfom.units) }}

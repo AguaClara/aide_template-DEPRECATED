@@ -4,6 +4,7 @@ from aide_design.units import unit_registry as u
 from aide_design import constants as con
 from aide_design import materials_database as mat
 from aide_design import optional_inputs as opt
+from aide_design import pipedatabase as pipe
 import aide_design
 import numpy as np
 import os
@@ -16,7 +17,7 @@ from aide_design.unit_process_design import lfom
 user_parameters_dict = {"q": 20 * u.L/u.s, "temp": 20 * u.degC, "hl_lfom" : 20*u.cm}
 
 # These are the modules we want to make available within the template environment.
-modules_dict = {"u": u, "aide_design": aide_design, "np": np,
+modules_dict = {"u": u, "aide_design": aide_design, "np": np, "pipe": pipe,
     "floctest": floctest, "lfom": lfom, "con": con, "mat": mat, "opt": opt}
 
 # We tell jinja to look within the design_templates folder

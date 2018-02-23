@@ -123,19 +123,18 @@ def baffle_spacing(q_plant, hl, Gt, T, W_chan):
     term1 = (K_e/(2 * exp_dist_max(q_plant, hl, Gt, T).magnitude * (g_avg**2) * nu))**(1/3)
     return term1 * q_plant/W_chan
 
-@u.wraps(None, [u.m**3/u.s, u.m, None, u.degK, u.m], False)
-def num_baffles(q_plant, hl, Gt, T, L):
+@u.wraps(None, [u.m**3/u.s, u.m, None, u.degK, u.m, u.m], False)
+def num_baffles(q_plant, hl, Gt, T, L, baffle_thickness):
     """Return the number of baffles that would fit in the channel given the
     channel length and spacing between baffles."""
-    num = round(num_channel(q_plant, hl, Gt, T).magnitude * L /
-    baffle_spacing(q_plant, hl, Gt, T).magnitude)
+    num = round((L / (baffle_spacing(q_plant, hl, Gt, T).magnitude + baffle_thickness)
     # the one is subtracted because the equation for num gives the number of
     # baffle spaces and there is always one less baffle than baffle spaces due to geometry
     return int(num) - 1
 
 #### Entrance tank
 @u.wraps(u.inch, [u.m**3/u.s, u.degK, u.m, None], False)
-def drain_ND(q_plant, T, depth_end, SDR):
+def drain_OD(q_plant, T, depth_end, SDR):
     """Return the nominal diameter of the entrance tank drain pipe. Depth at the
     end of the flocculator is used for headloss and length calculation inputs in
     the diam_pipe calculation."""
@@ -143,8 +142,7 @@ def drain_ND(q_plant, T, depth_end, SDR):
     Kminor = con.K_MINOR_PIPE_ENTRANCE + con.K_MINOR_PIPE_EXIT + con.K_MINOR_EL90
     drain_ID = pc.diam_pipe(q_plant, depth_end, depth_end, nu, mat.PIPE_ROUGH_PVC, KMinor)
     drain_ND = pipe.ND_SDR_available(drain_ID, SDR)
-# we will likely need to report the ID and OD too, depending on what DRAW needs
-    return drain_ND.magnitude
+    return pipe.OD(drain_ND).magnitude
 
 @u.wraps(None, [u.m**3/u.s, u.m], False)
 def num_plates_ET(q_plant, W_chan):

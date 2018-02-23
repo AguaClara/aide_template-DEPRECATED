@@ -7,6 +7,7 @@
 {% set depth_end = 2 * u.m %} # set by sed calculations
 {% set L = 10*u.m %} # optional input
 {% set width_PVC_sheet = 1.067*u.m %} # materials template
+{% set thickness_PVC_sheet = 0.01*u.m %} # materials template, this is a guess
 {% set hl_lfom = opt.HL_LFOM %} # optional input
 {% set freeboard = opt.FREEBOARD %} # optional input
 
@@ -28,7 +29,15 @@
 
 # calculate baffle spacing and number of baffles in the Flocculator
 {% set baffle_spacing = floctest.baffle_spacing(q_plant, hl, Gt, T, W_chan) %}
-{% set num_baffles = floctest.num_baffles(q_plant, hl, Gt, T, L) %}
+{% set num_baffles_chan_1 = floctest.num_baffles(q_plant, hl, Gt, T, L-opt.L_ET_max, thickness_PVC_sheet) %}
+{% set num_baffles_chan_n = floctest.num_baffles(q_plant, hl, Gt, T, L, thickness_PVC_sheet) %}
+
+# is this if else statement correct?
+{% if q > 50*u.L/u.s %}
+{% set obstacles_bool = 0 %}
+{% else %}
+{% set obstacles_bool = 1 %}
+{% endif %}
 
 - floc:
   - hp:
@@ -47,4 +56,6 @@
   - baffles:
     - dp:
       - baffle_spacing : {{ baffle_spacing }}
-      - num_baffles : {{ num_baffles }}
+      - num_baffles_chan_1 : {{ num_baffles_chan_1 }}
+      - num_baffles_chan_n : {{ num_baffles_chan_n }}
+      - obstacles_bool : {{ obstacles_bool }}

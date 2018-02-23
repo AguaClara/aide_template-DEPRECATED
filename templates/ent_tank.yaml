@@ -4,7 +4,7 @@
 {% set SDR_drain = 26 %} # materials database
 
 # calculate drain diameter
-{% set ND_drain = floctest.drain_ND(q, temp, depth_end, SDR_drain) %}
+{% set OD_drain = floctest.drain_OD(q, temp, depth_end, SDR_drain) %}
 
 # calculate number of plates and length
 {% set num_plates = floctest.num_plates_ET(q, W_chan) %}
@@ -14,6 +14,6 @@
   - dp:
     - L : {{ L_ET_max }}
     - W : {{ W_chan }}
-    - ND_drain : {{ ND_drain }}
+    - OD_drain : {{ OD_drain }}
     - num_plates : {{ num_plates }}
     - L_plate : {{ L_plate }}
