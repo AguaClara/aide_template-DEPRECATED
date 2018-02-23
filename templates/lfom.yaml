@@ -26,5 +26,5 @@
     - B_orifice_rows : {{ B_orifice_rows }}
     - ND_lfom : {{ ND_lfom }}
     - D_orifice : {{ D_orifice_lfom }}
-    - num_orifices_per_row_ : {{ num_orifices_per_row_lfom }} # fusion can't handle lists - how will we handle this?
+    - num_orifices_per_row : {{ num_orifices_per_row_lfom }} # fusion can't handle lists - how will we handle this?
     - height_rows : {{ str(height_rows_lfom.magnitude) + " " + str(height_rows_lfom.units) }}
