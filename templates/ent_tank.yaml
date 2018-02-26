@@ -1,6 +1,6 @@
 {% macro render() %}{% include "ET.yaml"%}{% endmacro %}
 
-{% set L_ET_max = 2.2*u.m %} # optional input
+{% set L_ET_max = opt.L_ET_MAX %} # optional input
 {% set SDR_drain = 26 %} # materials database
 
 # calculate drain diameter

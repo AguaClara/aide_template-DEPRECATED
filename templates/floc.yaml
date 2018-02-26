@@ -8,7 +8,6 @@
 {% set L = 10*u.m %} # optional input
 {% set width_PVC_sheet = 1.067*u.m %} # materials template
 {% set thickness_PVC_sheet = 0.01*u.m %} # materials template, this is a guess
-{% set hl_lfom = opt.HL_LFOM %} # optional input
 {% set freeboard = opt.FREEBOARD %} # optional input
 
 # calculate planview area of the entrance tank
@@ -20,17 +19,17 @@
 {% set A_ETF_PV = A_ET_PV + A_floc_PV %}
 
 # calculate width of the flocculator channels and entrance tank
-{% set W_min = floctest.width_floc_min(q, hl, Gt, temp) %}
+{% set W_min = floctest.width_floc_min(q, hl, Gt, temp, depth_end) %}
 {% set W_tot = A_ETF_PV/L %}
-{% set num_chan = floctest.num_channel(q, hl, Gt, temp, W_tot) %}
+{% set num_chan = floctest.num_channel(q, hl, Gt, temp, W_tot, depth_end) %}
 {% set W_chan = W_tot/num_chan %}
 
 {% set h_chan = depth_end + hl + freeboard %}
 
 # calculate baffle spacing and number of baffles in the Flocculator
-{% set baffle_spacing = floctest.baffle_spacing(q_plant, hl, Gt, T, W_chan) %}
-{% set num_baffles_chan_1 = floctest.num_baffles(q_plant, hl, Gt, T, L-opt.L_ET_max, thickness_PVC_sheet) %}
-{% set num_baffles_chan_n = floctest.num_baffles(q_plant, hl, Gt, T, L, thickness_PVC_sheet) %}
+{% set baffle_spacing = floctest.baffle_spacing(q_plant, hl, Gt, temp, W_chan) %}
+{% set num_baffles_chan_1 = floctest.num_baffles(q_plant, hl, Gt, temp, W_chan, L - opt.L_ET_MAX, thickness_PVC_sheet) %}
+{% set num_baffles_chan_n = floctest.num_baffles(q_plant, hl, Gt, temp, W_chan, L, thickness_PVC_sheet) %}
 
 # calculate the length of the baffles. The top baffle is set to the top of the
 # channel wall and the bottom baffle is set to the bottom of the channel.
@@ -42,9 +41,9 @@
 
 # is this if else statement correct?
 {% if q > 50*u.L/u.s %}
-{% set obstacles_bool = 0 %}
+  {% set obstacles_bool = 0 %}
 {% else %}
-{% set obstacles_bool = 1 %}
+  {% set obstacles_bool = 1 %}
 {% endif %}
 
 - floc:

@@ -1,6 +1,7 @@
 {% macro render() %}{% include "lfom.yaml"%}{% endmacro %}
 
-{% set SDR_lfom = 26 %}
+{% set hl_lfom = opt.HL_LFOM %} # optional input
+{% set SDR_lfom = 26 %} # where should this be saved?
 
 # calculate number of orifice rows for LFOM
 {% set num_lfom_rows = lfom.n_lfom_rows(q, hl_lfom) %}
@@ -27,4 +28,4 @@
     - OD_lfom : {{ OD_lfom }}
     - D_orifice : {{ D_orifice_lfom }}
     - num_orifices_per_row : {{ num_orifices_per_row_lfom }} # fusion can't handle lists - how will we handle this?
-    - height_rows : {{ str(height_rows_lfom.magnitude) + " " + str(height_rows_lfom.units) }}
+    - height_rows : {{ }}

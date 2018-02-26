@@ -4,11 +4,6 @@ from aide_design.unit_process_design import lfom
 # expansion minor loss coefficient for 180 degree bend
 K_e = (1 / con.RATIO_VC_ORIFICE**2 - 1)**2
 
-# these inputs will come from constants.py or optional_inputs.py
-PI_HS_min = 3
-PI_HS_max = 6
-width_min_const = 45*u.cm
-
 @u.wraps(1/u.s, [u.m, None, u.degK], False)
 def G_avg(hl, Gt, T):
     """Return the average velocity gradient of a flocculator given head
@@ -38,30 +33,31 @@ def width_HS_min(q_plant, hl, Gt, T, depth_end):
     water at the end of the flocculator."""
     nu = pc.viscosity_kinematic(T).magnitude
 
-    w = PI_HS_min*((K_e/(2 * depth_end * (G_avg(hl, Gt, T).magnitude**2) * nu))**(1/3))*q_plant/depth_end
+    w = con.RATIO_HS_MIN*((K_e/(2 * depth_end * (G_avg(hl, Gt, T).magnitude**2) * nu))**(1/3))*q_plant/depth_end
     return w
 
-@u.wraps(u.cm, [u.m**3/u.s, u.m, None, u.degK], False)
-def width_floc_min(q_plant, hl, Gt, T):
+@u.wraps(u.cm, [u.m**3/u.s, u.m, None, u.degK, u.m], False)
+def width_floc_min(q_plant, hl, Gt, T, depth_end):
     """Return the minimum channel width required.
 
     This takes the maximum of the minimum required to achieve H/S > 3 and the
     minimum required for constructability based on the width of the human hip.
     """
-    return max(width_HS_min(q_plant, hl, Gt, T).magnitude, width_min_const.magnitude)
+    return max(width_HS_min(q_plant, hl, Gt, T, depth_end).magnitude, con.FLOC_WIDTH_MIN_CONST.magnitude)
 
-@u.wraps(None, [u.m**3/u.s, u.m, None, u.degK, u.m], False)
-def num_channel(q_plant, hl, Gt, T, W_tot):
+@u.wraps(None, [u.m**3/u.s, u.m, None, u.degK, u.m, u.m], False)
+def num_channel(q_plant, hl, Gt, T, W_tot, depth_end):
     """Return the number of channels in the entrance tank/flocculator (ETF).
 
     This takes the total width of the flocculator and divides it by the minimum
     channel width. A floor function is used to ensure that there are an even
     number of channels."""
-    num = W_tot/(width_floc_min(q_plant, hl, Gt, T).magnitude)
-# floor function with step size 2
+    num = W_tot/(width_floc_min(q_plant, hl, Gt, T, depth_end).magnitude)
+    # floor function with step size 2
     num = np.floor(num/2)*2
-    return int(max(num,2))
+    return int(max(num, 2))
 
+@u.wraps(u.m**2, [u.m**3/u.s, u.m, None, u.degK, u.m], False)
 def area_ent_tank(q_plant, hl, Gt, T, depth_end):
     """Return the planview area of the entrance tank.
 
@@ -78,7 +74,7 @@ def area_ent_tank(q_plant, hl, Gt, T, depth_end):
         A_floc_PV = vol_floc/(depth_end + hl/2)
         A_ETF_PV = A_ET_PV + A_floc_PV
 
-        W_min = width_floc_min(q_plant, hl, Gt, T)
+        W_min = width_floc_min(q_plant, hl, Gt, T, depth_end)
 
         W_tot = A_ETF_PV/opt.L_sed
 
@@ -89,7 +85,7 @@ def area_ent_tank(q_plant, hl, Gt, T, depth_end):
 
         A_ratio = A_new/A_ET_PV
 
-    return A_new
+    return A_new.to(u.m**2).magnitude
 
 ### Baffle calculations
 @u.wraps(u.m, [u.m**3/u.s, u.m, None, u.degK, u.m], False)
@@ -99,7 +95,7 @@ def exp_dist_max(q_plant, hl, Gt, T, W_chan):
     g_avg = G_avg(hl, Gt, T).magnitude
     nu = pc.viscosity_kinematic(T).magnitude
     term1 = (K_e/(2 * (g_avg**2) * nu))**(1/4)
-    term2 = (Pi_HS_max*q_plant/W_chan)**(3/4)
+    term2 = (con.RATIO_HS_MAX*q_plant/W_chan)**(3/4)
     exp_dist_max = term1*term2
     return exp_dist_max
 
@@ -120,16 +116,17 @@ def baffle_spacing(q_plant, hl, Gt, T, W_chan):
     ."""
     g_avg = G_avg(hl, Gt, T).magnitude
     nu = pc.viscosity_kinematic(T).magnitude
-    term1 = (K_e/(2 * exp_dist_max(q_plant, hl, Gt, T).magnitude * (g_avg**2) * nu))**(1/3)
+    term1 = (K_e/(2 * exp_dist_max(q_plant, hl, Gt, T, W_chan).magnitude * (g_avg**2) * nu))**(1/3)
     return term1 * q_plant/W_chan
 
-@u.wraps(None, [u.m**3/u.s, u.m, None, u.degK, u.m, u.m], False)
-def num_baffles(q_plant, hl, Gt, T, L, baffle_thickness):
+@u.wraps(None, [u.m**3/u.s, u.m, None, u.degK, u.m, u.m, u.m], False)
+def num_baffles(q_plant, hl, Gt, T, W_chan, L, baffle_thickness):
     """Return the number of baffles that would fit in the channel given the
     channel length and spacing between baffles."""
-    num = round((L / (baffle_spacing(q_plant, hl, Gt, T).magnitude + baffle_thickness)))
+    num = round((L / (baffle_spacing(q_plant, hl, Gt, T, W_chan).magnitude + baffle_thickness)))
     # the one is subtracted because the equation for num gives the number of
-    # baffle spaces and there is always one less baffle than baffle spaces due to geometry
+    # baffle spaces and there is always one less baffle than baffle spaces due
+    # to geometry
     return int(num) - 1
 
 #### Entrance tank
