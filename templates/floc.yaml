@@ -32,6 +32,14 @@
 {% set num_baffles_chan_1 = floctest.num_baffles(q_plant, hl, Gt, T, L-opt.L_ET_max, thickness_PVC_sheet) %}
 {% set num_baffles_chan_n = floctest.num_baffles(q_plant, hl, Gt, T, L, thickness_PVC_sheet) %}
 
+# calculate the length of the baffles. The top baffle is set to the top of the
+# channel wall and the bottom baffle is set to the bottom of the channel.
+# The distance between baffles is the same as the vertical distance between
+# the top baffle and the bottom of the channel, which is the same vertical
+# distance as the bottom baffle and the free surface at the end of the flocculator
+{% set l_top_baffle = h_chan - baffle_spacing %}
+{% set l_bottom_baffle = depth_end - baffle_spacing %}
+
 # is this if else statement correct?
 {% if q > 50*u.L/u.s %}
 {% set obstacles_bool = 0 %}
@@ -59,3 +67,5 @@
       - num_baffles_chan_1 : {{ num_baffles_chan_1 }}
       - num_baffles_chan_n : {{ num_baffles_chan_n }}
       - obstacles_bool : {{ obstacles_bool }}
+      - l_top_baffle : {{ l_top_baffle }}
+      - l_bottom_baffle : {{ l_bottom_baffle }}

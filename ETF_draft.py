@@ -2,7 +2,7 @@ from aide_design.play import*
 from aide_design.unit_process_design import lfom
 
 # expansion minor loss coefficient for 180 degree bend
-K_e = (1 / pc.RATIO_VC_ORIFICE**2 - 1)**2
+K_e = (1 / con.RATIO_VC_ORIFICE**2 - 1)**2
 
 # these inputs will come from constants.py or optional_inputs.py
 PI_HS_min = 3
@@ -127,7 +127,7 @@ def baffle_spacing(q_plant, hl, Gt, T, W_chan):
 def num_baffles(q_plant, hl, Gt, T, L, baffle_thickness):
     """Return the number of baffles that would fit in the channel given the
     channel length and spacing between baffles."""
-    num = round((L / (baffle_spacing(q_plant, hl, Gt, T).magnitude + baffle_thickness)
+    num = round((L / (baffle_spacing(q_plant, hl, Gt, T).magnitude + baffle_thickness)))
     # the one is subtracted because the equation for num gives the number of
     # baffle spaces and there is always one less baffle than baffle spaces due to geometry
     return int(num) - 1
