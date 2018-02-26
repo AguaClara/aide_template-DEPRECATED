@@ -14,7 +14,8 @@ from aide_design.unit_process_design import lfom
 
 # This will be passed in from aide_gui and represents all the variables that
 # the user has designed.
-user_parameters_dict = {"q_plant": 20 * u.L/u.s, "temp": 20 * u.degC}
+user_parameters_dict = {"q_plant": 20 * u.L/u.s, "temp": 20 * u.degC,
+    "OD_ent_pipe": 10*u.cm}
 
 # These are the modules we want to make available within the template environment.
 modules_dict = {"u": u, "aide_design": aide_design, "np": np, "pipe": pipe,

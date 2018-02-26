@@ -14,6 +14,7 @@
   - dp:
     - L : {{ L_ET_max }}
     - W : {{ W_chan }}
+    - OD_ent_pipe : {{ OD_ent_pipe }} # user input
     - OD_drain : {{ OD_drain }}
     - num_plates : {{ num_plates }}
     - L_plate : {{ L_plate }}
