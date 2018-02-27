@@ -17,23 +17,7 @@
 {% set D_orifice_lfom = lfom.orifice_diameter(q, hl_lfom, mat.DIAM_DRILL_ENG) %}
 
 # calculate the number of orifices per row - output is a list
-{% set num_orifices_per_row = lfom.n_lfom_orifices(q, hl_lfom, mat.DIAM_DRILL_ENG, SDR_lfom) %}
-
-{% set center = 0 %}
-{% for i in range(8) %}
-  {% if (i % 2) == 1 && num_lfom_rows == 4 %}
-    {% set num_orifices_final[i] = 0 %}
-    {% set centerline[i] = center %}
-  {% else %}
-    {% set num_orifices_final[i] = num_orifices_per_row[i/2] %}
-    {% set centerline[i] = center %}
-    {% if center == 0 %}
-      {% set center = 1 %}
-    {% else %}
-      {% set center = 0 %}
-    {% endif %}
-  {% endif %}
-{% endfor %}
+{% set num_orifices_final, centerline = lfom.n_lfom_orifices_fusion(q, hl_lfom, mat.DIAM_DRILL_ENG, SDR_lfom, num_lfom_rows)%}
 
 - lfom:
   - dp:
@@ -41,7 +25,6 @@
     - B_orifice_rows : {{ B_orifice_rows }}
     - OD_lfom : {{ OD_lfom }}
     - D_orifice : {{ D_orifice_lfom }}
-    - num_orifices_per_row : {{ num_orifices_per_row_lfom }} # fusion can't handle lists - how will we handle this?
     - S_orifice : {{ S_orifice }}
     - row0 : {{ num_orifices_final[0] }}
     - center0 : {{ centerline[0] }}
