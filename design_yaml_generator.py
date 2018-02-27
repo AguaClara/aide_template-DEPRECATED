@@ -10,6 +10,8 @@ import numpy as np
 import os
 import ETF_draft as floctest
 from aide_design.unit_process_design import lfom
+from aide_design.unit_process_design import ent_tank as ent
+from aide_design.unit_process_design import floc
 
 
 # This will be passed in from aide_gui and represents all the variables that
@@ -19,7 +21,8 @@ user_parameters_dict = {"q_plant": 20 * u.L/u.s, "temp": 20 * u.degC,
 
 # These are the modules we want to make available within the template environment.
 modules_dict = {"u": u, "aide_design": aide_design, "np": np, "pipe": pipe,
-    "floctest": floctest, "lfom": lfom, "con": con, "mat": mat, "opt": opt}
+    "floctest": floctest, "lfom": lfom, "ent": ent, "floc": floc,
+    "con": con, "mat": mat, "opt": opt}
 
 # We tell jinja to look within the design_templates folder
 folder_path = os.path.dirname(os.path.abspath(__file__))+"/templates"
