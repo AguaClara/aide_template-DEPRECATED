@@ -1,7 +1,6 @@
 {% macro render() %}{% include "lfom.yaml"%}{% endmacro %}
 
 {% set hl_lfom = opt.HL_LFOM %} # optional input
-{% set SDR_lfom = 26 %} # where should this be saved?
 {% set S_orifice = opt.S_LFOM_ORIFICE %} # optional input
 
 # calculate number of orifice rows for LFOM
@@ -11,13 +10,13 @@
 {% set B_orifice_rows = hl_lfom/num_lfom_rows %}
 
 # calculate nominal diameter of lfom
-{% set OD_lfom = pipe.OD(lfom.nom_diam_lfom_pipe(q, hl_lfom, con.RATIO_LFOM_SAFETY, SDR_lfom)) %}
+{% set OD_lfom = pipe.OD(lfom.nom_diam_lfom_pipe(q, hl_lfom)) %}
 
 # calculate the diameter of the lfom orifices
 {% set D_orifice_lfom = lfom.orifice_diameter(q, hl_lfom, mat.DIAM_DRILL_ENG) %}
 
 # calculate the number of orifices per row - output is a list
-{% set num_orifices_final, centerline = lfom.n_lfom_orifices_fusion(q, hl_lfom, mat.DIAM_DRILL_ENG, SDR_lfom, num_lfom_rows)%}
+{% set num_orifices_final, centerline = lfom.n_lfom_orifices_fusion(q, hl_lfom, mat.DIAM_DRILL_ENG, num_lfom_rows)%}
 
 - lfom:
   - dp:
