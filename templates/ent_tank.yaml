@@ -1,5 +1,7 @@
 {% macro render() %}{% include "ET.yaml"%}{% endmacro %}
 
+# inputs which will be passed in explicitly later: OD_ent_pipe, q, temp, depth_end
+
 {% set L_ET_max = opt.L_ET_MAX %} # optional input
 {% set SDR_drain = 26 %} # materials database
 
