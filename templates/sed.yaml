@@ -1,5 +1,20 @@
 {# macros are Jinja functions. The "render" function here renders the sed yaml. #}
 {% macro render() %}{% include "sed.yaml"%}{% endmacro %}
 
-- hp :
-  - q : {% set q = 6 * u.L/u.s %}{{ q }}
+- inlet_channel:
+  - hp:
+  - dp:
+- exit_channel:
+  - hp:
+  - dp:
+- tank:
+  - hp:
+    - outlet_pipe :
+  - dp:
+    -
+  - manifold:
+    - diffusers:
+  - plate_settlers:
+      - hp:
+      - dp:
+- floc_hopper : 

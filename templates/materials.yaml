@@ -4,6 +4,10 @@
 
 {% set thickness_PVC_sheet = 15 * u.cm %}
 {% set width_PVC_sheet = 1.067 * u.m %}
+{% set thickness_sed_plate = 2 * u.mm %}
+{% set width_sed_tank = 42 * u.inch %}
 
 - thickness_PVC_sheet : {{ thickness_PVC_sheet }}
 - width_PVC_sheet : {{ width_PVC_sheet }}
+- thickness_sed_plate : {{ thickness_sed_plate }}
+- width_sed_tank : {{ width_sed_tank }}
