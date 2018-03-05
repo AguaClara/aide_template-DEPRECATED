@@ -2,7 +2,7 @@
 
 # constants which should be inputs in the future
 {% set width_PVC_sheet = 1.067*u.m %} # materials template
-{% set thickness_PVC_sheet = 0.01*u.m %} # materials template, this is a guess
+{% set thickness_PVC_sheet = 0.15*u.m %} # materials template
 {% set depth_end = 2 * u.m %} # set by sed calculations
 # other inputs include: temp, q_plant
 

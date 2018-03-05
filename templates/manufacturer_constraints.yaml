@@ -1,0 +1,9 @@
+{% macro render() %}{% include "manufacturer_constraints.yaml"%}{% endmacro %}
+
+# Includes manufacturer constraints that need to be used in hydraulic caluclations
+
+{% set thickness_PVC_sheet = 15 * u.cm %}
+{% set width_PVC_sheet = 1.067 * u.m %}
+
+- thickness_PVC_sheet : {{thickness_PVC_sheet}}
+- width_PVC_sheet : {{width_PVC_sheet}}
