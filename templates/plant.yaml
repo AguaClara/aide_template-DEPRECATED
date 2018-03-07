@@ -11,6 +11,8 @@
 
 {% import "sed.yaml" as sed %}
 
+{% include "materials.yaml" %} # we need to be able to access values stored in materials.yaml and use it in calculations in other yamls
+
 - hp: # hydraulic parameters do not show up in the Fusion environment (like gt and q_plant)
   - q: {{ q_plant }}
   - temp : {{ temp }}

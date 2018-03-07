@@ -1,6 +1,13 @@
 {# macros are Jinja functions. The "render" function here renders the sed yaml. #}
 {% macro render() %}{% include "sed.yaml"%}{% endmacro %}
 
+{% set bottom_angle = con.ANGLE_SED_SLOPE %}
+{% set sed_slab_thickness = opt.THICKNESS_PLANT_FLOOR %}
+{% set sed_divider_wall = opt.THICKNESS_SED_WALL %}
+{% set channel_wall_thickness = opt.THICKNESS_SED_WALL %}
+{% set floc_blanket_height = opt.FLOC_BLANKET_HEIGHT %}
+{% set dist_top_settler_bottom_launder =  %}  # value needs to be confirmed in Mathcad
+
 - inlet_channel:
   - hp:
   - dp:
@@ -9,12 +16,19 @@
   - dp:
 - tank:
   - hp:
-    - outlet_pipe :
+    - floc_blanket_height : {{ floc_blanket_height }}
   - dp:
-    -
+    - L_tank : {{ L_tank }}
+    - W_tank : {{ width_sed_tank }} # comes from materials.yaml
+    - bottom_angle : {{ bottom_angle }} # constant 50 deg (should be in constants)
+    - sed_slab_thickness : {{ sed_slab_thickness }}
+    - sed_divider_wall : {{ sed_divider_wall }}
+    - channel_wall_thickness : {{ channel_wall_thickness }}
+    - dist_top_settler_bottom_launder : {{ dist_top_settler_bottom_launder }}
+    - outlet_pipe :
   - manifold:
     - diffusers:
   - plate_settlers:
       - hp:
       - dp:
-- floc_hopper : 
+- floc_hopper :
