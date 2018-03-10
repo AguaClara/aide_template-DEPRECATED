@@ -7,6 +7,10 @@
 {% set channel_wall_thickness = opt.THICKNESS_SED_WALL %}
 {% set floc_blanket_height = opt.FLOC_BLANKET_HEIGHT %}
 {% set dist_top_settler_bottom_launder =  %}  # value needs to be confirmed in Mathcad
+{% set headloss_outlet_man = opt.HL_OUTLET_MAN %}
+{% set angle_sed_plate = con.ANGLE_SED_PLATE}
+{% set space_sed_plate = con.SPACE_SED_PLATE}
+{% set SDR_spacer = con.SDR_SED_MOD_SPACER}
 
 - inlet_channel:
   - hp:
@@ -20,15 +24,35 @@
   - dp:
     - L_tank : {{ L_tank }}
     - W_tank : {{ width_sed_tank }} # comes from materials.yaml
-    - bottom_angle : {{ bottom_angle }} # constant 50 deg (should be in constants)
+    - bottom_angle : {{ bottom_angle }}
     - sed_slab_thickness : {{ sed_slab_thickness }}
     - sed_divider_wall : {{ sed_divider_wall }}
     - channel_wall_thickness : {{ channel_wall_thickness }}
     - dist_top_settler_bottom_launder : {{ dist_top_settler_bottom_launder }}
-    - outlet_pipe :
-  - manifold:
-    - diffusers:
-  - plate_settlers:
-      - hp:
-      - dp:
-- floc_hopper :
+- inlet_manifold:
+  - hp:
+    - max_flow : {{ max_flow }}
+    - max_vel : {{ max_vel }}
+  - dp:
+    - OD_pipe : {{ OD_pipe }}
+- outlet_manifold:
+  - hp:
+    - headloss : {{ headloss_outlet_man }}
+  - dp:
+    - OD_pipe : {{ OD_pipe }}
+    - diam_orifice_outlet_man : {{ diam_orifice_outlet_man }}
+- plate_settlers:
+  - hp:
+  - dp:
+    - length : {{ length }}
+    - OD_frame : {{ OD_frame }}
+    - area_top_floc_blanket : {{ area_top_floc_blanket }}
+    - angle_sed_plate : {{ angle_sed_plate}}
+    - space_sed_plate : {{ space_sed_plate }}
+    - thickness_sed_plate : {{ thickness_sed_plate}}
+- plate_settler_module:
+  - hp:
+  - dp:
+    - SDR_spacer : {{ SDR_spacer }}
+    - plate_number : {{ plate_number }}
+- floc_hopper : 
