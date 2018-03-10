@@ -12,6 +12,11 @@
 {% set space_sed_plate = con.SPACE_SED_PLATE}
 {% set SDR_spacer = con.SDR_SED_MOD_SPACER}
 
+{% set W_diff_inner = sed.w_diffuser_inner(W_tank)}
+{% set W_diff_outer = sed.w_diffuser_outer(W_tank)}
+{% set L_diff_outer = sed.L_diffuser_outer(W_tank)}
+{% set L_diff_inner = sed.L_diffuser_inner(W_tank)}
+
 - inlet_channel:
   - hp:
   - dp:
@@ -55,4 +60,11 @@
   - dp:
     - SDR_spacer : {{ SDR_spacer }}
     - plate_number : {{ plate_number }}
-- floc_hopper : 
+- floc_hopper:
+- diffusers:
+  - hp:
+  - dp:
+    - W_diff_inner : {{ W_diff_inner }}
+    - W_diff_outer : {{ W_diff_outer }}
+    - L_diff_inner : {{ L_diff_inner }}
+    - L_diff_outer : {{ L_diff_outer }}
