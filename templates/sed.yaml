@@ -20,12 +20,19 @@
 - inlet_channel:
   - hp:
   - dp:
+    - W_inlet :
+    - L_inlet :
+    - H_weir :
 - exit_channel:
   - hp:
   - dp:
+    - W_inlet :
+    - L_inlet :
+    - H_weir :
 - tank:
   - hp:
     - floc_blanket_height : {{ floc_blanket_height }}
+    - L_tank : 
   - dp:
     - L_tank : {{ L_tank }}
     - W_tank : {{ width_sed_tank }} # comes from materials.yaml
@@ -40,6 +47,13 @@
     - max_vel : {{ max_vel }}
   - dp:
     - OD_pipe : {{ OD_pipe }}
+- diffusers:
+  - hp:
+  - dp:
+    - W_diff_inner : {{ W_diff_inner }}
+    - W_diff_outer : {{ W_diff_outer }}
+    - L_diff_inner : {{ L_diff_inner }}
+    - L_diff_outer : {{ L_diff_outer }}
 - outlet_manifold:
   - hp:
     - headloss : {{ headloss_outlet_man }}
@@ -61,10 +75,3 @@
     - SDR_spacer : {{ SDR_spacer }}
     - plate_number : {{ plate_number }}
 - floc_hopper:
-- diffusers:
-  - hp:
-  - dp:
-    - W_diff_inner : {{ W_diff_inner }}
-    - W_diff_outer : {{ W_diff_outer }}
-    - L_diff_inner : {{ L_diff_inner }}
-    - L_diff_outer : {{ L_diff_outer }}
