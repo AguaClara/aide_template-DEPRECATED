@@ -2,17 +2,19 @@
 
 # Includes manufacturer constraints that need to be used in hydraulic caluclations
 
+# flocculator materials
 {% set thickness_PVC_sheet = 15 * u.cm %}
 {% set width_PVC_sheet = 1.067 * u.m %}
-{% set thickness_sed_plate = 2 * u.mm %}
-{% set width_plate_settler = 42 * u.inch %}
 
+# sedimentation materials
+{% set thickness_sed_plate = 2 * u.mm %}
+{% set width_sed_plate = 42 * u.inch %}
 # Max length of the active part of the sed tank so that single pipe
 # segments can be used for the inlet and outlet manifolds
-{% set length_sed_upflow_max = 5.8 * u.m %}
+{% set length_manifold_pipe = 5.8 * u.m %}
 
 - thickness_PVC_sheet : {{ thickness_PVC_sheet }}
 - width_PVC_sheet : {{ width_PVC_sheet }}
 - thickness_sed_plate : {{ thickness_sed_plate }}
-- width_sed_tank : {{ width_plate_settler }}
-- L_sed_upflow_max : {{ length_sed_upflow_max }}
+- width_sed_tank : {{ width_sed_plate }}
+- L_sed_tank : {{ length_manifold_pipe }}
