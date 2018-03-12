@@ -20,5 +20,5 @@ Shiyao Sun (ss2567)
 
 Emma Sung (hs699)
 
-## Sympoisum
+## Symposium
 https://docs.google.com/presentation/d/1xEBxtsFOj9Vg3OqsJGKg5XGnLqnIBJ-bhff2sCJpQ-Q/edit?usp=sharing
