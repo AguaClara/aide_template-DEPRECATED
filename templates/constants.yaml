@@ -1,0 +1,6 @@
+{% macro render() %}{% include "constants.yaml"%}{% endmacro %}
+
+# Includes universal constants that need to be used in hydraulic caluclations
+
+- GRAVITY : 9.80665 * u.m/u.s**2
+- RATIO_VC_ORIFICE : 0.63

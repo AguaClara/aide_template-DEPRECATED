@@ -20,6 +20,9 @@
 # calculate the number of orifices per row - output is a list
 {% set num_orifices_final, centerline = lfom.n_lfom_orifices_fusion(q, hl_lfom, mat.DIAM_DRILL_ENG, num_lfom_rows)%}
 
+# render the universal constants yaml
+{% set constants = aide_render(strip_jinja(constants.yaml)) %}
+
 - lfom:
   - dp:
     - num_rows : {{ num_lfom_rows }}
@@ -43,3 +46,10 @@
     - center6 : {{ centerline[6] }}
     - row7 : {{ num_orifices_final[7] }}
     - center7 : {{ centerline[7] }}
+  - constants:
+    - RATIO_VC_ORIFICE : {{ constants.RATIO_VC_ORIFICE }}
+    - GRAVITY : {{ constants.GRAVITY }}
+    - ratio_safety : 1.5
+    - sdr : 26
+    - S_orifice : 1 * u.cm
+    - hl : 20 * u.cm
