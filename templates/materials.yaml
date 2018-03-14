@@ -18,3 +18,5 @@
 - thickness_sed_plate : {{ thickness_sed_plate }}
 - width_sed_tank : {{ width_sed_plate }}
 - L_sed_tank : {{ length_manifold_pipe }}
+- PIPE_ROUGH_PVC : !u 0.12 mm
+- THICKNESS_ENT_TANK_PLATE : !u 2 mm

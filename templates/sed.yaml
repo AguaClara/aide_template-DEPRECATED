@@ -1,3 +1,5 @@
+# this refers to the entire sed unit (including tank and channels)
+
 {# macros are Jinja functions. The "render" function here renders the sed yaml. #}
 {% macro render() %}{% include "sed.yaml"%}{% endmacro %}
 
@@ -16,62 +18,64 @@
 {% set W_diff_outer = sed.w_diffuser_outer(W_tank)}
 {% set L_diff_outer = sed.L_diffuser_outer(W_tank)}
 {% set L_diff_inner = sed.L_diffuser_inner(W_tank)}
-
-- inlet_channel:
-  - hp:
-  - dp:
-    - W_inlet :
-    - L_inlet :
-    - H_weir :
-- exit_channel:
-  - hp:
-  - dp:
-    - W_inlet :
-    - L_inlet :
-    - H_weir :
-- tank:
-  - hp:
-    - floc_blanket_height : {{ floc_blanket_height }}
-    - L_tank : 
-  - dp:
-    - L_tank : {{ L_tank }}
-    - W_tank : {{ width_sed_tank }} # comes from materials.yaml
-    - bottom_angle : {{ bottom_angle }}
-    - sed_slab_thickness : {{ sed_slab_thickness }}
-    - sed_divider_wall : {{ sed_divider_wall }}
-    - channel_wall_thickness : {{ channel_wall_thickness }}
-    - dist_top_settler_bottom_launder : {{ dist_top_settler_bottom_launder }}
-- inlet_manifold:
-  - hp:
-    - max_flow : {{ max_flow }}
-    - max_vel : {{ max_vel }}
-  - dp:
-    - OD_pipe : {{ OD_pipe }}
-- diffusers:
-  - hp:
-  - dp:
-    - W_diff_inner : {{ W_diff_inner }}
-    - W_diff_outer : {{ W_diff_outer }}
-    - L_diff_inner : {{ L_diff_inner }}
-    - L_diff_outer : {{ L_diff_outer }}
-- outlet_manifold:
-  - hp:
-    - headloss : {{ headloss_outlet_man }}
-  - dp:
-    - OD_pipe : {{ OD_pipe }}
-    - diam_orifice_outlet_man : {{ diam_orifice_outlet_man }}
-- plate_settlers:
-  - hp:
-  - dp:
-    - length : {{ length }}
-    - OD_frame : {{ OD_frame }}
-    - area_top_floc_blanket : {{ area_top_floc_blanket }}
-    - angle_sed_plate : {{ angle_sed_plate}}
-    - space_sed_plate : {{ space_sed_plate }}
-    - thickness_sed_plate : {{ thickness_sed_plate}}
-- plate_settler_module:
-  - hp:
-  - dp:
-    - SDR_spacer : {{ SDR_spacer }}
-    - plate_number : {{ plate_number }}
-- floc_hopper:
+- sed :
+  - L :
+  - W : 
+  - inlet_channel:
+    - hp:
+    - dp:
+      - W_inlet :
+      - L_inlet :
+      - H_weir :
+  - exit_channel:
+    - hp:
+    - dp:
+      - W_inlet :
+      - L_inlet :
+      - H_weir :
+  - tank:
+    - hp:
+      - floc_blanket_height : {{ floc_blanket_height }}
+      - L_tank :
+    - dp:
+      - L_tank : {{ L_tank }}
+      - W_tank : {{ width_sed_tank }} # comes from materials.yaml
+      - bottom_angle : {{ bottom_angle }}
+      - sed_slab_thickness : {{ sed_slab_thickness }}
+      - sed_divider_wall : {{ sed_divider_wall }}
+      - channel_wall_thickness : {{ channel_wall_thickness }}
+      - dist_top_settler_bottom_launder : {{ dist_top_settler_bottom_launder }}
+  - inlet_manifold:
+    - hp:
+      - max_flow : {{ max_flow }}
+      - max_vel : {{ max_vel }}
+    - dp:
+      - OD_pipe : {{ OD_pipe }}
+  - diffusers:
+    - hp:
+    - dp:
+      - W_diff_inner : {{ W_diff_inner }}
+      - W_diff_outer : {{ W_diff_outer }}
+      - L_diff_inner : {{ L_diff_inner }}
+      - L_diff_outer : {{ L_diff_outer }}
+  - outlet_manifold:
+    - hp:
+      - headloss : {{ headloss_outlet_man }}
+    - dp:
+      - OD_pipe : {{ OD_pipe }}
+      - diam_orifice_outlet_man : {{ diam_orifice_outlet_man }}
+  - plate_settlers:
+    - hp:
+    - dp:
+      - length : {{ length }}
+      - OD_frame : {{ OD_frame }}
+      - area_top_floc_blanket : {{ area_top_floc_blanket }}
+      - angle_sed_plate : {{ angle_sed_plate}}
+      - space_sed_plate : {{ space_sed_plate }}
+      - thickness_sed_plate : {{ thickness_sed_plate}}
+  - plate_settler_module:
+    - hp:
+    - dp:
+      - SDR_spacer : {{ SDR_spacer }}
+      - plate_number : {{ plate_number }}
+  - floc_hopper:
