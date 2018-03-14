@@ -81,9 +81,9 @@
     - RATIO_VC_ORIFICE : {{ constants.RATIO_VC_ORIFICE }}
     - L_ent_tank_max : {{ ent_tank.L_max }}
     - L_sed : {{ sed.L }}
-    - hl : !u 40 cm
+    - hl : 40 cm
     - coll_pot : 37000
-    - freeboard : !u 10 cm
+    - freeboard : 10 cm
     - ratio_HS_min : 3
     - ratio_HS_max : 6
-    - W_min_construct : !u 45 cm
+    - W_min_construct : 45 cm

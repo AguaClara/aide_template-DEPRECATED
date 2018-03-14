@@ -24,12 +24,12 @@
     - num_plates : {{ num_plates }}
     - L_plate : {{ L_plate }}
   - constants:
-    - L_max : !u 2.2 m
+    - L_max : 2.2 m
     - PIPE_ROUGH_PVC : {{ materials.PIPE_ROUGH_PVC }}
     - K_MINOR_PIPE_ENTRANCE : {{ constants.K_MINOR_PIPE_ENTRANCE }}
     - K_MINOR_PIPE_EXIT : {{ constants.K_MINOR_PIPE_EXIT }}
     - K_MINOR_EL90 : {{ constants.K_MINOR_EL90 }}
-    - S_plate : !u 2.5 cm
+    - S_plate : 2.5 cm
     - B_plate : {% ent_tank_inputs.S_plate + materials.THICKNESS_ENT_TANK_PLATE %} {{ B_plate }}
-    - vel_capture : !u 8 mm / s
-    - an_plate : !u 50 deg
+    - vel_capture : 8 millimeter/second
+    - an_plate : 50 degree

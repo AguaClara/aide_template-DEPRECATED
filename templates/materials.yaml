@@ -13,10 +13,10 @@
 # segments can be used for the inlet and outlet manifolds
 {% set length_manifold_pipe = 5.8 * u.m %}
 
-- thickness_PVC_sheet : {{ thickness_PVC_sheet }}
-- width_PVC_sheet : {{ width_PVC_sheet }}
-- thickness_sed_plate : {{ thickness_sed_plate }}
+- thickness_PVC_sheet : 15 cm
+- width_PVC_sheet : 1.067 m
+- thickness_sed_plate : 2 mm
 - width_sed_tank : {{ width_sed_plate }}
 - L_sed_tank : {{ length_manifold_pipe }}
-- PIPE_ROUGH_PVC : !u 0.12 mm
-- THICKNESS_ENT_TANK_PLATE : !u 2 mm
+- PIPE_ROUGH_PVC : 0.12 mm
+- THICKNESS_ENT_TANK_PLATE : 2 mm
