@@ -3,19 +3,6 @@
 {# macros are Jinja functions. The "render" function here renders the sed yaml. #}
 {% macro render() %}{% include "sed.yaml"%}{% endmacro %}
 
-
-
-{% set bottom_angle = con.ANGLE_SED_SLOPE %}
-{% set sed_slab_thickness = opt.THICKNESS_PLANT_FLOOR %}
-{% set sed_divider_wall = opt.THICKNESS_SED_WALL %}
-{% set channel_wall_thickness = opt.THICKNESS_SED_WALL %}
-{% set floc_blanket_height = opt.FLOC_BLANKET_HEIGHT %}
-{% set dist_top_settler_bottom_launder =  %}  # value needs to be confirmed in Mathcad
-{% set headloss_outlet_man = opt.HL_OUTLET_MAN %}
-{% set angle_sed_plate = con.ANGLE_SED_PLATE}
-{% set space_sed_plate = con.SPACE_SED_PLATE}
-{% set SDR_spacer = con.SDR_SED_MOD_SPACER}
-
 {% set W_diff_inner = sed.w_diffuser_inner(W_tank)}
 {% set W_diff_outer = sed.w_diffuser_outer(W_tank)}
 {% set L_diff_outer = sed.L_diffuser_outer(W_tank)}
@@ -85,7 +72,7 @@
 - constants:
   - thickness_plant_floor : 0.2 meter
   - thickness_sed_wall : 0.15 meter
-  - H_floc_blanket : 0.25 meter 
+  - H_floc_blanket : 0.25 meter
   - tank:
     - vel_up : 1 millimeter/second
     - angle_bottom_tank : 50 degree
