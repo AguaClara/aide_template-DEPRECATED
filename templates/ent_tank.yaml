@@ -32,4 +32,4 @@
     - S_plate : 2.5 cm
     - B_plate : {% ent_tank_inputs.S_plate + materials.THICKNESS_ENT_TANK_PLATE %} {{ B_plate }}
     - vel_capture : 8 millimeter/second
-    - an_plate : 50 degree
+    - angle_plate : 50 degree
