@@ -48,7 +48,6 @@
     - center7 : {{ centerline[7] }}
   - constants:
     - RATIO_VC_ORIFICE : {{ constants.RATIO_VC_ORIFICE }}
-    - GRAVITY : {{ constants.GRAVITY }}
     - ratio_safety : 1.5
     - sdr : 26
     - S_orifice : 1 cm

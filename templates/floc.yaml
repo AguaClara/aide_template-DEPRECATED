@@ -77,7 +77,6 @@
       - l_top_baffle : {{ l_top_baffle }}
       - l_bottom_baffle : {{ l_bottom_baffle }}
   - constants :
-    - GRAVITY : {{ constants.GRAVITY }}
     - RATIO_VC_ORIFICE : {{ constants.RATIO_VC_ORIFICE }}
     - L_ent_tank_max : {{ ent_tank.L_max }}
     - L_sed : {{ sed.L }}
