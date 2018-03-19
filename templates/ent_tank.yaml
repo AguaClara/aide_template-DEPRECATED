@@ -30,6 +30,6 @@
     - K_MINOR_PIPE_EXIT : {{ constants.K_MINOR_PIPE_EXIT }}
     - K_MINOR_EL90 : {{ constants.K_MINOR_EL90 }}
     - S_plate : 2.5 cm
-    - B_plate : {% ent_tank_inputs.S_plate + materials.THICKNESS_ENT_TANK_PLATE %} {{ B_plate }}
+    - B_plate : {% set B_plate = ent_tank_inputs.S_plate + materials.THICKNESS_ENT_TANK_PLATE %} {{ B_plate }}
     - vel_capture : 8 millimeter/second
     - angle_plate : 50 degree
