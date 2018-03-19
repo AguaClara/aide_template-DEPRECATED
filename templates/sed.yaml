@@ -85,13 +85,44 @@
     - vel_up : 1 millimeter/second
     - angle_bottom_tank : 50 degree
     - depth_water_est : 2 meter
+    - L_est : 60 centimeter
   - plate_settlers:
     - vel_capture : 0.12 millimeter/second
     - angle_plate : 60 degree
     - S_plate : 2.5 centimeter
-    - N_plate_module : 10
-  - floc_hopper:
-    - angle_hopper : 45 degree
+    - plate_modules:
+      - N_plate_mod : 10
+      - ND_plate_mod : 0.5 inch
+      - ND_plate_mod_spacer : 0.75 inch
+      - sdr_plate_mod_space : 17
+    - thickness_plate_mod_ledge : 8 centimeter
+    - S_plate_mod_edge : 5 centimeter
+    - plate_mod_frame:
+      - ND_plate_mod_frame : 1.5 inch
+      - S_plate_mod_frame : 0.8
+  - floc_weir:
+    - angle_weir : 45 degree
+    - H_weir_plate_mod_frame : 10 centimeter
+    - L_weir_min : 50 centimeter
   - inlet_chan:
-    - 
-  -
+    - inlet_weir_freeboard : 2 centimeter
+    - thickness_weir : 5 centimeter
+    - inlet_hl_max : 1 centimeter
+    - ratio_HW : 0.95
+  - exit_chan:
+  - manifold:
+    - ratio_Q_man_orifice : 0.8
+    - inlet_man:
+      - ND_inlet_man_max : 8 inch
+      - sdr_inlet_man : 41
+      - dist_inlet_man_bottom_tank_slope : 10 centimeter
+      - L_inlet_man_connection_stub : 4 centimeter
+      - S_inlet_man_end_diffuser : 3 centimeter
+    - exit_man:
+      - hl_exit_man : 4 centimeter
+      - B_exit_man_orifice : 10 centimeter
+      - L_exit_man_cap_excess : 3 centimeter
+      - dist_plate_exit_man : 5 centimeter
+    - diffuser:
+      - edr_diffuser_max : 150 megawatt/kilogram
+      - H_jet_reverser_diffuser : 3 centimeter
