@@ -120,20 +120,14 @@
       - edr_diffuser_max : 150 megawatt/kilogram
       - sdr_diffuser : 26
       - ND_diffuser : 4 centimeter
-      - A_diffuser : {% set A_diffuser = (np.pi/4) * ((pipe.OD(ND_DIFFUSER_PIPE)**2)
-                                - (pipe.ID_SDR(ND_DIFFUSER_PIPE, SDR_DIFFUSER)**2)
-                                ) %} {{ A_diffuser }}
+      - A_diffuser : {% set A_diffuser = (np.pi/4) * ((pipe.OD(ND_DIFFUSER_PIPE)**2) - (pipe.ID_SDR(ND_DIFFUSER_PIPE, SDR_DIFFUSER)**2)) %} {{ A_diffuser }}
       - ratio_PVC_stretch : 1.2
-      - thickness_diffuser_wall : {% set thickness_diffuser_wall = ((pipe.OD(ND_DIFFUSER_PIPE) -
-                              pipe.ID_SDR(ND_DIFFUSER_PIPE, SDR_DIFFUSER))
-                                    / (2 * RATIO_PVC_STRETCH)) %} {{ thickness_diffuser_wall }}
+      - thickness_diffuser_wall : {% set thickness_diffuser_wall = ((pipe.OD(ND_DIFFUSER_PIPE) - pipe.ID_SDR(ND_DIFFUSER_PIPE, SDR_DIFFUSER)) / (2 * RATIO_PVC_STRETCH)) %} {{ thickness_diffuser_wall }}
       - W_diffuser_inner : 0.3175 centimeter
       - L_diffuser_inner : 15 centimeter
       - B_diffuser : 5 centimeter
       - hl_diffuser : 0.001 meter
-      - vel_diffuser_max : {% set vel_diffuser_max = ((pipe.OD(ND_DIFFUSER_PIPE) -
-                              pipe.ID_SDR(ND_DIFFUSER_PIPE, SDR_DIFFUSER))
-                                    / (2 * RATIO_PVC_STRETCH)) %} {{ vel_diffuser_max }}
+      - vel_diffuser_max : {% set vel_diffuser_max = ((pipe.OD(ND_DIFFUSER_PIPE) - pipe.ID_SDR(ND_DIFFUSER_PIPE, SDR_DIFFUSER)) / (2 * RATIO_PVC_STRETCH)) %} {{ vel_diffuser_max }}
   - jet_reverser:
     - H_jet_reverser_diffuser : 3 centimeter
     - ND_jet_reverser : 3 inch
