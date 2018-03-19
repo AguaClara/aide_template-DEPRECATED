@@ -33,3 +33,4 @@
     - B_plate : {% set B_plate = ent_tank_inputs.S_plate + materials.THICKNESS_ENT_TANK_PLATE %} {{ B_plate }}
     - vel_capture : 8 millimeter/second
     - angle_plate : 50 degree
+    - sdr : 26
