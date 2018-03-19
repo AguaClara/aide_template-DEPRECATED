@@ -20,7 +20,7 @@
 {% set L_diff_inner = sed.L_diffuser_inner(W_tank)}
 - sed :
   - L :
-  - W : 
+  - W :
   - inlet_channel:
     - hp:
     - dp:
@@ -79,3 +79,19 @@
       - SDR_spacer : {{ SDR_spacer }}
       - plate_number : {{ plate_number }}
   - floc_hopper:
+
+- constants:
+  - tank:
+    - vel_up : 1 millimeter/second
+    - angle_bottom_tank : 50 degree
+    - depth_water_est : 2 meter
+  - plate_settlers:
+    - vel_capture : 0.12 millimeter/second
+    - angle_plate : 60 degree
+    - S_plate : 2.5 centimeter
+    - N_plate_module : 10
+  - floc_hopper:
+    - angle_hopper : 45 degree
+  - inlet_chan:
+    - 
+  -

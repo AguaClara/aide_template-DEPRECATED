@@ -87,3 +87,4 @@
     - ratio_HS_min : 3
     - ratio_HS_max : 6
     - W_min_construct : 45 cm
+    - K_expansion : {% set K_expansion = (1 / constants.RATIO_VC_ORIFICE)**2 %} {{ K_expansion }}
