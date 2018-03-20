@@ -1,36 +1,28 @@
 {% macro render() %}{% include "ET.yaml"%}{% endmacro %}
 
-# inputs which will be passed in explicitly later: OD_ent_pipe, q, temp, depth_end
+{% set materials = aide_render.render(materials) %}
+{% set constants = aide_render.render(constants) %}
 
-{% set L_ET_max = opt.L_ET_MAX %} # optional input
-{% set SDR_drain = 26 %} # materials database
+# inputs which will be passed in explicitly later: OD_ent_pipe, q, temp, depth_end, W_chan
 
-# calculate drain diameter
-{% set OD_drain = ent.drain_OD(q, temp, depth_end, SDR_drain) %}
+cp:
+  - L_max : 2.2 m
+  - PIPE_ROUGH_PVC : {{ materials.PIPE_ROUGH_PVC }}
+  - K_MINOR_PIPE_ENTRANCE : {{ constants.K_MINOR_PIPE_ENTRANCE }}
+  - K_MINOR_PIPE_EXIT : {{ constants.K_MINOR_PIPE_EXIT }}
+  - K_MINOR_EL90 : {{ constants.K_MINOR_EL90 }}
+  - thickness_plate : {{ materials.THICKNESS_ENT_TANK_PLATE }}
+  - S_plate : 2.5 cm
+  - vel_capture : 8 millimeter/second
+  - angle_plate : 50 degree
+  - sdr : 26
 
-# calculate number of plates and length
-{% set num_plates = ent.num_plates_ET(q, W_chan) %}
-{% set L_plate = ent.L_plate_ET(q, W_chan) %}
+{% OD_drain, N_plates, L_plate = ent_tank_dict_test.ent_tank_agg(q, temp, depth_end, W_chan) %}
 
-{% set materials = aide_render(strip_jinja(materials.yaml)) %}
-{% set constants = aide_render(strip_jinja(constants.yaml)) %}
-
-- ent_tank:
-  - dp:
-    - L : {{ ent_tank_inputs.L_max }}
-    - W : {{ W_chan }}
-    - OD_ent_pipe : {{ OD_ent_pipe }} # user input
-    - OD_drain : {{ OD_drain }}
-    - num_plates : {{ num_plates }}
-    - L_plate : {{ L_plate }}
-  - constants:
-    - L_max : 2.2 m
-    - PIPE_ROUGH_PVC : {{ materials.PIPE_ROUGH_PVC }}
-    - K_MINOR_PIPE_ENTRANCE : {{ constants.K_MINOR_PIPE_ENTRANCE }}
-    - K_MINOR_PIPE_EXIT : {{ constants.K_MINOR_PIPE_EXIT }}
-    - K_MINOR_EL90 : {{ constants.K_MINOR_EL90 }}
-    - S_plate : 2.5 cm
-    - B_plate : {% set B_plate = ent_tank_inputs.S_plate + materials.THICKNESS_ENT_TANK_PLATE %} {{ B_plate }}
-    - vel_capture : 8 millimeter/second
-    - angle_plate : 50 degree
-    - sdr : 26
+dp:
+  - L : {{ cp.L_max }}
+  - W : {{ W_chan }} # user input
+  - OD_ent_pipe : {{ OD_ent_pipe }} # user input
+  - OD_drain : {{ OD_drain }}
+  - N_plates : {{ N_plates }}
+  - L_plate : {{ L_plate }}
