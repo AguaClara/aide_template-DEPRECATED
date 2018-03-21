@@ -1,4 +1,4 @@
-{% macro render() %}{% include "ET.yaml"%}{% endmacro %}
+{% macro render() %}{% include "ent_tank.yaml"%}{% endmacro %}
 
 {% set materials = aide_render.render(materials) %}
 {% set constants = aide_render.render(constants) %}
@@ -17,12 +17,12 @@ cp:
   - angle_plate : 50 degree
   - sdr : 26
 
-{% OD_drain, N_plates, L_plate = ent_tank_dict_test.ent_tank_agg(q, temp, depth_end, W_chan) %}
+{% set outputs = ent_tank_dict_test.ent_tank_agg(q, temp, depth_end, W_chan, cp) %}
 
 dp:
   - L : {{ cp.L_max }}
-  - W : {{ W_chan }} # user input
-  - OD_ent_pipe : {{ OD_ent_pipe }} # user input
-  - OD_drain : {{ OD_drain }}
-  - N_plates : {{ N_plates }}
-  - L_plate : {{ L_plate }}
+  - W : {{ inputs.W_chan }} # user input
+  - OD_ent_pipe : {{ inputs.OD_ent_pipe }} # user input
+  - OD_drain : {{ outputs.OD_drain }}
+  - N_plates : {{ outputs.N_plates }}
+  - L_plate : {{ outputs.L_plate }}

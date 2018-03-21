@@ -36,7 +36,7 @@ env = jinja2.Environment(
 # Load the environment with the modules specified above.
 env.globals.update(modules_dict)
 
-template = env.get_template('floc.yaml')
+template = env.get_template('ent_tank.yaml')
 #template = env.get_template('test.yaml.j2')
 
 # Run the Jinja engine on the template and print the resulting string
