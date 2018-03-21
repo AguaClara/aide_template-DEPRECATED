@@ -16,8 +16,7 @@
 - constants:
   - thickness_PVC_sheet : 15 cm
   - width_PVC_sheet : 1.067 m
-  - thickness_sed_plate : 2 mm
+  - thickness_plate : 2 mm
   - width_sed_tank : {{ width_sed_plate }}
   - L_sed_tank : {{ length_manifold_pipe }}
   - PIPE_ROUGH_PVC : 0.12 mm
-  - THICKNESS_ENT_TANK_PLATE : 2 mm
