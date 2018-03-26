@@ -2,7 +2,6 @@
 
 # Includes universal constants that need to be used in hydraulic caluclations
 
-- GRAVITY : 9.80665 meter/second**2
 - RATIO_VC_ORIFICE : 0.63
 - K_MINOR_PIPE_ENTRANCE : 0.5
 - K_MINOR_PIPE_EXIT : 1

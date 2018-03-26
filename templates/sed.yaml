@@ -3,36 +3,36 @@
 {# macros are Jinja functions. The "render" function here renders the sed yaml. #}
 {% macro render() %}{% include "sed.yaml"%}{% endmacro %}
 
-{% set W_diff_inner = sed.w_diffuser_inner(W_tank)}
-{% set W_diff_outer = sed.w_diffuser_outer(W_tank)}
-{% set L_diff_outer = sed.L_diffuser_outer(W_tank)}
-{% set L_diff_inner = sed.L_diffuser_inner(W_tank)}
+{% set constants = aide_render(strip_jinja(constants.yaml)) %}
+{% set materials = aide_render(strip_jinja(materials.yaml)) %}}
 
 cp:
   - freeboard : 10 cm
-  - thickness_plant_floor : 0.2 meter
+  - thickness_plant_floor : 0.2 meter # plant floor should go elsewhere!?
   - thickness_wall : 0.15 meter
   - H_floc_blanket : 0.25 meter
+  - K_MINOR_PIPE_EXIT : {{ con.K_MINOR_PIPE_EXIT }}
   tank:
     - vel_up : 1 millimeter/second
-    - angle_bottom_tank : 50 degree
+    - angle_bottom : 50 degree
     - depth_water_est : 2 meter
     - L : {{ materials.L_sed_tank }}
     - W : {{ materials.width_sed_tank }}
   plate_settlers:
     - vel_capture : 0.12 millimeter/second
-    - angle_plate : 60 degree
-    - S_plate : 2.5 centimeter
-    - thickness_plate : {{ materials.thickness_plate }}
-    - L_sed_plate_cantilevered : {{ materials.L_sed_plate_cantilevered }}
+    - angle : 60 degree
+    - S : 2.5 centimeter
+    - thickness : {{ materials.thickness_plate }}
+    - L_cantilevered : {{ materials.L_sed_plate_cantilevered }}
     plate_modules:
-      - N_plate_mod : 10
-      - ND_plate_mod : 0.5 inch
-      - ND_plate_mod_spacer : 0.75 inch
-      - sdr_plate_mod_space : 17
-      - ND_plate_mod_frame : 1.5 inch
-      - S_plate_mod_frame : 0.8
-      - thickness_plate_mod_ledge : 8 centimeter
+      - N_plates : 10
+      - ND : 0.5 inch
+      - ND_spacer : 0.75 inch
+      - sdr_spacer : 17
+    module_frame:
+      - ND : 1.5 inch
+      - S_cross_pipe : 0.8 meter
+      - thickness_ledge : 8 centimeter
       - S_plate_mod_edge : 5 centimeter
   floc_weir:
     - angle_weir : 45 degree
@@ -44,13 +44,15 @@ cp:
     - thickness_weir : 5 centimeter
     - inlet_hl_max : 1 centimeter
     - ratio_HW : 0.95
+    - H_weir :
   exit_chan:
     - W : 47 centimeter  {# constant, but supporting code can be found in sed_channel.py #}
+    - H_weir : 
   manifold:
-    - ratio_Q_man_orifice : 0.8
+    - ratio_Q_orifice : 0.8
     inlet_man:
-      - ND_inlet_man_max : 8 inch
-      - sdr_inlet_man : 41
+      - ND_max : 8 inch {# are we ever going to have an ND that is greater than this? do we need to compare our result to this? to make sure the constraint is not met? #}
+      - sdr : 41
       - dist_inlet_man_bottom_tank_slope : 10 centimeter
       - L_inlet_man_connection_stub : 4 centimeter
       - S_inlet_man_end_diffuser : 3 centimeter
@@ -59,82 +61,86 @@ cp:
       - edr : 150 megawatt/kilogram
       - sdr : 26
       - ND : 4 centimeter
-      - A : {% set A_diffuser = (np.pi/4) * ((pipe.OD(ND_DIFFUSER_PIPE)**2) - (pipe.ID_SDR(ND_DIFFUSER_PIPE, SDR_DIFFUSER)**2)) %} {{ A_diffuser }}
+      - A : {{ set A_diffuser = (np.pi/4) * ((pipe.OD(cp.manifold.diffuser.ND)**2) - (pipe.ID_SDR(cp.manifold.diffuser.ND, cp.manifold.diffuser.sdr)**2)) }}
       - ratio_PVC_stretch : 1.2
-      - thickness_wall : {% set thickness_diffuser_wall = ((pipe.OD(ND_DIFFUSER_PIPE) - pipe.ID_SDR(ND_DIFFUSER_PIPE, SDR_DIFFUSER)) / (2 * RATIO_PVC_STRETCH)) %} {{ thickness_diffuser_wall }}
+      - thickness_wall : {{ set thickness_diffuser_wall = ((pipe.OD(cp.manifold.diffuser.ND) - pipe.ID_SDR(cp.manifold.diffuser.ND, cp.manifold.diffuser.sdr)) / (2 * cp.manifold.diffuser.ratio_PVC_stretch)) }}
       - W_inner : 0.3175 centimeter
       - L_inner : 15 centimeter
       - B : 5 centimeter
       - hl : 0.001 meter
-      - vel_max : {% set vel_diffuser_max = ((pipe.OD(ND_DIFFUSER_PIPE) - pipe.ID_SDR(ND_DIFFUSER_PIPE, SDR_DIFFUSER)) / (2 * RATIO_PVC_STRETCH)) %} {{ vel_diffuser_max }}
+      - vel_max : {{ set vel_diffuser_max = ((pipe.OD(cp.manifold.diffuser.ND) - pipe.ID_SDR(cp.manifold.diffuser.ND, cp.manifold.diffuser.sdr)) / (2 * cp.manifold.diffuser.ND)) }}
     jet_reverser:
       - H_jet_reverser_diffuser : 3 centimeter
       - ND_jet_reverser : 3 inch
       - sdr_jet_reverser : 26
     exit_man:
-      - hl_exit_man : 4 centimeter
-      - B_exit_man_orifice : 10 centimeter
+      - sdr : 26
+      - hl_orifice : 4 centimeter
+      - B_orifice : 10 centimeter
       - L_exit_man_cap_excess : 3 centimeter
       - dist_plate_exit_man : 5 centimeter
+      - N_orifices : {{ set N_orifices = math.floor(cp.tank.L/cp.exit_man.B_orifice.to(u.m)) }}
+
+{% set N_tanks = sed.n_tanks(Q_plant, cp) %}
 
 dp:
-  - L :
-  - W :
+  - L : {{ set L_tot = cp.tank.L + cp.inlet_chan.W + cp.exit_chan.W + 2*cp.thickness_wall }}
+  - W : {{ set W_tot = (N_tanks*cp.tank.W) + (N_tanks - 1)*cp.thickness_wall }}
   - inlet_channel:
-    - hp:
     - dp:
-      - W_inlet :
+      - W_inlet : {{ cp.inlet_chan.W }}
       - L_inlet :
       - H_weir :
   - exit_channel:
-    - hp:
     - dp:
-      - W_exit :
+      - W_exit : {{ cp.exit_chan.W }}
       - L_exit :
       - H_weir :
   - tank:
     - hp:
-      - floc_blanket_height : {{ floc_blanket_height }}
-      - L_tank :
+      - floc_blanket_height : {{ cp.H_floc_blanket }}
+      - Q_tank : {{ sed.q_tank(cp) }}
     - dp:
-      - L_tank : {{ L_tank }}
-      - W_tank : {{ width_sed_tank }} # comes from materials.yaml
-      - bottom_angle : {{ bottom_angle }}
-      - sed_slab_thickness : {{ sed_slab_thickness }}
-      - sed_divider_wall : {{ sed_divider_wall }}
-      - channel_wall_thickness : {{ channel_wall_thickness }}
-      - dist_top_settler_bottom_launder : {{ dist_top_settler_bottom_launder }}
-  - inlet_manifold:
+      - L_tank : {{ cp.tank.L }}
+      - W_tank : {{ cp.tank.W }}
+      - N_tanks : {{ N_tanks }}
+      - angle_bottom : {{ cp.angle_bottom }}
+      - tank_floor_thickness : {{ cp.thickness_plant_floor }}
+      - tank_wall_thickness : {{ cp.thickness_wall }}
+      - dist_plate_exit_man : {{ cp.dist_plate_exit_man }}
+  - inlet_man:
     - hp:
-      - max_flow : {{ max_flow }}
-      - max_vel : {{ max_vel }}
+      - Q_max : {{ set Q_man_max = sed.q_tank(cp) }}
+      - vel_max : {{ set vel_man_max = sed.vel_inlet_man_max(cp) }}
+      - ND : {{ set ND_inlet_man = pipe.ND_SDR_available(np.sqrt((4 * Q_man_max/vel_man_max)/np.pi), cp.manifold.inlet_man.sdr) }}
     - dp:
-      - OD_pipe : {{ OD_pipe }}
+      - OD : {{ pipe.OD(ND_inlet_man) }} #needs to be compared with the max value!
   - diffusers:
     - hp:
     - dp:
-      - W_diff_inner : {{ W_diff_inner }}
-      - W_diff_outer : {{ W_diff_outer }}
-      - L_diff_inner : {{ L_diff_inner }}
-      - L_diff_outer : {{ L_diff_outer }}
-  - outlet_manifold:
+      - W_diff_inner : {{ sed.w_diffuser_inner(cp) }}
+      - W_diff_outer : {{ sed.w_diffuser_outer(cp) }}
+      - L_diff_inner : {{ sed.L_diffuser_outer(cp) }}
+      - L_diff_outer : {{ sed.L_diffuser_inner(cp) }}
+  - exit_man:
     - hp:
-      - headloss : {{ headloss_outlet_man }}
+      - ND : {{ set ND_exit_man = pipe.ND_SDR_available(sed.ID_exit_man(Q_plant, temp, cp),cp.manifold.exit_man.sdr) }}
     - dp:
-      - OD_pipe : {{ OD_pipe }}
-      - diam_orifice_outlet_man : {{ diam_orifice_outlet_man }}
+      - N_orifices : {{ cp.N_orifices }}
+      - OD : {{ pipe.OD(ND_exit_man) }}
+      - diam_orifice : {{ sed.D_exit_man_orifice(Q_plant, mat.DIAM_DRILL_ENG, cp) }}
   - plate_settlers:
     - hp:
     - dp:
-      - length : {{ length }}
-      - OD_frame : {{ OD_frame }}
-      - area_top_floc_blanket : {{ area_top_floc_blanket }}
-      - angle_sed_plate : {{ angle_sed_plate}}
-      - space_sed_plate : {{ space_sed_plate }}
-      - thickness_sed_plate : {{ thickness_sed_plate}}
+      - L : {{ sed.L_sed_plate(cp) }}
+      - angle_plate : {{ cp.plate_settlers.angle }}
+      - S_plate : {{ cp.plate_settlers.S }}
+      - thickness : {{ cp.plate_settlers.thickness }}
   - plate_settler_module:
     - hp:
     - dp:
-      - SDR_spacer : {{ SDR_spacer }}
-      - plate_number : {{ plate_number }}
+      - OD_frame : {{ pipe.OD(cp.plate_settlers.module_frame.ND) }}
+      - SDR_spacer : {{ cp.plate_settlers.plate_modules.sdr_spacer }}
+      - plate_number : {{ cp.plate_settlers.plate_modules.N_plates }}
   - floc_hopper:
+  - drain:
