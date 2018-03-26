@@ -11,7 +11,7 @@ cp:
   - K_MINOR_PIPE_ENTRANCE : {{ constants.K_MINOR_PIPE_ENTRANCE }}
   - K_MINOR_PIPE_EXIT : {{ constants.K_MINOR_PIPE_EXIT }}
   - K_MINOR_EL90 : {{ constants.K_MINOR_EL90 }}
-  - thickness_plate : {{ materials.THICKNESS_ENT_TANK_PLATE }}
+  - thickness_plate : {{ materials.thickness_plate }}
   - S_plate : 2.5 cm
   - vel_capture : 8 millimeter/second
   - angle_plate : 50 degree
