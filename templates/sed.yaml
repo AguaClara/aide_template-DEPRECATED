@@ -47,7 +47,7 @@ cp:
     - H_weir :
   exit_chan:
     - W : 47 centimeter  {# constant, but supporting code can be found in sed_channel.py #}
-    - H_weir : 
+    - H_weir :
   manifold:
     - ratio_Q_orifice : 0.8
     inlet_man:
@@ -89,12 +89,12 @@ dp:
   - inlet_channel:
     - dp:
       - W_inlet : {{ cp.inlet_chan.W }}
-      - L_inlet :
+      - L_inlet : {{ W_tot }}
       - H_weir :
   - exit_channel:
     - dp:
       - W_exit : {{ cp.exit_chan.W }}
-      - L_exit :
+      - L_exit : {{ W_tot }}
       - H_weir :
   - tank:
     - hp:
