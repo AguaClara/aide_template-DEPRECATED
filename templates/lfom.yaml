@@ -23,8 +23,12 @@
 # render the universal constants yaml
 {% set constants = aide_render(strip_jinja(constants.yaml)) %}
 
-- lfom:
-  - dp:
+cp:
+    - ratio_safety : 1.5
+    - sdr : 26
+    - S_orifice : 1 cm
+    - hl : 20 cm
+dp:
     - num_rows : {{ num_lfom_rows }}
     - B_orifice_rows : {{ B_orifice_rows }}
     - OD_lfom : {{ OD_lfom }}
@@ -46,8 +50,3 @@
     - center6 : {{ centerline[6] }}
     - row7 : {{ num_orifices_final[7] }}
     - center7 : {{ centerline[7] }}
-  - constants:
-    - ratio_safety : 1.5
-    - sdr : 26
-    - S_orifice : 1 cm
-    - hl : 20 cm

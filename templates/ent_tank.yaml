@@ -7,10 +7,6 @@
 
 cp:
   - L_max : 2.2 m
-  - PIPE_ROUGH_PVC : {{ materials.PIPE_ROUGH_PVC }}
-  - K_MINOR_PIPE_ENTRANCE : {{ constants.K_MINOR_PIPE_ENTRANCE }}
-  - K_MINOR_PIPE_EXIT : {{ constants.K_MINOR_PIPE_EXIT }}
-  - K_MINOR_EL90 : {{ constants.K_MINOR_EL90 }}
   - thickness_plate : {{ materials.thickness_plate }}
   - S_plate : 2.5 cm
   - vel_capture : 8 millimeter/second

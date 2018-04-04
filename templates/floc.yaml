@@ -54,36 +54,33 @@
 {% set ent_tank = aide_render(strip_jinja(ent_tank.yaml)) %}
 {% set sed = aide_render(strip_jinja(sed.yaml)) %}
 
-- floc:
-  - hp:
-    - volume : {{ vol_floc }}
-    - q : {{ q_plant }}
-    - temp : {{ temp }}
-    - Gt : {{ Gt }}
-    - hl : {{ hl }}
-    - depth_end : {{ depth_end }}
-  - floc_tank:
-    - dp:
-      - L : {{ L }}
-      - W_chan : {{ W_chan }}
-      - num_chan : {{ num_chan }}
-      - h_chan : {{ h_chan }}
-  - baffles:
-    - dp:
-      - baffle_spacing : {{ baffle_spacing }}
-      - num_baffles_chan_1 : {{ num_baffles_chan_1 }}
-      - num_baffles_chan_n : {{ num_baffles_chan_n }}
-      - obstacles_bool : {{ obstacles_bool }}
-      - l_top_baffle : {{ l_top_baffle }}
-      - l_bottom_baffle : {{ l_bottom_baffle }}
-  - constants :
-    - RATIO_VC_ORIFICE : {{ constants.RATIO_VC_ORIFICE }}
-    - L_ent_tank_max : {{ ent_tank.L_max }}
-    - L_sed : {{ sed.L }}
-    - hl : 40 cm
-    - coll_pot : 37000
-    - freeboard : 10 cm
-    - ratio_HS_min : 3
-    - ratio_HS_max : 6
-    - W_min_construct : 45 cm
-    - K_minor : {% set K_minor = (1 / constants.RATIO_VC_ORIFICE)**2 %} {{ K_minor }}
+cp:
+  - L_ent_tank_max : {{ ent_tank.L_max }}
+  - L_sed : {{ sed.L }}
+  - hl : 40 cm
+  - coll_pot : 37000
+  - freeboard : 10 cm
+  - ratio_HS_min : 3
+  - ratio_HS_max : 6
+  - W_min_construct : 45 cm
+  - K_minor : {% set K_minor = (1 / con.RATIO_VC_ORIFICE)**2 %} {{ K_minor }}
+hp:
+  - volume : {{ vol_floc }}
+  - q : {{ q_plant }}
+  - temp : {{ temp }}
+  - Gt : {{ Gt }}
+  - hl : {{ hl }}
+  - depth_end : {{ depth_end }}
+dp:
+  floc_tank:
+    - L : {{ L }}
+    - W_chan : {{ W_chan }}
+    - num_chan : {{ num_chan }}
+    - h_chan : {{ h_chan }}
+  baffles:
+    - baffle_spacing : {{ baffle_spacing }}
+    - num_baffles_chan_1 : {{ num_baffles_chan_1 }}
+    - num_baffles_chan_n : {{ num_baffles_chan_n }}
+    - obstacles_bool : {{ obstacles_bool }}
+    - l_top_baffle : {{ l_top_baffle }}
+    - l_bottom_baffle : {{ l_bottom_baffle }}
