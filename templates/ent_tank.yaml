@@ -1,7 +1,5 @@
-{% macro render() %}{% include "ent_tank.yaml"%}{% endmacro %}
-
-{% set materials = aide_render.render(materials) %}
-{% set constants = aide_render.render(constants) %}
+{% set self = render_constants("ent_tank.yaml") %}
+{% set materials = render_constants("materials.yaml") %}
 
 # inputs which will be passed in explicitly later: OD_ent_pipe, q, temp, depth_end, W_chan
 
@@ -13,10 +11,11 @@ cp:
   - angle_plate : 50 degree
   - sdr : 26
 
-{% set outputs = ent_tank_dict_test.ent_tank_agg(q, temp, depth_end, W_chan, cp) %}
+{% self.update('thickness_plate': materials.thickness_plate) %}
+{% set outputs = ent_tank_dict_test.ent_tank_agg(inputs.q, inputs.temp, inputs.depth_end, inputs.W_chan, self) %}
 
 dp:
-  - L : {{ cp.L_max }}
+  - L : {{ self.L_max }}
   - W : {{ inputs.W_chan }} # user input
   - OD_ent_pipe : {{ inputs.OD_ent_pipe }} # user input
   - OD_drain : {{ outputs.OD_drain }}

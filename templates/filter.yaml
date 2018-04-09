@@ -1,0 +1,21 @@
+{% set materials = aide_render.render(materials) %}
+
+cp:
+  - ND_trunk_max: 6 inch
+  - ND_backwash_trunk_max: 8 inch
+  - thickness_layer_min: 20 cm
+  - S_trunk_min: 3 cm
+  - ratio_long_q_short_q: 0.85
+  - pr_man_branch_est: 0.8 cm
+  - hl_bachwash_slot_est: 10 cm
+  - vel_backwash: 11 mm/s
+  - num_layers: 6
+  - porosity: {{ materials.porosity_sand }}
+  - D_sand_60: {{ materials.ratio_uniformity_coeff_sand * materials.D_sand_effective }}
+
+# vel_layer: vel_backwash / num_layers
+# pr_backwash_man_max: hl_bachwash_slot_est * ratio_long_q_short_q
+
+dp::
+  - num_filters:
+  -

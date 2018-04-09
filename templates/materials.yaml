@@ -13,13 +13,14 @@
 # segments can be used for the inlet and outlet manifolds
 {% set length_manifold_pipe = 5.8 * u.m %}
 
-- constants:
+constants:
   - thickness_PVC_sheet : 15 cm
   - width_PVC_sheet : 1.067 m
   - thickness_plate : 2 mm
   - width_sed_tank : {{ width_sed_plate }}
   - L_sed_tank : {{ length_manifold_pipe }}
   - PIPE_ROUGH_PVC : 0.12 mm
-  - L_sed_plate_cantilevered : 20 cm {# Maximum length of sed plate sticking
-  out past module pipes without any additional support. The goal is to prevent
-  floppy modules that don't maintain constant distances between the plates #}
+  - L_sed_plate_cantilevered : 20 cm
+  - porosity_sand: 0.4
+  - ratio_uniformity_coeff_sand: 1.65
+  - D_sand_effective: 0.5 mm

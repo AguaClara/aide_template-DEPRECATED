@@ -3,7 +3,6 @@
 {# macros are Jinja functions. The "render" function here renders the sed yaml. #}
 {% macro render() %}{% include "sed.yaml"%}{% endmacro %}
 
-{% set constants = aide_render(strip_jinja(constants.yaml)) %}
 {% set materials = aide_render(strip_jinja(materials.yaml)) %}}
 
 cp:
