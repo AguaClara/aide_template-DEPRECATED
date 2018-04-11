@@ -64,6 +64,7 @@ cp:
   - ratio_HS_max : 6
   - W_min_construct : 45 cm
   - K_minor : {% set K_minor = (1 / con.RATIO_VC_ORIFICE)**2 %} {{ K_minor }}
+  - baffle_thickness : {{ materials.thickness_PVC_sheet }}
 hp:
   - volume : {{ vol_floc }}
   - q : {{ q_plant }}
