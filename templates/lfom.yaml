@@ -1,5 +1,3 @@
-{% macro render() %}{% include "lfom.yaml"%}{% endmacro %}
-
 # inputs which will be passed in explicitly later: q
 
 {% set hl_lfom = opt.HL_LFOM %} # optional input

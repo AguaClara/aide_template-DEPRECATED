@@ -13,7 +13,7 @@
 # segments can be used for the inlet and outlet manifolds
 {% set length_manifold_pipe = 5.8 * u.m %}
 
-constants:
+cp:
   - thickness_PVC_sheet : 15 cm
   - width_PVC_sheet : 1.067 m
   - thickness_plate : 2 mm
