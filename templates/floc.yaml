@@ -1,56 +1,9 @@
 {% macro render() %}{% include "floc.yaml"%}{% endmacro %}
 
-# constants which should be inputs in the future
-{% set width_PVC_sheet = 1.067*u.m %} # materials template
-{% set thickness_PVC_sheet = 0.15*u.m %} # materials template
-{% set depth_end = 2 * u.m %} # set by sed calculations
-# other inputs include: temp, q_plant
-
-# define constants and inputs
-{% set q = q_plant %} # user input
-{% set Gt = opt.COLL_POT %} # optional input
-{% set hl = opt.HL_FLOC %} # optional input
-{% set L = 10*u.m %} # optional input
-{% set freeboard = opt.FREEBOARD %} # optional input
-
-# calculate planview area of the entrance tank
-{% set A_ET_PV = floc.area_ent_tank(q, hl, Gt, temp, depth_end) %}
-
-# now calculate planview area of entrance tank + flocculator combined
-{% set vol_floc = floc.vol_floc(q, hl, Gt, temp) %}
-{% set A_floc_PV = vol_floc/(depth_end + hl/2) %}
-{% set A_ETF_PV = A_ET_PV + A_floc_PV %}
-
-# calculate width of the flocculator channels and entrance tank
-{% set W_min = floc.width_floc_min(q, hl, Gt, temp, depth_end) %}
-{% set W_tot = A_ETF_PV/L %}
-{% set num_chan = floc.num_channel(q, hl, Gt, temp, W_tot, depth_end) %}
-{% set W_chan = W_tot/num_chan %}
-
-{% set h_chan = depth_end + hl + freeboard %}
-
-# calculate baffle spacing and number of baffles in the Flocculator
-{% set baffle_spacing = floc.baffle_spacing(q_plant, hl, Gt, temp, W_chan) %}
-{% set num_baffles_chan_1 = floc.num_baffles(q_plant, hl, Gt, temp, W_chan, L - opt.L_ET_MAX, thickness_PVC_sheet) %}
-{% set num_baffles_chan_n = floc.num_baffles(q_plant, hl, Gt, temp, W_chan, L, thickness_PVC_sheet) %}
-
-# calculate the length of the baffles. The top baffle is set to the top of the
-# channel wall and the bottom baffle is set to the bottom of the channel.
-# The distance between baffles is the same as the vertical distance between
-# the top baffle and the bottom of the channel, which is the same vertical
-# distance as the bottom baffle and the free surface at the end of the flocculator
-{% set l_top_baffle = h_chan - baffle_spacing %}
-{% set l_bottom_baffle = depth_end - baffle_spacing %}
-
-# is this if else statement correct?
-{% if q > 50*u.L/u.s %}
-  {% set obstacles_bool = 0 %}
-{% else %}
-  {% set obstacles_bool = 1 %}
-{% endif %}
+# other inputs include: temp, q_plant, depth_end
 
 # render the universal constants yaml
-{% set constants = aide_render(strip_jinja(constants.yaml)) %}
+{% set materials = aide_render(strip_jinja(materials.yaml)) %}
 {% set ent_tank = aide_render(strip_jinja(ent_tank.yaml)) %}
 {% set sed = aide_render(strip_jinja(sed.yaml)) %}
 
@@ -64,6 +17,7 @@ cp:
   - ratio_HS_max : 6
   - W_min_construct : 45 cm
   - K_minor : {% set K_minor = (1 / con.RATIO_VC_ORIFICE)**2 %} {{ K_minor }}
+  - baffle_thickness :{% set baffle_thickness = materials.thickness_PVC_sheet %} {{ baffle_thickness }}
 hp:
   - volume : {{ vol_floc }}
   - q : {{ q_plant }}
@@ -73,14 +27,14 @@ hp:
   - depth_end : {{ depth_end }}
 dp:
   floc_tank:
-    - L : {{ L }}
-    - W_chan : {{ W_chan }}
-    - num_chan : {{ num_chan }}
-    - h_chan : {{ h_chan }}
+    - L : {{ self.L_sed }}
+    - W_chan : {{ outputs.W_chan }}
+    - num_chan : {{ outputs.num_chan }}
+    - h_chan : {{ outputs.h_chan }}
   baffles:
-    - baffle_spacing : {{ baffle_spacing }}
-    - num_baffles_chan_1 : {{ num_baffles_chan_1 }}
-    - num_baffles_chan_n : {{ num_baffles_chan_n }}
-    - obstacles_bool : {{ obstacles_bool }}
-    - l_top_baffle : {{ l_top_baffle }}
-    - l_bottom_baffle : {{ l_bottom_baffle }}
+    - baffle_spacing : {{ outputs.baffle_spacing }}
+    - num_baffles_chan_1 : {{ outputs.num_baffles_chan_1 }}
+    - num_baffles_chan_n : {{ outputs.num_baffles_chan_n }}
+    - obstacles_bool : {{ outputs.obstacles_bool }}
+    - L_top_baffle : {{ outputs.L_top_baffle }}
+    - L_bottom_baffle : {{ outputs.L_bottom_baffle }}

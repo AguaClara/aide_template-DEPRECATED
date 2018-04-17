@@ -1,0 +1,132 @@
+Flocculator:
+  BottomBaffles_Assembly:
+    BottomBaffle:
+      BottomBaffle:1:
+        dp:
+          Height: 1.31 m
+          Thickness: 0.002 m
+          Width: 0.55 m
+      dp:
+        Height: 1.31 m
+        Thickness: 0.002 m
+        Width: 0.55 m
+    dp:
+      Num_Exit: '28'
+      Num_Inlet: '21'
+      Spacing: 0.195 m
+      Thickness: 0.002 m
+      TotalNum: '4'
+      WallThickness: 0.15 m
+      Width: 0.55 m
+  ConcreteChannels:
+    Channel:1:
+      dp:
+        FirstLength: 4.6 m
+        FloorThickness: 0.200 m
+        Height: 2.04 m
+        Length: 5.90 m
+        TotalNum: '4'
+        WallThickness: 0.150 m
+        Width: 0.550 m
+    Channel:2:
+      dp:
+        FirstLength: 4.6 m
+        FloorThickness: 0.200 m
+        Height: 2.04 m
+        Length: 5.90 m
+        TotalNum: '4'
+        WallThickness: 0.150 m
+        Width: 0.550 m
+    EvenWall:1:
+      dp:
+        FirstLength: 4.6 m
+        FloorThickness: 0.200 m
+        Height: 2.04 m
+        Length: 5.90 m
+        TotalNum: '4'
+        WallThickness: 0.150 m
+        Width: 0.550 m
+    EvenWall:2:
+      dp:
+        FirstLength: 4.6 m
+        FloorThickness: 0.200 m
+        Height: 2.04 m
+        Length: 5.90 m
+        TotalNum: '4'
+        WallThickness: 0.150 m
+        Width: 0.550 m
+    FirstChannel:1:
+      dp:
+        FirstLength: 4.6 m
+        FloorThickness: 0.200 m
+        Height: 2.04 m
+        Length: 5.90 m
+        TotalNum: '4'
+        WallThickness: 0.150 m
+        Width: 0.550 m
+    LastChannel:1:
+      dp:
+        FirstLength: 4.6 m
+        FloorThickness: 0.200 m
+        Height: 2.04 m
+        Length: 5.90 m
+        TotalNum: '4'
+        WallThickness: 0.150 m
+        Width: 0.550 m
+    OddWall:1:
+      dp:
+        FirstLength: 4.6 m
+        FloorThickness: 0.200 m
+        Height: 2.04 m
+        Length: 5.90 m
+        TotalNum: '4'
+        WallThickness: 0.150 m
+        Width: 0.550 m
+    dp:
+      FirstLength: 4.6 m
+      FloorThickness: 0.200 m
+      Height: 2.04 m
+      Length: 5.90 m
+      TotalNum: '4'
+      WallThickness: 0.150 m
+      Width: 0.550 m
+  Obstacles_Assembly:
+    Obstacle:
+      Obstacle:1:
+        dp:
+          ID_Horizontal: 0.06 m
+          ID_Vertical: 0.1 m
+          Thickness: 0.004 m
+          Width: 0.55 m
+      dp:
+        ID_Horizontal: 0.06 m
+        ID_Vertical: 0.1 m
+        Thickness: 0.004 m
+        Width: 0.55 m
+    dp:
+      Num_Exit: '28'
+      Num_Inlet: '21'
+      Spacing: 0.195 m
+      Thickness: 0.002 m
+      TotalNum: '4'
+      WallThickness: 0.15 m
+      Width: 0.55 m
+  TopBaffles_Assembly:
+    TopBaffle:
+      TopBaffle:1:
+        dp:
+          Height: 1.84 m
+          Thickness: 0.002 m
+          Width: 0.55 m
+      dp:
+        Height: 1.84 m
+        Thickness: 0.002 m
+        Width: 0.55 m
+    dp:
+      Num_Exit: '28'
+      Num_Inlet: '21'
+      Spacing: 0.195 m
+      Thickness: 0.002 m
+      TotalNum: '4'
+      WallThickness: 0.15 m
+      Width: 0.55 m
