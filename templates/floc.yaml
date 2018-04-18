@@ -8,6 +8,7 @@
 {% set sed = aide_render(strip_jinja(sed.yaml)) %}
 
 cp:
+  - thickness_wall : 0.15 m
   - L_ent_tank_max : {{ ent_tank.L_max }}
   - L_sed : {{ sed.L }}
   - hl : 40 cm

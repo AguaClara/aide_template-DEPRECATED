@@ -1,15 +1,23 @@
+# other inputs include: temp, q_plant, depth_end
+
+# render the universal constants yaml
+{% set self = render_constants("ent_tank.yaml") %}
+{% set materials = render_constants("materials.yaml") %}
+{% set ent_tank = aide_render.render("ent_tank.yaml") %}
+{% set sed = aide_render.render("sed.yaml") %}
+
 Flocculator:
   BottomBaffles_Assembly:
     BottomBaffle:
       BottomBaffle:1:
         dp:
-          Height: 1.31 m
-          Thickness: 0.002 m
-          Width: 0.55 m
+          Height: {{ outputs.L_bottom_baffle }}
+          Thickness: {{ materials.thickness_PVC_sheet }}
+          Width: {{ outputs.W_chan }}
       dp:
-        Height: 1.31 m
-        Thickness: 0.002 m
-        Width: 0.55 m
+        Height: {{ outputs.L_bottom_baffle }}
+        Thickness: {{ materials.thickness_PVC_sheet }}
+        Width: {{ outputs.W_chan }}
     dp:
       Num_Exit: '28'
       Num_Inlet: '21'
@@ -17,79 +25,79 @@ Flocculator:
       Thickness: 0.002 m
       TotalNum: '4'
       WallThickness: 0.15 m
-      Width: 0.55 m
+      Width: {{ outputs.W_chan }}
   ConcreteChannels:
     Channel:1:
       dp:
         FirstLength: 4.6 m
         FloorThickness: 0.200 m
         Height: 2.04 m
-        Length: 5.90 m
-        TotalNum: '4'
+        Length: 5.90 m # should we use the shorter length because the first channel is taken up by the entrance tank?
+        TotalNum: {{ outputs.num_chan }}
         WallThickness: 0.150 m
-        Width: 0.550 m
+        Width: {{ outputs.W_chan }}
     Channel:2:
       dp:
         FirstLength: 4.6 m
         FloorThickness: 0.200 m
         Height: 2.04 m
-        Length: 5.90 m
-        TotalNum: '4'
+        Length: {{ sed.L }}
+        TotalNum: {{ outputs.num_chan }}
         WallThickness: 0.150 m
-        Width: 0.550 m
+        Width: {{ outputs.W_chan }}
     EvenWall:1:
       dp:
         FirstLength: 4.6 m
         FloorThickness: 0.200 m
         Height: 2.04 m
         Length: 5.90 m
-        TotalNum: '4'
+        TotalNum: {{ outputs.num_chan }}
         WallThickness: 0.150 m
-        Width: 0.550 m
+        Width: {{ outputs.W_chan }}
     EvenWall:2:
       dp:
         FirstLength: 4.6 m
         FloorThickness: 0.200 m
         Height: 2.04 m
         Length: 5.90 m
-        TotalNum: '4'
+        TotalNum: {{ outputs.num_chan }}
         WallThickness: 0.150 m
-        Width: 0.550 m
+        Width: {{ outputs.W_chan }}
     FirstChannel:1:
       dp:
         FirstLength: 4.6 m
         FloorThickness: 0.200 m
         Height: 2.04 m
         Length: 5.90 m
-        TotalNum: '4'
+        TotalNum: {{ outputs.num_chan }}
         WallThickness: 0.150 m
-        Width: 0.550 m
+        Width: {{ outputs.W_chan }}
     LastChannel:1:
       dp:
         FirstLength: 4.6 m
         FloorThickness: 0.200 m
         Height: 2.04 m
         Length: 5.90 m
-        TotalNum: '4'
+        TotalNum: {{ outputs.num_chan }}
         WallThickness: 0.150 m
-        Width: 0.550 m
+        Width: {{ outputs.W_chan }}
     OddWall:1:
       dp:
         FirstLength: 4.6 m
         FloorThickness: 0.200 m
         Height: 2.04 m
         Length: 5.90 m
-        TotalNum: '4'
+        TotalNum: {{ outputs.num_chan }}
         WallThickness: 0.150 m
-        Width: 0.550 m
+        Width: {{ outputs.W_chan }}
     dp:
       FirstLength: 4.6 m
       FloorThickness: 0.200 m
       Height: 2.04 m
       Length: 5.90 m
-      TotalNum: '4'
+      TotalNum: {{ outputs.num_chan }}
       WallThickness: 0.150 m
-      Width: 0.550 m
+      Width: {{ outputs.W_chan }}
   Obstacles_Assembly:
     Obstacle:
       Obstacle:1:
@@ -97,36 +105,36 @@ Flocculator:
           ID_Horizontal: 0.06 m
           ID_Vertical: 0.1 m
           Thickness: 0.004 m
-          Width: 0.55 m
+          Width: {{ outputs.W_chan }}
       dp:
         ID_Horizontal: 0.06 m
         ID_Vertical: 0.1 m
         Thickness: 0.004 m
-        Width: 0.55 m
+        Width: {{ outputs.W_chan }}
     dp:
-      Num_Exit: '28'
-      Num_Inlet: '21'
-      Spacing: 0.195 m
-      Thickness: 0.002 m
-      TotalNum: '4'
+      Num_Exit: {{ outputs.num_baffles_chan_n * outputs.obstacles_bool }}
+      Num_Inlet: {{ outputs.num_baffles_chan_1 * outputs.obstacles_bool }}
+      Spacing: {{ outputs.baffle_spacing }}
+      Thickness: {{ materials.thickness_PVC_sheet }}
+      TotalNum: {{ outputs.num_chan }}
       WallThickness: 0.15 m
-      Width: 0.55 m
+      Width: {{ outputs.W_chan }}
   TopBaffles_Assembly:
     TopBaffle:
       TopBaffle:1:
         dp:
-          Height: 1.84 m
-          Thickness: 0.002 m
-          Width: 0.55 m
+          Height: {{ outputs.L_top_baffle }}
+          Thickness: {{ materials.thickness_PVC_sheet }}
+          Width: {{ materials.width_PVC_sheet }}
       dp:
-        Height: 1.84 m
-        Thickness: 0.002 m
-        Width: 0.55 m
+        Height: {{ outputs.L_top_baffle }}
+        Thickness: {{ materials.thickness_PVC_sheet }}
+        Width: {{ outputs.W_chan }}
     dp:
-      Num_Exit: '28'
-      Num_Inlet: '21'
-      Spacing: 0.195 m
-      Thickness: 0.002 m
-      TotalNum: '4'
+      Num_Exit: {{ outputs.num_baffles_chan_n }}
+      Num_Inlet: {{ outputs.num_baffles_chan_1 }}
+      Spacing: {{ outputs.baffle_spacing }}
+      Thickness: {{ materials.thickness_PVC_sheet }}
+      TotalNum: {{ outputs.num_chan }}
       WallThickness: 0.15 m
-      Width: 0.55 m
+      Width: {{ outputs.W_chan }}
