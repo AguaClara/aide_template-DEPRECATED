@@ -19,82 +19,82 @@ Flocculator:
         Thickness: {{ materials.thickness_PVC_sheet }}
         Width: {{ outputs.W_chan }}
     dp:
-      Num_Exit: '28'
-      Num_Inlet: '21'
-      Spacing: 0.195 m
-      Thickness: 0.002 m
-      TotalNum: '4'
+      Num_Exit: {{ outputs.num_baffles_chan_1 }}
+      Num_Inlet: {{ outputs.num_baffles_chan_n }}
+      Spacing: {{ outputs.baffle_spacing }}
+      Thickness: {{ materials.thickness_PVC_sheet }}
+      TotalNum: {{ outputs.num_chan }}
       WallThickness: 0.15 m
       Width: {{ outputs.W_chan }}
   ConcreteChannels:
     Channel:1:
       dp:
-        FirstLength: 4.6 m
+        FirstLength: {{ sed.L - ent_tank.L_max }} - ent_tank.L_max }}
         FloorThickness: 0.200 m
-        Height: 2.04 m
-        Length: 5.90 m # should we use the shorter length because the first channel is taken up by the entrance tank?
+        Height: {{ outputs.h_chan }}
+        Length: {{ sed.L }}
         TotalNum: {{ outputs.num_chan }}
         WallThickness: 0.150 m
         Width: {{ outputs.W_chan }}
     Channel:2:
       dp:
-        FirstLength: 4.6 m
+        FirstLength: {{ sed.L - ent_tank.L_max }}
         FloorThickness: 0.200 m
-        Height: 2.04 m
+        Height: {{ outputs.h_chan }}
         Length: {{ sed.L }}
         TotalNum: {{ outputs.num_chan }}
         WallThickness: 0.150 m
         Width: {{ outputs.W_chan }}
     EvenWall:1:
       dp:
-        FirstLength: 4.6 m
+        FirstLength: {{ sed.L - ent_tank.L_max }}
         FloorThickness: 0.200 m
-        Height: 2.04 m
-        Length: 5.90 m
+        Height: {{ outputs.h_chan }}
+        Length: {{ sed.L }}
         TotalNum: {{ outputs.num_chan }}
         WallThickness: 0.150 m
         Width: {{ outputs.W_chan }}
     EvenWall:2:
       dp:
-        FirstLength: 4.6 m
+        FirstLength: {{ sed.L - ent_tank.L_max }}
         FloorThickness: 0.200 m
-        Height: 2.04 m
-        Length: 5.90 m
+        Height: {{ outputs.h_chan }}
+        Length: {{ sed.L }}
         TotalNum: {{ outputs.num_chan }}
         WallThickness: 0.150 m
         Width: {{ outputs.W_chan }}
     FirstChannel:1:
       dp:
-        FirstLength: 4.6 m
+        FirstLength: {{ sed.L - ent_tank.L_max }}
         FloorThickness: 0.200 m
-        Height: 2.04 m
-        Length: 5.90 m
+        Height: {{ outputs.h_chan }}
+        Length: {{ sed.L }}
         TotalNum: {{ outputs.num_chan }}
         WallThickness: 0.150 m
         Width: {{ outputs.W_chan }}
     LastChannel:1:
       dp:
-        FirstLength: 4.6 m
+        FirstLength: {{ sed.L - ent_tank.L_max }}
         FloorThickness: 0.200 m
-        Height: 2.04 m
-        Length: 5.90 m
+        Height: {{ outputs.h_chan }}
+        Length: {{ sed.L }}
         TotalNum: {{ outputs.num_chan }}
         WallThickness: 0.150 m
         Width: {{ outputs.W_chan }}
     OddWall:1:
       dp:
-        FirstLength: 4.6 m
+        FirstLength: {{ sed.L - ent_tank.L_max }}
         FloorThickness: 0.200 m
-        Height: 2.04 m
-        Length: 5.90 m
+        Height: {{ outputs.h_chan }}
+        Length: {{ sed.L }}
         TotalNum: {{ outputs.num_chan }}
         WallThickness: 0.150 m
         Width: {{ outputs.W_chan }}
     dp:
-      FirstLength: 4.6 m
+      FirstLength: {{ sed.L - ent_tank.L_max }}
       FloorThickness: 0.200 m
-      Height: 2.04 m
-      Length: 5.90 m
+      Height: {{ outputs.h_chan }}
+      Length: {{ sed.L }}
       TotalNum: {{ outputs.num_chan }}
       WallThickness: 0.150 m
       Width: {{ outputs.W_chan }}
