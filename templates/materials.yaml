@@ -14,7 +14,6 @@
 {% set length_manifold_pipe = 5.8 * u.m %}
 
 cp:
-  - thickness_PVC_sheet : 15 cm
   - width_PVC_sheet : 1.067 m
   - thickness_plate : 2 mm
   - width_sed_tank : {{ width_sed_plate }}

@@ -12,24 +12,24 @@ Flocculator:
       BottomBaffle:1:
         dp:
           Height: {{ outputs.L_bottom_baffle }}
-          Thickness: {{ materials.thickness_PVC_sheet }}
+          Thickness: {{ materials.thickness_plate }}
           Width: {{ outputs.W_chan }}
       dp:
         Height: {{ outputs.L_bottom_baffle }}
-        Thickness: {{ materials.thickness_PVC_sheet }}
+        Thickness: {{ materials.thickness_plate }}
         Width: {{ outputs.W_chan }}
     dp:
       Num_Exit: {{ outputs.num_baffles_chan_1 }}
       Num_Inlet: {{ outputs.num_baffles_chan_n }}
       Spacing: {{ outputs.baffle_spacing }}
-      Thickness: {{ materials.thickness_PVC_sheet }}
+      Thickness: {{ materials.thickness_plate }}
       TotalNum: {{ outputs.num_chan }}
       WallThickness: 0.15 m
       Width: {{ outputs.W_chan }}
   ConcreteChannels:
     Channel:1:
       dp:
-        FirstLength: {{ sed.L - ent_tank.L_max }} - ent_tank.L_max }}
+        FirstLength: {{ sed.L - ent_tank.L_max }}
         FloorThickness: 0.200 m
         Height: {{ outputs.h_chan }}
         Length: {{ sed.L }}
@@ -115,7 +115,7 @@ Flocculator:
       Num_Exit: {{ outputs.num_baffles_chan_n * outputs.obstacles_bool }}
       Num_Inlet: {{ outputs.num_baffles_chan_1 * outputs.obstacles_bool }}
       Spacing: {{ outputs.baffle_spacing }}
-      Thickness: {{ materials.thickness_PVC_sheet }}
+      Thickness: {{ materials.thickness_plate }}
       TotalNum: {{ outputs.num_chan }}
       WallThickness: 0.15 m
       Width: {{ outputs.W_chan }}
@@ -124,17 +124,17 @@ Flocculator:
       TopBaffle:1:
         dp:
           Height: {{ outputs.L_top_baffle }}
-          Thickness: {{ materials.thickness_PVC_sheet }}
+          Thickness: {{ materials.thickness_plate }}
           Width: {{ materials.width_PVC_sheet }}
       dp:
         Height: {{ outputs.L_top_baffle }}
-        Thickness: {{ materials.thickness_PVC_sheet }}
+        Thickness: {{ materials.thickness_plate }}
         Width: {{ outputs.W_chan }}
     dp:
       Num_Exit: {{ outputs.num_baffles_chan_n }}
       Num_Inlet: {{ outputs.num_baffles_chan_1 }}
       Spacing: {{ outputs.baffle_spacing }}
-      Thickness: {{ materials.thickness_PVC_sheet }}
+      Thickness: {{ materials.thickness_plate }}
       TotalNum: {{ outputs.num_chan }}
       WallThickness: 0.15 m
       Width: {{ outputs.W_chan }}

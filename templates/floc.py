@@ -70,9 +70,9 @@ class Floc:
     coll_pot = HP(37000)
     freeboard = DP(10, u.cm)
     ratio_HS_min = HP(3)
-    ratio_HS_min = HP(6)
+    ratio_HS_max = HP(6)
     W_min_construct = DP(45)
-    baffle_thickness = DP(materials['thickness_PVC_sheet'])
+    baffle_thickness = DP(materials['thickness_plate'])
 
     ############### METHODS #################
     from aide_design.unit_process_design.floc import (
@@ -91,59 +91,7 @@ class Floc:
     baffle_spacing = staticmethod(baffle_spacing)
     num_baffles = staticmethod(num_baffles)
 
-    # Aggregates the floc tank functions into a single function which
-    # outputs a dictionary of all the necessary design parameters.
-    @staticmethod
-    @u.wraps(None, [u.m**3/u.s, u.degK, u.m, None], False)
-    def floc_agg(Q_plant, temp, depth_end, floc_inputs=floc_dict):
-        # calculate planview area of the entrance tank
-        A_ET_PV = Floc.area_ent_tank(Q_plant, temp, depth_end, floc_inputs).magnitude
-
-        # now calculate planview area of entrance tank + flocculator combined
-        volume_floc = Floc.vol_floc(Q_plant, temp, floc_inputs).magnitude
-        A_floc_PV = volume_floc/(depth_end + floc_inputs['hl'].to(u.m).magnitude/2)
-        A_ETF_PV = A_ET_PV + A_floc_PV
-
-        L_tank = floc_inputs['L_sed'].to(u.m).magnitude
-
-        # calculate width of the flocculator channels and entrance tank
-        W_min = Floc.width_floc_min(Q_plant, temp, depth_end, floc_inputs).to(u.m).magnitude
-        W_tot = A_ETF_PV/L_tank
-        num_chan = Floc.num_channel(Q_plant, temp, depth_end, W_tot, floc_inputs)
-        W_chan = W_tot/num_chan
-
-        # calculate the height of the channel using depth at the end of the
-        # flocculator, headloss, and freeboard
-        h_chan = depth_end + floc_inputs['hl'].to(u.m).magnitude + floc_inputs['freeboard'].to(u.m).magnitude
-
-        # calculate baffle spacing and number of baffles in the Flocculator
-        baffle_spacing_ = baffle_spacing(Q_plant, temp, W_chan, floc_inputs).magnitude
-        num_baffles_chan_1 = num_baffles(Q_plant, temp, W_chan, L_tank, floc_inputs)
-        num_baffles_chan_n = num_baffles(Q_plant, temp, W_chan, L_tank - floc_inputs['L_ent_tank_max'].to(u.m).magnitude, floc_inputs)
-
-        # calculate the length of the baffles. The top baffle is set to the top of the
-        # channel wall and the bottom baffle is set to the bottom of the channel.
-        # The distance between baffles is the same as the vertical distance between
-        # the top baffle and the bottom of the channel, which is the same vertical
-        # distance as the bottom baffle and the free surface at the end of the flocculator
-        L_top_baffle = h_chan - baffle_spacing_
-        L_bottom_baffle = depth_end - baffle_spacing_
-
-        # determine if there are obstacles in the flocculator
-        if Q_plant > 0.05:
-            obstacles_bool = 0
-        else:
-            obstacles_bool = 1
-
-        # update the floc dictionary with outputs
-        floc_inputs.update({'W_chan': W_chan, 'num_chan': num_chan,
-            'h_chan': h_chan, 'baffle_spacing': baffle_spacing_,
-            'num_baffles_chan_1': num_baffles_chan_1, 'num_baffles_chan_n': num_baffles_chan_n,
-            'obstacles_bool': obstacles_bool, 'L_top_baffle': L_top_baffle,
-            'L_bottom_baffle': L_bottom_baffle})
-        return floc_inputs
-
-    def __init__(self, q, temp, bod=None):
+    def __init__(self, q, temp, depth_end, bod=None):
         """
         This is where the "instantiation" occurs. Think of this as "rendering the
         template" or "using the cookie-cutter to make the cookie". Here is where we
@@ -168,3 +116,50 @@ class Floc:
 
         self.q = HP(q)
         self.temp = HP(temp)
+
+        A_ET_PV = self.area_ent_tank(q, temp, depth_end, self.hl, self.coll_pot,
+                                     self.ratio_HS_min, self.W_min_construct,
+                                     self.L_sed, self.L_ent_tank_max)
+
+        # now calculate planview area of entrance tank + flocculator combined
+        volume_floc = self.vol_floc(q, temp, self.hl, self.coll_pot)
+        A_floc_PV = volume_floc/(depth_end + self.hl/2)
+        A_ETF_PV = (A_ET_PV + A_floc_PV).to(u.m**2)
+
+        # calculate width of the flocculator channels and entrance tank
+        W_min = self.width_floc_min(q, temp, depth_end, self.hl, self.coll_pot
+                                    self.ratio_HS_min, self.W_min_construct).to(u.m)
+        W_tot = A_ETF_PV/self.L_sed
+        self.num_chan = DP(self.num_channel(q, temp, depth_end, self.hl,
+                                            self.coll_pot, W_tot,
+                                            self.ratio_HS_min, self.W_min_construct))
+        self.W_chan = DP(W_tot/self.num_chan)
+
+        # calculate the height of the channel using depth at the end of the
+        # flocculator, headloss, and freeboard
+        self.h_chan = DP((depth_end + self.hl + self.freeboard).magnitude, u.m)
+
+        # calculate baffle spacing and number of baffles in the Flocculator
+        self.baffle_spacing_ = DP(self.baffle_spacing(q, temp, self.W_chan, self.hl,
+                                              self.coll_pot, self.ratio_HS_max))
+        self.num_baffles_chan_1 = DP(self.num_baffles(q, temp, self.W_chan, self.L_sed,
+                                                   self.hl, self.coll_pot,
+                                                   self.ratio_HS_max, self.baffle_thickness))
+        self.num_baffles_chan_n = DP(self.num_baffles(q, temp, self.W_chan,
+                                                   self.L_sed - self.L_ent_tank_max,
+                                                   self.hl, self.coll_pot,
+                                                   self.ratio_HS_max, self.baffle_thickness))
+
+        # calculate the length of the baffles. The top baffle is set to the top of the
+        # channel wall and the bottom baffle is set to the bottom of the channel.
+        # The distance between baffles is the same as the vertical distance between
+        # the top baffle and the bottom of the channel, which is the same vertical
+        # distance as the bottom baffle and the free surface at the end of the flocculator
+        self.L_top_baffle = DP(h_chan - baffle_spacing_)
+        self.L_bottom_baffle = DP(depth_end - baffle_spacing_)
+
+        # determine if there are obstacles in the flocculator
+        if q > 0.05*u.m**3/u.s:
+            self.obstacles_bool = DP(0)
+        else:
+            self.obstacles_bool = DP(1)
