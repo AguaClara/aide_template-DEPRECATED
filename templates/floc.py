@@ -56,23 +56,35 @@ class Floc:
     Examples
     --------
 
+    >>> my_floc = Floc(HP(20, u.L/u.s), HP(15, u.degC), HP(2, u.m))
+    >>> from aide_render.builder import extract_types
+    >>> floc_design_dict = extract_types(my_floc, [DP], [])
+    >>> #print(floc_design_dict)
+    >>> from aide_render.yaml import load, dump
+    >>> dump(floc_design_dict)
+    "{b_orifice_rows: !DP '2.5 centimeter ', centerline_0: !DP '1 ', centerline_1: !DP '0 ',\n  centerline_2: !DP '1 ', centerline_3: !DP '0 ', centerline_4: !DP '1 ', centerline_5: !DP '0 ',\n  centerline_6: !DP '1 ', centerline_7: !DP '0 ', d_orifice: !DP '2 meter ', n_rows: !DP '8 ',\n  num_orifices_final_0: !DP '1 ', num_orifices_final_1: !DP '0 ', num_orifices_final_2: !DP '0 ',\n  num_orifices_final_3: !DP '0 ', num_orifices_final_4: !DP '0 ', num_orifices_final_5: !DP '0 ',\n  num_orifices_final_6: !DP '0 ', num_orifices_final_7: !DP '0 ', od: !DP '10.75 inch ',\n  q: !DP '20 liter / second ', sdr: !DP '26 '}\n"
 
     """
 
-    ent_tank: dict = aide_render.yaml.load("ent_tank.yaml")
-    sed: dict = aide_render.yaml.load("sed.yaml")
-    materials: dict = aide_render.yaml.load("materials.yaml")
+    #ent_tank: dict = aide_render.render.("ent_tank.yaml")
+    #sed: dict = aide_render.yaml.load("sed.yaml")
+    #materials: dict = aide_render.yaml.load("materials.yaml")
 
     ############## ATTRIBUTES ################
-    L_ent_tank_max = DP(ent_tank['L'])
-    L_sed = DP(sed['L'])
+    #L_ent_tank_max = DP(ent_tank['L'])
+    #L_sed = DP(sed['L'])
     hl = HP(40, u.cm)
     coll_pot = HP(37000)
     freeboard = DP(10, u.cm)
     ratio_HS_min = HP(3)
     ratio_HS_max = HP(6)
-    W_min_construct = DP(45)
-    baffle_thickness = DP(materials['thickness_plate'])
+    W_min_construct = DP(45, u.cm)
+    #baffle_thickness = DP(materials['thickness_plate'])
+
+    # will take these out later when we get the imports from other classes to work
+    L_ent_tank_max = DP(2.2, u.m)
+    L_sed = DP(7.35, u.m)
+    baffle_thickness = DP(2, u.mm)
 
     ############### METHODS #################
     from aide_design.unit_process_design.floc import (
@@ -95,18 +107,20 @@ class Floc:
         """
         This is where the "instantiation" occurs. Think of this as "rendering the
         template" or "using the cookie-cutter to make the cookie". Here is where we
-        call all the methods that determine design qualities of the specific LFOM
-        we are building.
+        call all the methods that determine design qualities of the specific
+        flocculator we are building.
 
         Parameters
         ----------
         bod (Basis of Design) : dict: optional
-            A dict of values that will override or add any attributes of the LFOM
+            A dict of values that will override or add any attributes of the Floc
             component.
         q : float
-            The max flow rate the LFOM can handle
+            The flow rate through the flocculator
         temp : float
             The design temperature
+        depth_end : float
+            The depth of water at the end of the flocculator
         """
 
         # add bod as instance fields:
@@ -114,8 +128,8 @@ class Floc:
             for k, v in bod.items():
                 setattr(self, k, v)
 
-        self.q = HP(q)
-        self.temp = HP(temp)
+        #self.q = DP(q)
+        #self.temp = DP(temp)
 
         A_ET_PV = self.area_ent_tank(q, temp, depth_end, self.hl, self.coll_pot,
                                      self.ratio_HS_min, self.W_min_construct,
@@ -127,7 +141,7 @@ class Floc:
         A_ETF_PV = (A_ET_PV + A_floc_PV).to(u.m**2)
 
         # calculate width of the flocculator channels and entrance tank
-        W_min = self.width_floc_min(q, temp, depth_end, self.hl, self.coll_pot
+        W_min = self.width_floc_min(q, temp, depth_end, self.hl, self.coll_pot,
                                     self.ratio_HS_min, self.W_min_construct).to(u.m)
         W_tot = A_ETF_PV/self.L_sed
         self.num_chan = DP(self.num_channel(q, temp, depth_end, self.hl,
@@ -137,7 +151,7 @@ class Floc:
 
         # calculate the height of the channel using depth at the end of the
         # flocculator, headloss, and freeboard
-        self.h_chan = DP((depth_end + self.hl + self.freeboard).magnitude, u.m)
+        self.h_chan = DP((depth_end + self.hl + self.freeboard).to(u.m))
 
         # calculate baffle spacing and number of baffles in the Flocculator
         self.baffle_spacing_ = DP(self.baffle_spacing(q, temp, self.W_chan, self.hl,
