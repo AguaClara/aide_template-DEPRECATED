@@ -16,11 +16,14 @@ class Floc:
     These are the default values for an LFOM. To overwrite, pass these into the bod
     (Basis Of Design) variable into the constructor.
 
+    temp : float
+        Design temperature
+
     L_ent_tank_max : float
         The maximum length of the entrance tank
 
     L_sed : float
-        The length of the sedimentation tank
+        The length of the sedimentation unit process, including channels
 
     hl : float
         Headloss through the flocculator
@@ -45,24 +48,46 @@ class Floc:
     baffle_thickness : float
         Thickness of a baffle
 
-
     Methods
     -------
     All these methods are just imported from the aide_design flocculator.
     This would replace that.
 
+    area_ent_tank(Q_plant, temp, depth_end, hl, coll_pot, ratio_HS_min=3,
+                  W_min_construct=45*u.cm, L_sed=7.35*u.m, L_ent_tank_max=2.2*u.m)
+        Return the planview area of the entrance tank given plant flow rate,
+        headloss, target collision potential, design temperature, and depth of
+        water at the end of the flocculator
 
+    vol_floc(Q_plant, temp, hl, coll_pot)
+        Return the total volume of the flocculator using plant flow rate, head
+        loss, collision potential and temperature
+
+    width_floc_min(Q_plant, temp, depth_end, hl, coll_pot, ratio_HS_min=3,
+                   W_min_construct=45*u.cm)
+
+        Return the minimum channel width required
+    num_channel(Q_plant, temp, depth_end, hl, coll_pot, W_tot, ratio_HS_min=3,
+                W_min_construct=45*u.cm)
+
+        Return the number of channels in the entrance tank/flocculator (ETF)
+    baffle_spacing(Q_plant, temp, W_chan, hl, coll_pot, ratio_HS_max=6)
+        Return the spacing between baffles based on the target velocity gradient
+
+    num_baffles(Q_plant, temp, W_chan, L, hl, coll_pot, ratio_HS_max=6,
+                baffle_thickness=2*u.mm)
+        Return the number of baffles that would fit in the channel given the
+        channel length and spacing between baffles
 
     Examples
     --------
 
-    >>> my_floc = Floc(HP(20, u.L/u.s), HP(15, u.degC), HP(2, u.m))
+    >>> my_floc = Floc(HP(20, u.L/u.s), HP(2, u.m))
     >>> from aide_render.builder import extract_types
     >>> floc_design_dict = extract_types(my_floc, [DP], [])
     >>> #print(floc_design_dict)
     >>> from aide_render.yaml import load, dump
     >>> dump(floc_design_dict)
-    "{b_orifice_rows: !DP '2.5 centimeter ', centerline_0: !DP '1 ', centerline_1: !DP '0 ',\n  centerline_2: !DP '1 ', centerline_3: !DP '0 ', centerline_4: !DP '1 ', centerline_5: !DP '0 ',\n  centerline_6: !DP '1 ', centerline_7: !DP '0 ', d_orifice: !DP '2 meter ', n_rows: !DP '8 ',\n  num_orifices_final_0: !DP '1 ', num_orifices_final_1: !DP '0 ', num_orifices_final_2: !DP '0 ',\n  num_orifices_final_3: !DP '0 ', num_orifices_final_4: !DP '0 ', num_orifices_final_5: !DP '0 ',\n  num_orifices_final_6: !DP '0 ', num_orifices_final_7: !DP '0 ', od: !DP '10.75 inch ',\n  q: !DP '20 liter / second ', sdr: !DP '26 '}\n"
 
     """
 
@@ -71,20 +96,22 @@ class Floc:
     #materials: dict = aide_render.yaml.load("materials.yaml")
 
     ############## ATTRIBUTES ################
-    #L_ent_tank_max = DP(ent_tank['L'])
-    #L_sed = DP(sed['L'])
     hl = HP(40, u.cm)
     coll_pot = HP(37000)
     freeboard = DP(10, u.cm)
     ratio_HS_min = HP(3)
     ratio_HS_max = HP(6)
     W_min_construct = DP(45, u.cm)
+    #L_ent_tank_max = DP(ent_tank['L'])
+    #L_sed = DP(sed['L'])
     #baffle_thickness = DP(materials['thickness_plate'])
+    #temp = DP(plant['temp'])
 
     # will take these out later when we get the imports from other classes to work
     L_ent_tank_max = DP(2.2, u.m)
     L_sed = DP(7.35, u.m)
     baffle_thickness = DP(2, u.mm)
+    temp = HP(15, u.degC)
 
     ############### METHODS #################
     from aide_design.unit_process_design.floc import (
@@ -103,7 +130,7 @@ class Floc:
     baffle_spacing = staticmethod(baffle_spacing)
     num_baffles = staticmethod(num_baffles)
 
-    def __init__(self, q, temp, depth_end, bod=None):
+    def __init__(self, q, depth_end, bod=None):
         """
         This is where the "instantiation" occurs. Think of this as "rendering the
         template" or "using the cookie-cutter to make the cookie". Here is where we
@@ -128,38 +155,36 @@ class Floc:
             for k, v in bod.items():
                 setattr(self, k, v)
 
-        #self.q = DP(q)
-        #self.temp = DP(temp)
-
-        A_ET_PV = self.area_ent_tank(q, temp, depth_end, self.hl, self.coll_pot,
+        # calculate planview area of the entrance tank
+        A_ET_PV = self.area_ent_tank(q, self.temp, depth_end, self.hl, self.coll_pot,
                                      self.ratio_HS_min, self.W_min_construct,
                                      self.L_sed, self.L_ent_tank_max)
 
         # now calculate planview area of entrance tank + flocculator combined
-        volume_floc = self.vol_floc(q, temp, self.hl, self.coll_pot)
+        volume_floc = self.vol_floc(q, self.temp, self.hl, self.coll_pot)
         A_floc_PV = volume_floc/(depth_end + self.hl/2)
         A_ETF_PV = (A_ET_PV + A_floc_PV).to(u.m**2)
 
         # calculate width of the flocculator channels and entrance tank
-        W_min = self.width_floc_min(q, temp, depth_end, self.hl, self.coll_pot,
+        W_min = self.width_floc_min(q, self.temp, depth_end, self.hl, self.coll_pot,
                                     self.ratio_HS_min, self.W_min_construct).to(u.m)
         W_tot = A_ETF_PV/self.L_sed
-        self.num_chan = DP(self.num_channel(q, temp, depth_end, self.hl,
+        self.num_chan = DP(self.num_channel(q, self.temp, depth_end, self.hl,
                                             self.coll_pot, W_tot,
                                             self.ratio_HS_min, self.W_min_construct))
-        self.W_chan = DP(W_tot/self.num_chan)
+        self.W_chan = DP((W_tot/self.num_chan).to(u.m).magnitude, u.m)
 
         # calculate the height of the channel using depth at the end of the
         # flocculator, headloss, and freeboard
         self.h_chan = DP((depth_end + self.hl + self.freeboard).to(u.m))
 
-        # calculate baffle spacing and number of baffles in the Flocculator
-        self.baffle_spacing_ = DP(self.baffle_spacing(q, temp, self.W_chan, self.hl,
-                                              self.coll_pot, self.ratio_HS_max))
-        self.num_baffles_chan_1 = DP(self.num_baffles(q, temp, self.W_chan, self.L_sed,
+        # calculate baffle spacing and number of baffles in the flocculator
+        self.baffle_spacing_ = DP(self.baffle_spacing(q, self.temp, self.W_chan, self.hl,
+                                              self.coll_pot, self.ratio_HS_max).magnitude, u.m)
+        self.num_baffles_chan_1 = DP(self.num_baffles(q, self.temp, self.W_chan, self.L_sed,
                                                    self.hl, self.coll_pot,
                                                    self.ratio_HS_max, self.baffle_thickness))
-        self.num_baffles_chan_n = DP(self.num_baffles(q, temp, self.W_chan,
+        self.num_baffles_chan_n = DP(self.num_baffles(q, self.temp, self.W_chan,
                                                    self.L_sed - self.L_ent_tank_max,
                                                    self.hl, self.coll_pot,
                                                    self.ratio_HS_max, self.baffle_thickness))
@@ -169,11 +194,11 @@ class Floc:
         # The distance between baffles is the same as the vertical distance between
         # the top baffle and the bottom of the channel, which is the same vertical
         # distance as the bottom baffle and the free surface at the end of the flocculator
-        self.L_top_baffle = DP(h_chan - baffle_spacing_)
-        self.L_bottom_baffle = DP(depth_end - baffle_spacing_)
+        self.L_top_baffle = DP(self.h_chan - self.baffle_spacing_)
+        self.L_bottom_baffle = DP(depth_end - self.baffle_spacing_)
 
         # determine if there are obstacles in the flocculator
-        if q > 0.05*u.m**3/u.s:
+        if q > u.Quantity(0.05, u.m**3/u.s):
             self.obstacles_bool = DP(0)
         else:
             self.obstacles_bool = DP(1)
