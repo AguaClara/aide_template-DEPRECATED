@@ -3,6 +3,7 @@
 {% set my_floc = Floc(HP(20, u.L/u.s), HP(2, u.m)) %}
 {% from aide_render.builder import extract_types %}
 {% set self = extract_types(my_floc, [DP], []) %}
+{% set geom_con = render_constants("floc_api_test.yaml") %}
 
 Flocculator:
   BottomBaffles_Assembly:
@@ -27,75 +28,340 @@ Flocculator:
   ConcreteChannels:
     Channel:1:
       dp:
-        FirstLength: {{ self.L - self.L_ent_tank_max }}
+        EntTankOverhang_Height: 1.628 m
+        EntTankOverhang_Length: 0.6363 m
+        EntTank_Length: {{ self.L_ent_tank_max }}
+        FirstLength: {{ self.L - self.L_ent_tank_max + 0.6363*u.m }}  # Length - EntTank_Length + EntTankOverhang_Length
         FloorThickness: 0.200 m
         Height: {{ self.h_chan }}
         Length: {{ self.L }}
+        SedTankConnecting_Height: 0.88 m
+        SedTankConnecting_Width: 0.43 m
         TotalNum: {{ self.num_chan }}
+        TunnelHeight: 0.6 m
+        TunnelWidth: 0.2 m
         WallThickness: 0.150 m
         Width: {{ self.W_chan }}
     Channel:2:
       dp:
-        FirstLength: {{ self.L - self.L_ent_tank_max }}
+        EntTankOverhang_Height: 1.628 m
+        EntTankOverhang_Length: 0.6363 m
+        EntTank_Length: {{ self.L_ent_tank_max }}
+        FirstLength: {{ self.L - self.L_ent_tank_max + 0.6363*u.m }}  # Length - EntTank_Length + EntTankOverhang_Length
         FloorThickness: 0.200 m
         Height: {{ self.h_chan }}
         Length: {{ self.L }}
+        SedTankConnecting_Height: 0.88 m
+        SedTankConnecting_Width: 0.43 m
         TotalNum: {{ self.num_chan }}
+        TunnelHeight: 0.6 m
+        TunnelWidth: 0.2 m
         WallThickness: 0.150 m
         Width: {{ self.W_chan }}
     EvenWall:1:
       dp:
-        FirstLength: {{ self.L_sed - self.L_ent_tank_max }}
+        EntTankOverhang_Height: 1.628 m
+        EntTankOverhang_Length: 0.6363 m
+        EntTank_Length: 1.62198 m
+        FirstLength: {{ self.L - self.L_ent_tank_max + 0.6363*u.m }}  # Length - EntTank_Length + EntTankOverhang_Length
         FloorThickness: 0.200 m
         Height: {{ self.h_chan }}
         Length: {{ self.L_sed }}
+        SedTankConnecting_Height: 0.88 m
+        SedTankConnecting_Width: 0.43 m
         TotalNum: {{ self.num_chan }}
+        TunnelHeight: 0.6 m
+        TunnelWidth: 0.2 m
         WallThickness: 0.150 m
         Width: {{ self.W_chan }}
     EvenWall:2:
       dp:
-        FirstLength: {{ self.L_sed - self.L_ent_tank_max }}
+        EntTankOverhang_Height: 1.628 m
+        EntTankOverhang_Length: 0.6363 m
+        EntTank_Length: 1.62198 m
+        FirstLength: {{ self.L - self.L_ent_tank_max + 0.6363*u.m }}  # Length - EntTank_Length + EntTankOverhang_Length
         FloorThickness: 0.200 m
         Height: {{ self.h_chan }}
         Length: {{ self.L_sed }}
+        SedTankConnecting_Height: 0.88 m
+        SedTankConnecting_Width: 0.43 m
         TotalNum: {{ self.num_chan }}
+        TunnelHeight: 0.6 m
+        TunnelWidth: 0.2 m
         WallThickness: 0.150 m
         Width: {{ self.W_chan }}
     FirstChannel:1:
       dp:
-        FirstLength: {{ self.L_sed - self.L_ent_tank_max }}
+        EntTankOverhang_Height: 1.628 m
+        EntTankOverhang_Length: 0.6363 m
+        EntTank_Length: 1.62198 m
+        FirstLength: {{ self.L - self.L_ent_tank_max + 0.6363*u.m }}  # Length - EntTank_Length + EntTankOverhang_Length
         FloorThickness: 0.200 m
         Height: {{ self.h_chan }}
         Length: {{ self.L }}
+        SedTankConnecting_Height: 0.88 m
+        SedTankConnecting_Width: 0.43 m
         TotalNum: {{ self.num_chan }}
+        TunnelHeight: 0.6 m
+        TunnelWidth: 0.2 m
         WallThickness: 0.150 m
         Width: {{ self.W_chan }}
     LastChannel:1:
       dp:
-        FirstLength: {{ self.L_sed - self.L_ent_tank_max }}
+        EntTankOverhang_Height: 1.628 m
+        EntTankOverhang_Length: 0.6363 m
+        EntTank_Length: 1.62198 m
+        FirstLength: {{ self.L - self.L_ent_tank_max + 0.6363*u.m }}  # Length - EntTank_Length + EntTankOverhang_Length
         FloorThickness: 0.200 m
         Height: {{ self.h_chan }}
         Length: {{ self.L_sed }}
+        SedTankConnecting_Height: 0.88 m
+        SedTankConnecting_Width: 0.43 m
         TotalNum: {{ self.num_chan }}
+        TunnelHeight: 0.6 m
+        TunnelWidth: 0.2 m
         WallThickness: 0.150 m
         Width: {{ self.W_chan }}
     OddWall:1:
       dp:
-        FirstLength: {{ self.L_sed - self.L_ent_tank_max }}
+        EntTankOverhang_Height: 1.628 m
+        EntTankOverhang_Length: 0.6363 m
+        EntTank_Length: 1.62198 m
+        FirstLength: {{ self.L - self.L_ent_tank_max + 0.6363*u.m }}  # Length - EntTank_Length + EntTankOverhang_Length
         FloorThickness: 0.200 m
         Height: {{ self.h_chan }}
         Length: {{ self.L_sed }}
+        SedTankConnecting_Height: 0.88 m
+        SedTankConnecting_Width: 0.43 m
         TotalNum: {{ self.num_chan }}
+        TunnelHeight: 0.6 m
+        TunnelWidth: 0.2 m
         WallThickness: 0.150 m
         Width: {{ self.W_chan }}
     dp:
-      FirstLength: {{ self.L_sed - self.L_ent_tank_max }}
+      EntTankOverhang_Height: 1.628 m
+      EntTankOverhang_Length: 0.6363 m
+      EntTank_Length: 1.62198 m
+      FirstLength: {{ self.L - self.L_ent_tank_max + 0.6363*u.m }}  # Length - EntTank_Length + EntTankOverhang_Length
       FloorThickness: 0.200 m
       Height: {{ self.h_chan }}
       Length: {{ self.L_sed }}
+      SedTankConnecting_Height: 0.88 m
+      SedTankConnecting_Width: 0.43 m
       TotalNum: {{ self.num_chan }}
+      TunnelHeight: 0.6 m
+      TunnelWidth: 0.2 m
       WallThickness: 0.150 m
       Width: {{ self.W_chan }}
+  EntFlocBaffleSupport:
+    BottomBaffle:
+      BottomBaffle:1:
+        dp:
+          Height: 1.31 m
+          Thickness: 0.002 m
+          Width: 0.55 m
+      dp:
+        Height: 1.31 m
+        Thickness: 0.002 m
+        Width: 0.55 m
+    FlocBaffleBottomStartSpacer:
+      dp:
+        floc_bottom_startspacerlength: 390 mm
+        id: 1 in
+        od: {{ 1*u.in / ( 1 - 2 / 26 ) }}  # id / ( 1 - 2 / sdr )
+        sdr: '26'
+    FlocBaffleBottomTopSpacers:
+      dp:
+        floc_bottomtop_spacerlength: 379.263 mm
+        id: 1 in
+        od: {{ 1*u.in / ( 1 - 2 / 26 ) }}  # id / ( 1 - 2 / sdr )
+        sdr: '26'
+    FlocBaffleMidSpacer:
+      dp:
+        floc_spacerlength: 64 mm
+        id: 1 in
+        od: {{ 1*u.in / ( 1 - 2 / 26 ) }}  # id / ( 1 - 2 / sdr )
+        sdr: '26'
+    FlocBaffleSupportBottom:
+      dp:
+        floc_bafflesupport_bottom: {{ 1.8 * ( 1 / 3 ) * 1*u.m }}
+        od: 1 in
+        sdr: '26'
+    FlocBaffleSupportElbow:
+      dp:
+        elbow_oal: {{ (1*u.in * 1.7) }}  # od * 1.7
+        od: 1 in
+        sdr: '26'
+        socket_depth: {{ (1*u.in / 2.5) }}  # od / 2.5
+    FlocBaffleSupportEntLengthpipe:
+      dp:
+        floc_bafflesupport_entlengthpipe: 4034.317 mm
+        od: 1 in
+        sdr: '26'
+    FlocBaffleSupportTee:
+      dp:
+        oal_tee: {{ ( 2.4 * 1*u.in ) }}  # ( 2.4 * od )
+        od: 1 in
+        sdr: '26'
+        socket_depth: {{ 1*u.in / 2.5 }}  # od / 2.5
+    FlocBaffleSupportTop:
+      dp:
+        floc_bafflesupport_top: {{ 1.9 * ( 2 / 3 ) * 1*u.m }}
+        od: 1 in
+        sdr: '26'
+    FlocBaffleTopEndSpacer:
+      dp:
+        floc_topendspacerlength: 190.631 mm
+        id: 1 in
+        od: {{ 1*u.in / ( 1 - 2 / 26 ) }}  # id / ( 1 - 2 / sdr )
+        sdr: '26'
+    FlocBaffleTopMidStartSpacer:
+      dp:
+        floc_topmidstartspacerlength: 199.369 mm
+        id: 1 in
+        od: {{ 1*u.in / ( 1 - 2 / 26 ) }}  # id / ( 1 - 2 / sdr )
+        sdr: '26'
+    FlocObstacleCenterSpacer:
+      dp:
+        floc_spacerlength: 50.631 mm
+        id: 1 in
+        od: {{ 1*u.in / ( 1 - 2 / 26 ) }}  # id / ( 1 - 2 / sdr )
+        sdr: '26'
+    Obstacle:
+      Obstacle:1:
+        dp:
+          ID_Horizontal: 0.06 m
+          ID_Vertical: 0.1 m
+          Thickness: 0.004 m
+          Width: 0.55 m
+      dp:
+        ID_Horizontal: 0.06 m
+        ID_Vertical: 0.1 m
+        Thickness: 0.004 m
+        Width: 0.55 m
+    TopBaffle:
+      TopBaffle:1:
+        dp:
+          Height: 1.84 m
+          Thickness: 0.002 m
+          Width: 0.55 m
+      dp:
+        Height: 1.84 m
+        Thickness: 0.002 m
+        Width: 0.55 m
+    dp:
+      bafflethickness: 0.002 m
+      bottomtopspacerlength_mm: {{ floc_bottomtop_spacerlength }}  # floc_bottomtop_spacerlength
+      exposedlength: floc_bafflesupport_lengthpipe - 2 * socket_depth
+      floc_bafflesupport_entlengthpipe: floc_topmidstartspacerlength + bafflethickness
+        + ( floc_midgrouplength + bafflethickness ) * ( numberentbaffles - 1 ) + 2
+        * socket_depth
+      floc_bafflesupport_lengthpipe: 5.75 m
+      floc_bottomstartspacerlength: 390 mm
+      floc_bottomtop_spacerlength: ( exposedlength - floc_bottomstartspacerlength
+        - bafflethickness ) / ( numberbaffles / 2 ) - bafflethickness
+      floc_midgrouplength: ( floc_bottomtop_spacerlength - bafflethickness ) / 2
+      floc_obstaclecenterspacerlength: floc_midgrouplength - 2 * obstaclespacing -
+        2 * floc_obstaclesidespacerlength
+      floc_obstaclesidespacerlength: 40 mm
+      floc_topendspacerlength: exposedlength - ( floc_topmidstartspacerlength + bafflethickness
+        ) - ( numberbaffles / 2 ) * ( floc_bottomtop_spacerlength + bafflethickness
+        )
+      floc_topmidstartspacerlength: floc_bottomstartspacerlength - ( floc_midgrouplength
+        + bafflethickness )
+      numberbaffles: '28'
+      numberentbaffles: '21'
+      obstaclespacing: 0.005 m
+      od: 1 in
+      sdr: '26'
+      socket_depth: od / 2.5
+      support_spacing: 0.215 m
+  MainFlocBaffleSupport:
+    FlocBaffleBottomStartSpacer:
+      dp:
+        floc_bottom_startspacerlength: 390 mm
+        id: 1 in
+        od: {{ 1*u.in / ( 1 - 2 / 26 ) }}  # id / ( 1 - 2 / sdr )
+        sdr: '26'
+    FlocBaffleBottomTopSpacers:
+      dp:
+        floc_bottomtop_spacerlength: 379.263 mm
+        id: 1 in
+        od: {{ 1*u.in / ( 1 - 2 / 26 ) }}  # id / ( 1 - 2 / sdr )
+        sdr: '26'
+    FlocBaffleMidSpacer:
+      dp:
+        floc_spacerlength: 64 mm
+        id: 1 in
+        od: {{ 1*u.in / ( 1 - 2 / 26 ) }}  # id / ( 1 - 2 / sdr )
+        sdr: '26'
+    FlocBaffleSupportBottom:
+      dp:
+        floc_bafflesupport_bottom: {{ 1.8 * ( 1 / 3 ) * 1*u.m }}
+        od: 1 in
+        sdr: '26'
+    FlocBaffleSupportElbow:
+      dp:
+        elbow_oal: {{ 1*u.in * 1.7 }}
+        od: 1 in
+        sdr: '26'
+        socket_depth: {{ 1*u.in / 2.5 }}
+    FlocBaffleSupportMainLengthpipe:
+      dp:
+        floc_bafflesupport_lengthpipe: 5.75 m
+        od: 1 in
+        sdr: '26'
+    FlocBaffleSupportTee:
+      dp:
+        oal_tee: {{ ( 2.4 * 1*u.in ) }}
+        od: 1 in
+        sdr: '26'
+        socket_depth: {{ 1*u.in / 2.5 }}
+    FlocBaffleSupportTop:
+      dp:
+        floc_bafflesupport_top: {{ 1.9 * ( 2 / 3 ) * 1*u.m }}
+        od: 1 in
+        sdr: '26'
+    FlocBaffleTopEndSpacer:
+      dp:
+        floc_topendspacerlength: 190.631 mm
+        id: 1 in
+        od: {{ 1*u.in / ( 1 - 2 / 26 ) }}  # id / ( 1 - 2 / sdr )
+        sdr: '26'
+    FlocBaffleTopMidStartSpacer:
+      dp:
+        floc_topmidstartspacerlength: 199.369 mm
+        id: 1 in
+        od: {{ 1*u.in / ( 1 - 2 / 26 ) }}  # id / ( 1 - 2 / sdr )
+        sdr: '26'
+    FlocObstacleCenterSpacer:
+      dp:
+        floc_spacerlength: 50.631 mm
+        id: 1 in
+        od: {{ 1*u.in / ( 1 - 2 / 26 ) }}  # id / ( 1 - 2 / sdr )
+        sdr: '26'
+    dp:
+      bafflethickness: 0.002 m
+      bottomtopspacerlength_mm: floc_bottomtop_spacerlength
+      exposedlength: floc_bafflesupport_lengthpipe - 2 * socket_depth
+      floc_bafflesupport_lengthpipe: 5.75 m
+      floc_bottomstartspacerlength: 390 mm
+      floc_bottomtop_spacerlength: ( exposedlength - floc_bottomstartspacerlength
+        - bafflethickness ) / ( numberbaffles / 2 ) - bafflethickness
+      floc_midgrouplength: ( floc_bottomtop_spacerlength - bafflethickness ) / 2
+      floc_obstaclecenterspacerlength: floc_midgrouplength - 2 * obstaclespacing -
+        2 * floc_obstaclesidespacerlength
+      floc_obstaclesidespacerlength: 64 mm
+      floc_topendspacerlength: exposedlength - ( floc_topmidstartspacerlength + bafflethickness
+        ) - ( numberbaffles / 2 ) * ( floc_bottomtop_spacerlength + bafflethickness
+        )
+      floc_topmidstartspacerlength: floc_bottomstartspacerlength - ( floc_midgrouplength
+        + bafflethickness )
+      numberbaffles: '28'
+      obstaclespacing: 0.005 m
+      od: 1 in
+      sdr: '26'
+      socket_depth: {{ 1*u.in / 2.5 }}
   Obstacles_Assembly:
     Obstacle:
       Obstacle:1:
@@ -136,3 +402,5 @@ Flocculator:
       TotalNum: {{ self.num_chan }}
       WallThickness: 0.15 m
       Width: {{ self.W_chan }}
+  dp:
+    numberrows: '3'
