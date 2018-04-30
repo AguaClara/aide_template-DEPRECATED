@@ -1,103 +1,101 @@
-# other inputs include: temp, q_plant, depth_end
-
 # render the universal constants yaml
-{% set self = render_constants("ent_tank.yaml") %}
-{% set materials = render_constants("materials.yaml") %}
-{% set ent_tank = aide_render.render("ent_tank.yaml") %}
-{% set sed = aide_render.render("sed.yaml") %}
+{% from floc.py import * %}
+{% set my_floc = Floc(HP(20, u.L/u.s), HP(2, u.m)) %}
+{% from aide_render.builder import extract_types %}
+{% set self = extract_types(my_floc, [DP], []) %}
 
 Flocculator:
   BottomBaffles_Assembly:
     BottomBaffle:
       BottomBaffle:1:
         dp:
-          Height: {{ outputs.L_bottom_baffle }}
-          Thickness: {{ materials.thickness_plate }}
-          Width: {{ outputs.W_chan }}
+          Height: {{ self.L_bottom_baffle }}
+          Thickness: {{ self.baffle_thickness }}
+          Width: {{ self.W_chan }}
       dp:
-        Height: {{ outputs.L_bottom_baffle }}
-        Thickness: {{ materials.thickness_plate }}
-        Width: {{ outputs.W_chan }}
+        Height: {{ self.L_bottom_baffle }}
+        Thickness: {{ self.baffle_thickness }}
+        Width: {{ self.W_chan }}
     dp:
-      Num_Exit: {{ outputs.num_baffles_chan_1 }}
-      Num_Inlet: {{ outputs.num_baffles_chan_n }}
-      Spacing: {{ outputs.baffle_spacing }}
-      Thickness: {{ materials.thickness_plate }}
-      TotalNum: {{ outputs.num_chan }}
+      Num_Exit: {{ self.num_baffles_chan_1 }}
+      Num_Inlet: {{ self.num_baffles_chan_n }}
+      Spacing: {{ self.baffle_spacing }}
+      Thickness: {{ self.baffle_thickness }}
+      TotalNum: {{ self.num_chan }}
       WallThickness: 0.15 m
-      Width: {{ outputs.W_chan }}
+      Width: {{ self.W_chan }}
   ConcreteChannels:
     Channel:1:
       dp:
-        FirstLength: {{ sed.L - ent_tank.L_max }}
+        FirstLength: {{ self.L - self.L_ent_tank_max }}
         FloorThickness: 0.200 m
-        Height: {{ outputs.h_chan }}
-        Length: {{ sed.L }}
-        TotalNum: {{ outputs.num_chan }}
+        Height: {{ self.h_chan }}
+        Length: {{ self.L }}
+        TotalNum: {{ self.num_chan }}
         WallThickness: 0.150 m
-        Width: {{ outputs.W_chan }}
+        Width: {{ self.W_chan }}
     Channel:2:
       dp:
-        FirstLength: {{ sed.L - ent_tank.L_max }}
+        FirstLength: {{ self.L - self.L_ent_tank_max }}
         FloorThickness: 0.200 m
-        Height: {{ outputs.h_chan }}
-        Length: {{ sed.L }}
-        TotalNum: {{ outputs.num_chan }}
+        Height: {{ self.h_chan }}
+        Length: {{ self.L }}
+        TotalNum: {{ self.num_chan }}
         WallThickness: 0.150 m
-        Width: {{ outputs.W_chan }}
+        Width: {{ self.W_chan }}
     EvenWall:1:
       dp:
-        FirstLength: {{ sed.L - ent_tank.L_max }}
+        FirstLength: {{ self.L_sed - self.L_ent_tank_max }}
         FloorThickness: 0.200 m
-        Height: {{ outputs.h_chan }}
-        Length: {{ sed.L }}
-        TotalNum: {{ outputs.num_chan }}
+        Height: {{ self.h_chan }}
+        Length: {{ self.L_sed }}
+        TotalNum: {{ self.num_chan }}
         WallThickness: 0.150 m
-        Width: {{ outputs.W_chan }}
+        Width: {{ self.W_chan }}
     EvenWall:2:
       dp:
-        FirstLength: {{ sed.L - ent_tank.L_max }}
+        FirstLength: {{ self.L_sed - self.L_ent_tank_max }}
         FloorThickness: 0.200 m
-        Height: {{ outputs.h_chan }}
-        Length: {{ sed.L }}
-        TotalNum: {{ outputs.num_chan }}
+        Height: {{ self.h_chan }}
+        Length: {{ self.L_sed }}
+        TotalNum: {{ self.num_chan }}
         WallThickness: 0.150 m
-        Width: {{ outputs.W_chan }}
+        Width: {{ self.W_chan }}
     FirstChannel:1:
       dp:
-        FirstLength: {{ sed.L - ent_tank.L_max }}
+        FirstLength: {{ self.L_sed - self.L_ent_tank_max }}
         FloorThickness: 0.200 m
-        Height: {{ outputs.h_chan }}
-        Length: {{ sed.L }}
-        TotalNum: {{ outputs.num_chan }}
+        Height: {{ self.h_chan }}
+        Length: {{ self.L }}
+        TotalNum: {{ self.num_chan }}
         WallThickness: 0.150 m
-        Width: {{ outputs.W_chan }}
+        Width: {{ self.W_chan }}
     LastChannel:1:
       dp:
-        FirstLength: {{ sed.L - ent_tank.L_max }}
+        FirstLength: {{ self.L_sed - self.L_ent_tank_max }}
         FloorThickness: 0.200 m
-        Height: {{ outputs.h_chan }}
-        Length: {{ sed.L }}
-        TotalNum: {{ outputs.num_chan }}
+        Height: {{ self.h_chan }}
+        Length: {{ self.L_sed }}
+        TotalNum: {{ self.num_chan }}
         WallThickness: 0.150 m
-        Width: {{ outputs.W_chan }}
+        Width: {{ self.W_chan }}
     OddWall:1:
       dp:
-        FirstLength: {{ sed.L - ent_tank.L_max }}
+        FirstLength: {{ self.L_sed - self.L_ent_tank_max }}
         FloorThickness: 0.200 m
-        Height: {{ outputs.h_chan }}
-        Length: {{ sed.L }}
-        TotalNum: {{ outputs.num_chan }}
+        Height: {{ self.h_chan }}
+        Length: {{ self.L_sed }}
+        TotalNum: {{ self.num_chan }}
         WallThickness: 0.150 m
-        Width: {{ outputs.W_chan }}
+        Width: {{ self.W_chan }}
     dp:
-      FirstLength: {{ sed.L - ent_tank.L_max }}
+      FirstLength: {{ self.L_sed - self.L_ent_tank_max }}
       FloorThickness: 0.200 m
-      Height: {{ outputs.h_chan }}
-      Length: {{ sed.L }}
-      TotalNum: {{ outputs.num_chan }}
+      Height: {{ self.h_chan }}
+      Length: {{ self.L_sed }}
+      TotalNum: {{ self.num_chan }}
       WallThickness: 0.150 m
-      Width: {{ outputs.W_chan }}
+      Width: {{ self.W_chan }}
   Obstacles_Assembly:
     Obstacle:
       Obstacle:1:
@@ -105,36 +103,36 @@ Flocculator:
           ID_Horizontal: 0.06 m
           ID_Vertical: 0.1 m
           Thickness: 0.004 m
-          Width: {{ outputs.W_chan }}
+          Width: {{ self.W_chan }}
       dp:
         ID_Horizontal: 0.06 m
         ID_Vertical: 0.1 m
         Thickness: 0.004 m
-        Width: {{ outputs.W_chan }}
+        Width: {{ self.W_chan }}
     dp:
-      Num_Exit: {{ outputs.num_baffles_chan_n * outputs.obstacles_bool }}
-      Num_Inlet: {{ outputs.num_baffles_chan_1 * outputs.obstacles_bool }}
-      Spacing: {{ outputs.baffle_spacing }}
-      Thickness: {{ materials.thickness_plate }}
-      TotalNum: {{ outputs.num_chan }}
+      Num_Exit: {{ self.num_baffles_chan_n * self.obstacles_bool }}
+      Num_Inlet: {{ self.num_baffles_chan_1 * self.obstacles_bool }}
+      Spacing: {{ self.baffle_spacing }}
+      Thickness: {{ self.baffle_thickness }}
+      TotalNum: {{ self.num_chan }}
       WallThickness: 0.15 m
-      Width: {{ outputs.W_chan }}
+      Width: {{ self.W_chan }}
   TopBaffles_Assembly:
     TopBaffle:
       TopBaffle:1:
         dp:
-          Height: {{ outputs.L_top_baffle }}
-          Thickness: {{ materials.thickness_plate }}
-          Width: {{ materials.width_PVC_sheet }}
+          Height: {{ self.L_top_baffle }}
+          Thickness: {{ self.baffle_thickness }}
+          Width: {{ self.width_PVC_sheet }}
       dp:
-        Height: {{ outputs.L_top_baffle }}
-        Thickness: {{ materials.thickness_plate }}
-        Width: {{ outputs.W_chan }}
+        Height: {{ self.L_top_baffle }}
+        Thickness: {{ self.baffle_thickness }}
+        Width: {{ self.W_chan }}
     dp:
-      Num_Exit: {{ outputs.num_baffles_chan_n }}
-      Num_Inlet: {{ outputs.num_baffles_chan_1 }}
-      Spacing: {{ outputs.baffle_spacing }}
-      Thickness: {{ materials.thickness_plate }}
-      TotalNum: {{ outputs.num_chan }}
+      Num_Exit: {{ self.num_baffles_chan_n }}
+      Num_Inlet: {{ self.num_baffles_chan_1 }}
+      Spacing: {{ self.baffle_spacing }}
+      Thickness: {{ self.baffle_thickness }}
+      TotalNum: {{ self.num_chan }}
       WallThickness: 0.15 m
-      Width: {{ outputs.W_chan }}
+      Width: {{ self.W_chan }}

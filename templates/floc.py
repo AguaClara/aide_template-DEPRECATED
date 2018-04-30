@@ -87,7 +87,7 @@ class Floc:
     >>> floc_design_dict = extract_types(my_floc, [DP], [])
     >>> from aide_render.yaml import load, dump
     >>> dump(floc_design_dict)
-    "{L_bottom_baffle: !DP '1.728 meter ', L_ent_tank_max: !DP '2.2 meter', L_sed: !DP '7.35\n    meter', L_top_baffle: !DP '2.228 meter', W_chan: !DP '0.3134 meter', W_min_construct: !DP '45\n    centimeter', baffle_spacing_: !DP '0.272 meter', baffle_thickness: !DP '2 millimeter',\n  freeboard: !DP '10 centimeter', h_chan: !DP '2.5 meter', num_baffles_chan_1: !DP '26 ',\n  num_baffles_chan_n: !DP '18 ', num_chan: !DP '2 ', obstacles_bool: !DP '1 '}\n"
+    "{L_bottom_baffle: !DP '1.728 meter', L_ent_tank_max: !DP '2.2 meter', L_sed: !DP '7.35\n    meter', L_top_baffle: !DP '2.228 meter', W_chan: !DP '0.3134 meter', W_min_construct: !DP '45\n    centimeter', baffle_spacing_: !DP '0.272 meter', baffle_thickness: !DP '2 millimeter',\n  freeboard: !DP '10 centimeter', h_chan: !DP '2.5 meter', num_baffles_chan_1: !DP '26 ',\n  num_baffles_chan_n: !DP '18 ', num_chan: !DP '2 ', obstacles_bool: !DP '1 '}\n"
 
     """
 
