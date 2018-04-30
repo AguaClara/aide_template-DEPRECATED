@@ -194,8 +194,8 @@ class Floc:
         # The distance between baffles is the same as the vertical distance between
         # the top baffle and the bottom of the channel, which is the same vertical
         # distance as the bottom baffle and the free surface at the end of the flocculator
-        self.L_top_baffle = DP(self.h_chan - self.baffle_spacing_)
-        self.L_bottom_baffle = DP(depth_end - self.baffle_spacing_)
+        self.L_top_baffle = DP((self.h_chan - self.baffle_spacing_).to(u.m).magnitude, u.m)
+        self.L_bottom_baffle = DP((depth_end - self.baffle_spacing_).to(u.m).magnitude, u.m)
 
         # determine if there are obstacles in the flocculator
         if q.to(u.m**3/u.s).magnitude > 0.05:
