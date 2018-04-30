@@ -251,30 +251,23 @@ Flocculator:
         Width: 0.55 m
     dp:
       bafflethickness: 0.002 m
-      bottomtopspacerlength_mm: {{ floc_bottomtop_spacerlength }}  # floc_bottomtop_spacerlength
-      exposedlength: floc_bafflesupport_lengthpipe - 2 * socket_depth
-      floc_bafflesupport_entlengthpipe: floc_topmidstartspacerlength + bafflethickness
-        + ( floc_midgrouplength + bafflethickness ) * ( numberentbaffles - 1 ) + 2
-        * socket_depth
+      bottomtopspacerlength_mm: {{ ( 5.75*u.m - 2 * 0.4*u.in - 390*u.mm - 0.002*u.m ) / ( 28 / 2 ) - 0.002*u.m }}  # floc_bottomtop_spacerlength
+      exposedlength: {{ 5.75*u.m - 2 * 0.4*u.in }}
+      floc_bafflesupport_entlengthpipe: {{ 4120*u.mm + 0.8*u.in }}
       floc_bafflesupport_lengthpipe: 5.75 m
       floc_bottomstartspacerlength: 390 mm
-      floc_bottomtop_spacerlength: ( exposedlength - floc_bottomstartspacerlength
-        - bafflethickness ) / ( numberbaffles / 2 ) - bafflethickness
-      floc_midgrouplength: ( floc_bottomtop_spacerlength - bafflethickness ) / 2
-      floc_obstaclecenterspacerlength: floc_midgrouplength - 2 * obstaclespacing -
-        2 * floc_obstaclesidespacerlength
+      floc_bottomtop_spacerlength: {{ ( 5.75*u.m - 2 * 0.4*u.in - 390*u.mm - 0.002*u.m ) / ( 28 / 2 ) - 0.002*u.m }}
+      floc_midgrouplength: {{ ( 390*u.mm - 0.002*u.m ) / 2 }}
+      floc_obstaclecenterspacerlength: {{ 194*u.mm - 2 * 0.005*u.m - 2 * 40*u.mm }}
       floc_obstaclesidespacerlength: 40 mm
-      floc_topendspacerlength: exposedlength - ( floc_topmidstartspacerlength + bafflethickness
-        ) - ( numberbaffles / 2 ) * ( floc_bottomtop_spacerlength + bafflethickness
-        )
-      floc_topmidstartspacerlength: floc_bottomstartspacerlength - ( floc_midgrouplength
-        + bafflethickness )
+      floc_topendspacerlength: {{ 5.75*u.m - 2 * 0.4*u.in - ( 198*u.mm + 0.002*u.m) - ( 28 / 2 ) * ( ( 5.75*u.m - 2 * 0.4*u.in - 390*u.mm - 0.002*u.m ) / ( 28 / 2 ) - 0.002*u.m + 0.002*u.m) }}
+      floc_topmidstartspacerlength: {{ 390 mm - ( 194*u.mm + 0.002*u.m ) }}
       numberbaffles: '28'
       numberentbaffles: '21'
       obstaclespacing: 0.005 m
       od: 1 in
       sdr: '26'
-      socket_depth: od / 2.5
+      socket_depth: {{ 1*u.in / 2.5 }}
       support_spacing: 0.215 m
   MainFlocBaffleSupport:
     FlocBaffleBottomStartSpacer:
@@ -342,22 +335,19 @@ Flocculator:
         sdr: '26'
     dp:
       bafflethickness: 0.002 m
-      bottomtopspacerlength_mm: floc_bottomtop_spacerlength
-      exposedlength: floc_bafflesupport_lengthpipe - 2 * socket_depth
+      bottomtopspacerlength_mm: {{ ( 5.75*u.m - 2 * 0.4*u.in - 390*u.mm - 0.002*u.m ) / ( 28 / 2 ) - 0.002*u.m }}  # floc_bottomtop_spacerlength
+      exposedlength: {{ 5.75*u.m - 2 * 0.4*u.in }}
+      floc_bafflesupport_entlengthpipe: {{ 4120*u.mm + 0.8*u.in }}
       floc_bafflesupport_lengthpipe: 5.75 m
       floc_bottomstartspacerlength: 390 mm
-      floc_bottomtop_spacerlength: ( exposedlength - floc_bottomstartspacerlength
-        - bafflethickness ) / ( numberbaffles / 2 ) - bafflethickness
-      floc_midgrouplength: ( floc_bottomtop_spacerlength - bafflethickness ) / 2
-      floc_obstaclecenterspacerlength: floc_midgrouplength - 2 * obstaclespacing -
-        2 * floc_obstaclesidespacerlength
-      floc_obstaclesidespacerlength: 64 mm
-      floc_topendspacerlength: exposedlength - ( floc_topmidstartspacerlength + bafflethickness
-        ) - ( numberbaffles / 2 ) * ( floc_bottomtop_spacerlength + bafflethickness
-        )
-      floc_topmidstartspacerlength: floc_bottomstartspacerlength - ( floc_midgrouplength
-        + bafflethickness )
+      floc_bottomtop_spacerlength: {{ ( 5.75*u.m - 2 * 0.4*u.in - 390*u.mm - 0.002*u.m ) / ( 28 / 2 ) - 0.002*u.m }}
+      floc_midgrouplength: {{ ( 390*u.mm - 0.002*u.m ) / 2 }}
+      floc_obstaclecenterspacerlength: {{ 194*u.mm - 2 * 0.005*u.m - 2 * 40*u.mm }}
+      floc_obstaclesidespacerlength: 40 mm
+      floc_topendspacerlength: {{ 5.75*u.m - 2 * 0.4*u.in - ( 198*u.mm + 0.002*u.m) - ( 28 / 2 ) * ( ( 5.75*u.m - 2 * 0.4*u.in - 390*u.mm - 0.002*u.m ) / ( 28 / 2 ) - 0.002*u.m + 0.002*u.m) }}
+      floc_topmidstartspacerlength: {{ 390 mm - ( 194*u.mm + 0.002*u.m ) }}
       numberbaffles: '28'
+      numberentbaffles: '21'
       obstaclespacing: 0.005 m
       od: 1 in
       sdr: '26'
