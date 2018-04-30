@@ -85,9 +85,9 @@ class Floc:
     >>> my_floc = Floc(HP(20, u.L/u.s), HP(2, u.m))
     >>> from aide_render.builder import extract_types
     >>> floc_design_dict = extract_types(my_floc, [DP], [])
-    >>> #print(floc_design_dict)
     >>> from aide_render.yaml import load, dump
     >>> dump(floc_design_dict)
+    "{L_bottom_baffle: !DP '1.728 meter ', L_ent_tank_max: !DP '2.2 meter', L_sed: !DP '7.35\n    meter', L_top_baffle: !DP '2.228 meter', W_chan: !DP '0.3134 meter', W_min_construct: !DP '45\n    centimeter', baffle_spacing_: !DP '0.272 meter', baffle_thickness: !DP '2 millimeter',\n  freeboard: !DP '10 centimeter', h_chan: !DP '2.5 meter', num_baffles_chan_1: !DP '26 ',\n  num_baffles_chan_n: !DP '18 ', num_chan: !DP '2 ', obstacles_bool: !DP '1 '}\n"
 
     """
 
@@ -176,7 +176,7 @@ class Floc:
 
         # calculate the height of the channel using depth at the end of the
         # flocculator, headloss, and freeboard
-        self.h_chan = DP((depth_end + self.hl + self.freeboard).to(u.m))
+        self.h_chan = DP((depth_end + self.hl + self.freeboard).to(u.m).magnitude, u.m)
 
         # calculate baffle spacing and number of baffles in the flocculator
         self.baffle_spacing_ = DP(self.baffle_spacing(q, self.temp, self.W_chan, self.hl,
@@ -198,7 +198,7 @@ class Floc:
         self.L_bottom_baffle = DP(depth_end - self.baffle_spacing_)
 
         # determine if there are obstacles in the flocculator
-        if q > u.Quantity(0.05, u.m**3/u.s):
+        if q.to(u.m**3/u.s).magnitude > 0.05:
             self.obstacles_bool = DP(0)
         else:
             self.obstacles_bool = DP(1)
