@@ -1,20 +1,16 @@
-import aide_design.materials_database as mat
-import aide_design.pipedatabase as pipe
-import aide_design.constants as con
-import numpy as np
 from aide_design.units import unit_registry as u
 from aide_render.builder_classes import DP, HP
 
 
-class Floc:
-    r""" This is an example class for an LFOM. It already has a lot of features built in,
+class Flocculator:
+    """This is a flocculator class. It already has a lot of features built in,
     such as constants that go in the class attribute section (defaults), and methods.
     As well as an instantiation process that can be used to set custom values.
 
     Attributes
     ----------
-    These are the default values for an LFOM. To overwrite, pass these into the bod
-    (Basis Of Design) variable into the constructor.
+    These are the default values for a flocculator. To overwrite, pass these
+    into the bod (Basis Of Design) variable into the constructor.
 
     temp : float
         Design temperature
@@ -98,19 +94,19 @@ class Floc:
     ############## ATTRIBUTES ################
     hl = HP(40, u.cm)
     coll_pot = HP(37000)
-    freeboard = DP(10, u.cm)
+    freeboard = HP(10, u.cm)
     ratio_HS_min = HP(3)
     ratio_HS_max = HP(6)
-    W_min_construct = DP(45, u.cm)
+    W_min_construct = HP(45, u.cm)
     #L_ent_tank_max = DP(ent_tank['L'])
     #L_sed = DP(sed['L'])
     #baffle_thickness = DP(materials['thickness_plate'])
     #temp = DP(plant['temp'])
 
     # will take these out later when we get the imports from other classes to work
-    L_ent_tank_max = DP(2.2, u.m)
-    L_sed = DP(7.35, u.m)
-    baffle_thickness = DP(2, u.mm)
+    L_ent_tank_max = HP(2.2, u.m)
+    L_sed = HP(7.35, u.m)
+    baffle_thickness = HP(2, u.mm)
     temp = HP(15, u.degC)
 
     ############### METHODS #################
@@ -169,22 +165,22 @@ class Floc:
         W_min = self.width_floc_min(q, self.temp, depth_end, self.hl, self.coll_pot,
                                     self.ratio_HS_min, self.W_min_construct).to(u.m)
         W_tot = A_ETF_PV/self.L_sed
-        self.num_chan = DP(self.num_channel(q, self.temp, depth_end, self.hl,
+        self.num_chan = HP(self.num_channel(q, self.temp, depth_end, self.hl,
                                             self.coll_pot, W_tot,
                                             self.ratio_HS_min, self.W_min_construct))
-        self.W_chan = DP((W_tot/self.num_chan).to(u.m).magnitude, u.m)
+        self.W_chan = HP((W_tot/self.num_chan).to(u.m).magnitude, u.m)
 
         # calculate the height of the channel using depth at the end of the
         # flocculator, headloss, and freeboard
-        self.h_chan = DP((depth_end + self.hl + self.freeboard).to(u.m).magnitude, u.m)
+        self.h_chan = HP((depth_end + self.hl + self.freeboard).to(u.m).magnitude, u.m)
 
         # calculate baffle spacing and number of baffles in the flocculator
-        self.baffle_spacing_ = DP(self.baffle_spacing(q, self.temp, self.W_chan, self.hl,
+        self.baffle_spacing_ = HP(self.baffle_spacing(q, self.temp, self.W_chan, self.hl,
                                               self.coll_pot, self.ratio_HS_max).magnitude, u.m)
-        self.num_baffles_chan_1 = DP(self.num_baffles(q, self.temp, self.W_chan, self.L_sed,
+        self.num_baffles_chan_1 = HP(self.num_baffles(q, self.temp, self.W_chan, self.L_sed,
                                                    self.hl, self.coll_pot,
                                                    self.ratio_HS_max, self.baffle_thickness))
-        self.num_baffles_chan_n = DP(self.num_baffles(q, self.temp, self.W_chan,
+        self.num_baffles_chan_n = HP(self.num_baffles(q, self.temp, self.W_chan,
                                                    self.L_sed - self.L_ent_tank_max,
                                                    self.hl, self.coll_pot,
                                                    self.ratio_HS_max, self.baffle_thickness))
@@ -194,11 +190,15 @@ class Floc:
         # The distance between baffles is the same as the vertical distance between
         # the top baffle and the bottom of the channel, which is the same vertical
         # distance as the bottom baffle and the free surface at the end of the flocculator
-        self.L_top_baffle = DP((self.h_chan - self.baffle_spacing_).to(u.m).magnitude, u.m)
-        self.L_bottom_baffle = DP((depth_end - self.baffle_spacing_).to(u.m).magnitude, u.m)
+        self.L_top_baffle = HP((self.h_chan - self.baffle_spacing_).to(u.m).magnitude, u.m)
+        self.L_bottom_baffle = HP((depth_end - self.baffle_spacing_).to(u.m).magnitude, u.m)
 
         # determine if there are obstacles in the flocculator
         if q.to(u.m**3/u.s).magnitude > 0.05:
-            self.obstacles_bool = DP(0)
+            self.obstacles_bool = HP(0)
         else:
-            self.obstacles_bool = DP(1)
+            self.obstacles_bool = HP(1)
+
+        self.BottomBaffles_Assembly = BottomBaffles_Assembly(self.L_bottom_baffle,
+            self.baffle_thickness, self.W_chan, self.num_chan, self.num_baffles_chan_1,
+            self.num_baffles_chan_n, self.baffle_spacing_)
