@@ -28,18 +28,18 @@ Flocculator:
   ConcreteChannels:
     Channel:1:
       dp:
-        EntTankOverhang_Height: 1.628 m
+        EntTankOverhang_Height: 1.628 m  # this is not in a class
         EntTankOverhang_Length: 0.6363 m
         EntTank_Length: {{ self.L_ent_tank_max }}
         FirstLength: {{ self.L - self.L_ent_tank_max + 0.6363*u.m }}  # Length - EntTank_Length + EntTankOverhang_Length
         FloorThickness: 0.200 m
         Height: {{ self.h_chan }}
         Length: {{ self.L }}
-        SedTankConnecting_Height: 0.88 m
-        SedTankConnecting_Width: 0.43 m
+        SedTankConnecting_Height: 0.88 m   # this is not in a class
+        SedTankConnecting_Width: 0.43 m  # this is not in a class
         TotalNum: {{ self.num_chan }}
-        TunnelHeight: 0.6 m
-        TunnelWidth: 0.2 m
+        TunnelHeight: 0.6 m  # this is not in a class
+        TunnelWidth: 0.2 m  # this is not in a class
         WallThickness: 0.150 m
         Width: {{ self.W_chan }}
     Channel:2:
