@@ -1,15 +1,15 @@
 from aide_design.units import unit_registry as u
-from bottom_baffle import *
+from top_baffle import *
 from aide_render.builder_classes import DP, HP
 
 
-class BottomBaffles_Assembly:
-    """This is a bottom baffle assembly class. It's called by the flocculator
+class TopBaffles_Assembly:
+    """This is a top baffle assembly class. It's called by the flocculator
     class so that the hierarchy of objects in Python is the same as in Fusion.
 
     """
 
-    def __init__(self, L_bottom_baffle, baffle_thickness, W_chan, num_chan,
+    def __init__(self, L_top_baffle, baffle_thickness, W_chan, num_chan,
                  num_baffles_chan_1, num_baffles_chan_n, baffle_spacing,
                  wall_thickness):
         """This is where the "instantiation" occurs. Think of this as "rendering the
@@ -54,5 +54,5 @@ class BottomBaffles_Assembly:
         self.WallThickness = DP(wall_thickness.magnitude, wall_thickness.units)
         self.Width = DP(W_chan.magnitude, W_chan.units)
 
-        self.BottomBaffle = BottomBaffle(self.L_bottom_baffle,
-                                         self.baffle_thickness, self.W_chan)
+        self.TopBaffle = TopBaffle(self.L_top_baffle,
+                                   self.baffle_thickness, self.W_chan)

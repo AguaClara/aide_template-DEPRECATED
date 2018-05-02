@@ -1,27 +1,28 @@
 from aide_design.units import unit_registry as u
-from bottom_baffle import *
+from obstacle imoprt *
 from aide_render.builder_classes import DP, HP
 
 
-class BottomBaffles_Assembly:
-    """This is a bottom baffle assembly class. It's called by the flocculator
-    class so that the hierarchy of objects in Python is the same as in Fusion.
+class Obstacles_Assembly:
+    """This is the obstacles assembly class.
+    It's called by the flocculator class so that the hierarchy of
+    objects in Python is the same as in Fusion.
 
     """
 
-    def __init__(self, L_bottom_baffle, baffle_thickness, W_chan, num_chan,
+    def __init__(self, obstacles_bool, baffle_thickness, W_chan, num_chan,
                  num_baffles_chan_1, num_baffles_chan_n, baffle_spacing,
                  wall_thickness):
         """This is where the "instantiation" occurs. Think of this as "rendering the
-        template" or "using the cookie-cutter to make the cookie". Here is where we
-        call all the methods that determine design qualities of the specific
+        template" or "using the cookie-cutter to make the cookie". Here is where
+        we call all the methods that determine design qualities of the specific
         flocculator we are building.
 
         Parameters
         ----------
 
-        L_bottom_baffle : float
-            Length of the baffles on the bottom of the flocculator
+        obstacles_bool : int
+            1 if there are obstacles in the plant, 0 otherwise
 
         baffle_thickness : float
             Thickness of a baffle
@@ -46,13 +47,12 @@ class BottomBaffles_Assembly:
 
         """
 
-        self.Num_Exit = DP(num_baffles_chan_n.magnitude)
-        self.Num_Inlet = DP(num_baffles_chan_1.magnitude)
+        self.Num_Exit = DP(num_baffles_chan_1.magnitude*self.obstacles_bool.magnitude)
+        self.Num_Inlet = DP(num_baffles_chan_n.magnitude*self.obstacles_bool.magnitude)
         self.Spacing = DP(baffle_spacing.magnitude, baffle_spacing.units)
         self.Thickness = DP(baffle_thickness.magnitude, baffle_thickness.units)
         self.TotalNum = DP(num_chan.magnitude)
         self.WallThickness = DP(wall_thickness.magnitude, wall_thickness.units)
         self.Width = DP(W_chan.magnitude, W_chan.units)
 
-        self.BottomBaffle = BottomBaffle(self.L_bottom_baffle,
-                                         self.baffle_thickness, self.W_chan)
+        self.Obstacle = Obstacle(W_chan)

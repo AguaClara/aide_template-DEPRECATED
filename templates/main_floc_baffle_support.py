@@ -1,17 +1,15 @@
 from aide_design.units import unit_registry as u
-from bottom_baffle import *
 from aide_render.builder_classes import DP, HP
 
 
-class EntFlocBaffleSupport:
-    """This is a entrance tank, flocculator, and baffle support class.
+class MainFlocBaffleSupport:
+    """This is the main flocculator baffle support class.
     It's called by the flocculator class so that the hierarchy of
     objects in Python is the same as in Fusion.
 
     """
 
-    def __init__(self, L_bottom_baffle, baffle_thickness, W_chan,
-                 num_baffles_chan_1, num_baffles_chan_n):
+    def __init__(self, baffle_thickness, num_baffles_chan_1, num_baffles_chan_n):
 
         """This is where the "instantiation" occurs. Think of this as "rendering the
         template" or "using the cookie-cutter to make the cookie". Here is where
@@ -21,14 +19,8 @@ class EntFlocBaffleSupport:
         Parameters
         ----------
 
-        L_bottom_baffle : float
-            Length of the baffles on the bottom of the flocculator
-
         baffle_thickness : float
             Thickness of a baffle
-
-        W_chan : float
-            Width of each flocculator channel
 
         num_baffles_chan_1 : int
             Number of baffles in the first channel
@@ -42,6 +34,3 @@ class EntFlocBaffleSupport:
                                   baffle_thickness.units)
         self.numberbaffles = DP(num_baffles_chan_n.magnitude)
         self.numberentbaffles = DP(num_baffles_chan_1.magnitude)
-
-        self.BottomBaffle = BottomBaffle(self.L_bottom_baffle,
-                                         self.baffle_thickness, self.W_chan)

@@ -18,8 +18,8 @@ Flocculator:
         Thickness: {{ self.baffle_thickness }}
         Width: {{ self.W_chan }}
     dp:
-      Num_Exit: {{ self.num_baffles_chan_1 }}
-      Num_Inlet: {{ self.num_baffles_chan_n }}
+      Num_Exit: {{ self.num_baffles_chan_n }}
+      Num_Inlet: {{ self.num_baffles_chan_1 }}
       Spacing: {{ self.baffle_spacing }}
       Thickness: {{ self.baffle_thickness }}
       TotalNum: {{ self.num_chan }}
@@ -379,7 +379,7 @@ Flocculator:
         dp:
           Height: {{ self.L_top_baffle }}
           Thickness: {{ self.baffle_thickness }}
-          Width: {{ self.width_PVC_sheet }}
+          Width: {{ self.W_chan }}
       dp:
         Height: {{ self.L_top_baffle }}
         Thickness: {{ self.baffle_thickness }}
@@ -393,4 +393,4 @@ Flocculator:
       WallThickness: 0.15 m
       Width: {{ self.W_chan }}
   dp:
-    numberrows: '3'
+    numberrows: '3' # what does this mean?

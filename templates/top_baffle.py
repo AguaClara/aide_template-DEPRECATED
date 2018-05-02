@@ -3,7 +3,7 @@ from aide_render.builder_classes import DP, HP
 
 
 class BottomBaffle:
-    """This is a bottom baffle class. It's called by the bottom baffles assembly
+    """This is a top baffle class. It's called by the top baffles assembly
     class so that the hierarchy of objects in Python is the same as in Fusion.
 
     """
@@ -17,8 +17,8 @@ class BottomBaffle:
         Parameters
         ----------
 
-        L_bottom_baffle : float
-            Length of the baffles on the bottom of the flocculator
+        L_top_baffle : float
+            Length of the baffles at the top of the flocculator
 
         baffle_thickness : float
             Thickness of a baffle
@@ -28,6 +28,6 @@ class BottomBaffle:
 
         """
 
-        self.Height = DP(L_bottom_baffle.magnitude, L_bottom_baffle.units)
+        self.Height = DP(L_top_baffle.magnitude, L_top_baffle.units)
         self.Thickness = DP(baffle_thickness.magnitude, baffle_thickness.units)
         self.Width = DP(W_chan.magnitude, W_chan.units)
