@@ -61,12 +61,12 @@ class Flocculator:
 
     width_floc_min(Q_plant, temp, depth_end, hl, coll_pot, ratio_HS_min=3,
                    W_min_construct=45*u.cm)
-
         Return the minimum channel width required
+
     num_channel(Q_plant, temp, depth_end, hl, coll_pot, W_tot, ratio_HS_min=3,
                 W_min_construct=45*u.cm)
-
         Return the number of channels in the entrance tank/flocculator (ETF)
+
     baffle_spacing(Q_plant, temp, W_chan, hl, coll_pot, ratio_HS_max=6)
         Return the spacing between baffles based on the target velocity gradient
 
@@ -102,12 +102,17 @@ class Flocculator:
     #L_sed = DP(sed['L'])
     #baffle_thickness = DP(materials['thickness_plate'])
     #temp = DP(plant['temp'])
+    #wall_thickness = DP(plant['wall_thickness'])
+    #floor_thickness = DP(plant['floor_thickness'])
 
     # will take these out later when we get the imports from other classes to work
     L_ent_tank_max = HP(2.2, u.m)
     L_sed = HP(7.35, u.m)
     baffle_thickness = HP(2, u.mm)
     temp = HP(15, u.degC)
+    wall_thickness = HP(0.15, u.m)
+    floor_thickness = HP(0.2, u.m)
+    EntTankOverhang_Height = HP(0.6363, u.m)
 
     ############### METHODS #################
     from aide_design.unit_process_design.floc import (
@@ -202,3 +207,7 @@ class Flocculator:
         self.BottomBaffles_Assembly = BottomBaffles_Assembly(self.L_bottom_baffle,
             self.baffle_thickness, self.W_chan, self.num_chan, self.num_baffles_chan_1,
             self.num_baffles_chan_n, self.baffle_spacing_)
+
+        self.ConcreteChannels = ConcreteChannels(self.num_chan, self.L_ent_tank_max,
+            self.h_chan, self.L_sed, self.W_chan, self.ent_tank_overhang_length,
+            self.wall_thickness, self.floor_thickness)
