@@ -1,9 +1,5 @@
 from aide_design.units import unit_registry as u
 from floc_chan import *
-from floc_chan_even_wall import *
-from floc_chan_odd_wall import *
-from floc_first_chan import *
-from floc_last_chan import *
 from aide_render.builder_classes import DP, HP
 
 
@@ -66,18 +62,18 @@ class ConcreteChannels:
             self.h_chan, self.L_sed, self.W_chan, self.ent_tank_overhang_length,
             self.wall_thickness, self.floor_thickness)
 
-        self.EvenWall = EvenWall(self.num_chan, self.L_ent_tank_max,
+        self.EvenWall = Channel(self.num_chan, self.L_ent_tank_max,
             self.h_chan, self.L_sed, self.W_chan, self.ent_tank_overhang_length,
             self.wall_thickness, self.floor_thickness)
 
-        self.OddWall = OddWall(self.num_chan, self.L_ent_tank_max,
+        self.OddWall = Channel(self.num_chan, self.L_ent_tank_max,
             self.h_chan, self.L_sed, self.W_chan, self.ent_tank_overhang_length,
             self.wall_thickness, self.floor_thickness)
 
-        self.FirstChannel = FirstChannel(self.num_chan, self.L_ent_tank_max,
+        self.FirstChannel = Channel(self.num_chan, self.L_ent_tank_max,
             self.h_chan, self.L_sed, self.W_chan, self.ent_tank_overhang_length,
             self.wall_thickness, self.floor_thickness)
 
-        self.LastChannel = LastChannel(self.num_chan, self.L_ent_tank_max,
+        self.LastChannel = Channel(self.num_chan, self.L_ent_tank_max,
             self.h_chan, self.L_sed, self.W_chan, self.ent_tank_overhang_length,
             self.wall_thickness, self.floor_thickness)
