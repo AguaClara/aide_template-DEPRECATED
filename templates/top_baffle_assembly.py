@@ -54,5 +54,4 @@ class TopBaffles_Assembly:
         self.WallThickness = DP(wall_thickness.magnitude, wall_thickness.units)
         self.Width = DP(W_chan.magnitude, W_chan.units)
 
-        self.TopBaffle = TopBaffle(self.L_top_baffle,
-                                   self.baffle_thickness, self.W_chan)
+        self.TopBaffle = TopBaffle(L_top_baffle, baffle_thickness, W_chan)

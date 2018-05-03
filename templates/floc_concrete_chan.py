@@ -58,22 +58,22 @@ class ConcreteChannels:
         self.WallThickness = DP(wall_thickness.magnitude, wall_thickness.units)
         self.FloorThickness = DP(floor_thickness.magnitude, floor_thickness.units)
 
-        self.Channel = Channel(self.num_chan, self.L_ent_tank_max,
-            self.h_chan, self.L_sed, self.W_chan, self.ent_tank_overhang_length,
-            self.wall_thickness, self.floor_thickness)
+        self.Channel = Channel(num_chan, L_ent_tank_max, h_chan, L_sed, W_chan,
+                               ent_tank_overhang_length, wall_thickness,
+                               floor_thickness)
 
-        self.EvenWall = Channel(self.num_chan, self.L_ent_tank_max,
-            self.h_chan, self.L_sed, self.W_chan, self.ent_tank_overhang_length,
-            self.wall_thickness, self.floor_thickness)
+        self.EvenWall = Channel(num_chan, L_ent_tank_max, h_chan, L_sed,
+                                W_chan, ent_tank_overhang_length,
+                                wall_thickness, floor_thickness)
 
-        self.OddWall = Channel(self.num_chan, self.L_ent_tank_max,
-            self.h_chan, self.L_sed, self.W_chan, self.ent_tank_overhang_length,
-            self.wall_thickness, self.floor_thickness)
+        self.OddWall = Channel(num_chan, L_ent_tank_max, h_chan, L_sed, W_chan,
+                               ent_tank_overhang_length, wall_thickness,
+                               floor_thickness)
 
-        self.FirstChannel = Channel(self.num_chan, self.L_ent_tank_max,
-            self.h_chan, self.L_sed, self.W_chan, self.ent_tank_overhang_length,
-            self.wall_thickness, self.floor_thickness)
+        self.FirstChannel = Channel(num_chan, L_ent_tank_max, h_chan, L_sed,
+                                    W_chan, ent_tank_overhang_length,
+                                    wall_thickness, floor_thickness)
 
-        self.LastChannel = Channel(self.num_chan, self.L_ent_tank_max,
-            self.h_chan, self.L_sed, self.W_chan, self.ent_tank_overhang_length,
-            self.wall_thickness, self.floor_thickness)
+        self.LastChannel = Channel(num_chan, L_ent_tank_max, h_chan, L_sed,
+                                   W_chan, ent_tank_overhang_length,
+                                   wall_thickness, floor_thickness)

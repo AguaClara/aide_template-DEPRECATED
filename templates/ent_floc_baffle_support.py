@@ -43,5 +43,5 @@ class EntFlocBaffleSupport:
         self.numberbaffles = DP(num_baffles_chan_n.magnitude)
         self.numberentbaffles = DP(num_baffles_chan_1.magnitude)
 
-        self.BottomBaffle = BottomBaffle(self.L_bottom_baffle,
-                                         self.baffle_thickness, self.W_chan)
+        self.BottomBaffle = BottomBaffle(L_bottom_baffle, baffle_thickness,
+                                         W_chan)
