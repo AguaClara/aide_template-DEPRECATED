@@ -1,4 +1,10 @@
 from aide_design.units import unit_registry as u
+from bottom_baffle_assembly import *
+from floc_chan import *
+from ent_floc_baffle_support import *
+from main_floc_baffle_support import *
+from obstacle_assembly import *
+from top_baffle_assembly import *
 from aide_render.builder_classes import DP, HP
 
 
@@ -211,3 +217,18 @@ class Flocculator:
         self.ConcreteChannels = ConcreteChannels(self.num_chan, self.L_ent_tank_max,
             self.h_chan, self.L_sed, self.W_chan, self.ent_tank_overhang_length,
             self.wall_thickness, self.floor_thickness)
+
+        self.EntFlocBaffleSupport = EntFlocBaffleSupport(self.L_bottom_baffle,
+            self.baffle_thickness, self.W_chan, self.num_baffles_chan_1,
+            self.num_baffles_chan_n)
+
+        self.MainFlocBaffleSupport = MainFlocBaffleSupport(self.baffle_thickness,
+            self.num_baffles_chan_1, self.num_baffles_chan_n)
+
+        self.Obstacles_Assembly = Obstacles_Assembly(self.obstacles_bool,
+            self.baffle_thickness, self.W_chan, self.num_chan, self.num_baffles_chan_1,
+            self.num_baffles_chan_n, self.baffle_spacing, self.wall_thickness)
+
+        self.TopBaffles_Assembly = TopBaffles_Assembly(self.L_top_baffle,
+            self.baffle_thickness, self.W_chan, self.num_chan, self.num_baffles_chan_1,
+            self.num_baffles_chan_n, self.baffle_spacing, self.wall_thickness)
