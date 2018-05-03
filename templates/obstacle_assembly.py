@@ -47,8 +47,8 @@ class Obstacles_Assembly:
 
         """
 
-        self.Num_Exit = DP(num_baffles_chan_1.magnitude*self.obstacles_bool.magnitude)
-        self.Num_Inlet = DP(num_baffles_chan_n.magnitude*self.obstacles_bool.magnitude)
+        self.Num_Exit = DP(num_baffles_chan_1.magnitude*obstacles_bool.magnitude)
+        self.Num_Inlet = DP(num_baffles_chan_n.magnitude*obstacles_bool.magnitude)
         self.Spacing = DP(baffle_spacing.magnitude, baffle_spacing.units)
         self.Thickness = DP(baffle_thickness.magnitude, baffle_thickness.units)
         self.TotalNum = DP(num_chan.magnitude)

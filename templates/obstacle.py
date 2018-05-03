@@ -8,9 +8,7 @@ class Obstacle:
 
     """
 
-    def __init__(self, obstacles_bool, baffle_thickness, W_chan, num_chan,
-                 num_baffles_chan_1, num_baffles_chan_n, baffle_spacing,
-                 wall_thickness):
+    def __init__(self, W_chan):
         """This is where the "instantiation" occurs. Think of this as "rendering the
         template" or "using the cookie-cutter to make the cookie". Here is where
         we call all the methods that determine design qualities of the specific

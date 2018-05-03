@@ -52,7 +52,7 @@ class ConcreteChannels:
         self.EntTank_Length = DP(L_ent_tank_max.magnitude, L_ent_tank_max.units)
         self.FirstLength = DP((L_sed - L_ent_tank_max + ent_tank_overhang_length).to(u.m).magnitude, u.m)
         self.Height = DP(h_chan.magnitude, h_chan.units)
-        self.Length = DP(L.magnitude, L.units)
+        self.Length = DP(L_sed.magnitude, L_sed.units)
         self.TotalNum = DP(num_chan.magnitude, num_chan.units)
         self.Width = DP(W_chan.magnitude, W_chan.units)
         self.WallThickness = DP(wall_thickness.magnitude, wall_thickness.units)

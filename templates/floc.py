@@ -1,6 +1,6 @@
 from aide_design.units import unit_registry as u
 from bottom_baffle_assembly import *
-from floc_chan import *
+from floc_concrete_chan import *
 from ent_floc_baffle_support import *
 from main_floc_baffle_support import *
 from obstacle_assembly import *
@@ -84,7 +84,7 @@ class Flocculator:
     Examples
     --------
 
-    >>> my_floc = Floc(HP(20, u.L/u.s), HP(2, u.m))
+    >>> my_floc = Flocculator(HP(20, u.L/u.s), HP(2, u.m))
     >>> from aide_render.builder import extract_types
     >>> floc_design_dict = extract_types(my_floc, [DP], [])
     >>> from aide_render.yaml import load, dump
@@ -118,7 +118,7 @@ class Flocculator:
     temp = HP(15, u.degC)
     wall_thickness = HP(0.15, u.m)
     floor_thickness = HP(0.2, u.m)
-    EntTankOverhang_Height = HP(0.6363, u.m)
+    ent_tank_overhang_length = HP(0.6363, u.m)
 
     ############### METHODS #################
     from aide_design.unit_process_design.floc import (
@@ -212,7 +212,7 @@ class Flocculator:
 
         self.BottomBaffles_Assembly = BottomBaffles_Assembly(self.L_bottom_baffle,
             self.baffle_thickness, self.W_chan, self.num_chan, self.num_baffles_chan_1,
-            self.num_baffles_chan_n, self.baffle_spacing_)
+            self.num_baffles_chan_n, self.baffle_spacing_, self.wall_thickness)
 
         self.ConcreteChannels = ConcreteChannels(self.num_chan, self.L_ent_tank_max,
             self.h_chan, self.L_sed, self.W_chan, self.ent_tank_overhang_length,
@@ -227,8 +227,8 @@ class Flocculator:
 
         self.Obstacles_Assembly = Obstacles_Assembly(self.obstacles_bool,
             self.baffle_thickness, self.W_chan, self.num_chan, self.num_baffles_chan_1,
-            self.num_baffles_chan_n, self.baffle_spacing, self.wall_thickness)
+            self.num_baffles_chan_n, self.baffle_spacing_, self.wall_thickness)
 
         self.TopBaffles_Assembly = TopBaffles_Assembly(self.L_top_baffle,
             self.baffle_thickness, self.W_chan, self.num_chan, self.num_baffles_chan_1,
-            self.num_baffles_chan_n, self.baffle_spacing, self.wall_thickness)
+            self.num_baffles_chan_n, self.baffle_spacing_, self.wall_thickness)

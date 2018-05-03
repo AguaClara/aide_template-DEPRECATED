@@ -2,7 +2,7 @@ from aide_design.units import unit_registry as u
 from aide_render.builder_classes import DP, HP
 
 
-class Channels:
+class Channel:
     """This is a channel class. It's called by the flocculator class so
     that the hierarchy of objects in Python is the same as in Fusion.
 
@@ -45,7 +45,7 @@ class Channels:
 
         floor_thickness : float
             Thickness of the plant floor
-            
+
         """
 
         self.EntTank_Length = DP(L_ent_tank_max.magnitude, L_ent_tank_max.units)
