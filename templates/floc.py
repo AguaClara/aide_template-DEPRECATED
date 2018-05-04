@@ -91,6 +91,9 @@ class Flocculator:
     >>> dump(floc_design_dict)
     "BottomBaffles_Assembly: {Num_Exit: !DP '18 ', Num_Inlet: !DP '26 ', Spacing: !DP '0.272\n    meter', Thickness: !DP '2 millimeter', TotalNum: !DP '2 ', WallThickness: !DP '0.15\n    meter', Width: !DP '0.3134 meter'}\nConcreteChannels: {EntTank_Length: !DP '2.2 meter', FirstLength: !DP '5.786 meter',\n  FloorThickness: !DP '0.2 meter', Height: !DP '2.5 meter', Length: !DP '7.35 meter',\n  TotalNum: !DP '2 ', WallThickness: !DP '0.15 meter', Width: !DP '0.3134 meter'}\nEntFlocBaffleSupport: {bafflethickness: !DP '2 millimeter', numberbaffles: !DP '18 ',\n  numberentbaffles: !DP '26 '}\nMainFlocBaffleSupport: {bafflethickness: !DP '2 millimeter', numberbaffles: !DP '18 ',\n  numberentbaffles: !DP '26 '}\nObstacles_Assembly: {Num_Exit: !DP '26 ', Num_Inlet: !DP '18 ', Spacing: !DP '0.272\n    meter', Thickness: !DP '2 millimeter', TotalNum: !DP '2 ', WallThickness: !DP '0.15\n    meter', Width: !DP '0.3134 meter'}\nTopBaffles_Assembly: {Num_Exit: !DP '18 ', Num_Inlet: !DP '26 ', Spacing: !DP '0.272\n    meter', Thickness: !DP '2 millimeter', TotalNum: !DP '2 ', WallThickness: !DP '0.15\n    meter', Width: !DP '0.3134 meter'}\nnumberrows: !DP '1 '\n"
 
+    stream = open('floc_update_fusion.yaml', 'w+')
+    dump(floc_design_dict, stream, default_flow_style=False)
+
     """
 
     #ent_tank: dict = aide_render.render.("ent_tank.yaml")
