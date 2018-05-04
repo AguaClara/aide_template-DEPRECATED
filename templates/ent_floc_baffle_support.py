@@ -1,5 +1,6 @@
 from aide_design.units import unit_registry as u
 from bottom_baffle import *
+from top_baffle import *
 from aide_render.builder_classes import DP, HP
 
 
@@ -10,7 +11,7 @@ class EntFlocBaffleSupport:
 
     """
 
-    def __init__(self, L_bottom_baffle, baffle_thickness, W_chan,
+    def __init__(self, L_bottom_baffle, L_top_baffle, baffle_thickness, W_chan,
                  num_baffles_chan_1, num_baffles_chan_n):
 
         """This is where the "instantiation" occurs. Think of this as "rendering the
