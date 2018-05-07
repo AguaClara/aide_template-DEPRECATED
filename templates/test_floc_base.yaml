@@ -1,7 +1,7 @@
 Flocculator:
   BottomBaffles_Assembly:
     BottomBaffle:
-      BottomBaffle:1:
+      BottomBaffleB:1:
         dp:
           Height: 1.31 m
           Thickness: 0.002 m
@@ -11,6 +11,8 @@ Flocculator:
         Thickness: 0.002 m
         Width: 0.55 m
     dp:
+      EntTank_Length: 1.622 m
+      Length: 5.90 m
       Num_Exit: '28'
       Num_Inlet: '21'
       Spacing: 0.195 m
@@ -24,131 +26,147 @@ Flocculator:
         EntTankOverhang_Height: 1.628 m
         EntTankOverhang_Length: 0.6363 m
         EntTank_Length: 1.62198 m
+        EvenWallPattern: floor(TotalNum / 2)
         FirstLength: Length - EntTank_Length + EntTankOverhang_Length
         FloorThickness: 0.200 m
         Height: 2.04 m
         Length: 5.90 m
+        OddWallNumber: ceil(TotalNum / 2) - 1
         SedTankConnecting_Height: 0.88 m
         SedTankConnecting_Width: 0.43 m
         TotalNum: '4'
         TunnelHeight: 0.6 m
         TunnelWidth: 0.2 m
         WallThickness: 0.150 m
-        Width: 0.6 m
+        Width: 0.55 m
     Channel:2:
       dp:
         EntTankOverhang_Height: 1.628 m
         EntTankOverhang_Length: 0.6363 m
         EntTank_Length: 1.62198 m
+        EvenWallPattern: floor(TotalNum / 2)
         FirstLength: Length - EntTank_Length + EntTankOverhang_Length
         FloorThickness: 0.200 m
         Height: 2.04 m
         Length: 5.90 m
+        OddWallNumber: ceil(TotalNum / 2) - 1
         SedTankConnecting_Height: 0.88 m
         SedTankConnecting_Width: 0.43 m
         TotalNum: '4'
         TunnelHeight: 0.6 m
         TunnelWidth: 0.2 m
         WallThickness: 0.150 m
-        Width: 0.6 m
+        Width: 0.55 m
     EvenWall:1:
       dp:
         EntTankOverhang_Height: 1.628 m
         EntTankOverhang_Length: 0.6363 m
         EntTank_Length: 1.62198 m
+        EvenWallPattern: floor(TotalNum / 2)
         FirstLength: Length - EntTank_Length + EntTankOverhang_Length
         FloorThickness: 0.200 m
         Height: 2.04 m
         Length: 5.90 m
+        OddWallNumber: ceil(TotalNum / 2) - 1
         SedTankConnecting_Height: 0.88 m
         SedTankConnecting_Width: 0.43 m
         TotalNum: '4'
         TunnelHeight: 0.6 m
         TunnelWidth: 0.2 m
         WallThickness: 0.150 m
-        Width: 0.6 m
+        Width: 0.55 m
     EvenWall:2:
       dp:
         EntTankOverhang_Height: 1.628 m
         EntTankOverhang_Length: 0.6363 m
         EntTank_Length: 1.62198 m
+        EvenWallPattern: floor(TotalNum / 2)
         FirstLength: Length - EntTank_Length + EntTankOverhang_Length
         FloorThickness: 0.200 m
         Height: 2.04 m
         Length: 5.90 m
+        OddWallNumber: ceil(TotalNum / 2) - 1
         SedTankConnecting_Height: 0.88 m
         SedTankConnecting_Width: 0.43 m
         TotalNum: '4'
         TunnelHeight: 0.6 m
         TunnelWidth: 0.2 m
         WallThickness: 0.150 m
-        Width: 0.6 m
+        Width: 0.55 m
     FirstChannel:1:
       dp:
         EntTankOverhang_Height: 1.628 m
         EntTankOverhang_Length: 0.6363 m
         EntTank_Length: 1.62198 m
+        EvenWallPattern: floor(TotalNum / 2)
         FirstLength: Length - EntTank_Length + EntTankOverhang_Length
         FloorThickness: 0.200 m
         Height: 2.04 m
         Length: 5.90 m
+        OddWallNumber: ceil(TotalNum / 2) - 1
         SedTankConnecting_Height: 0.88 m
         SedTankConnecting_Width: 0.43 m
         TotalNum: '4'
         TunnelHeight: 0.6 m
         TunnelWidth: 0.2 m
         WallThickness: 0.150 m
-        Width: 0.6 m
+        Width: 0.55 m
     LastChannel:1:
       dp:
         EntTankOverhang_Height: 1.628 m
         EntTankOverhang_Length: 0.6363 m
         EntTank_Length: 1.62198 m
+        EvenWallPattern: floor(TotalNum / 2)
         FirstLength: Length - EntTank_Length + EntTankOverhang_Length
         FloorThickness: 0.200 m
         Height: 2.04 m
         Length: 5.90 m
+        OddWallNumber: ceil(TotalNum / 2) - 1
         SedTankConnecting_Height: 0.88 m
         SedTankConnecting_Width: 0.43 m
         TotalNum: '4'
         TunnelHeight: 0.6 m
         TunnelWidth: 0.2 m
         WallThickness: 0.150 m
-        Width: 0.6 m
+        Width: 0.55 m
     OddWall:1:
       dp:
         EntTankOverhang_Height: 1.628 m
         EntTankOverhang_Length: 0.6363 m
         EntTank_Length: 1.62198 m
+        EvenWallPattern: floor(TotalNum / 2)
         FirstLength: Length - EntTank_Length + EntTankOverhang_Length
         FloorThickness: 0.200 m
         Height: 2.04 m
         Length: 5.90 m
+        OddWallNumber: ceil(TotalNum / 2) - 1
         SedTankConnecting_Height: 0.88 m
         SedTankConnecting_Width: 0.43 m
         TotalNum: '4'
         TunnelHeight: 0.6 m
         TunnelWidth: 0.2 m
         WallThickness: 0.150 m
-        Width: 0.6 m
+        Width: 0.55 m
     dp:
       EntTankOverhang_Height: 1.628 m
       EntTankOverhang_Length: 0.6363 m
       EntTank_Length: 1.62198 m
+      EvenWallPattern: floor(TotalNum / 2)
       FirstLength: Length - EntTank_Length + EntTankOverhang_Length
       FloorThickness: 0.200 m
       Height: 2.04 m
       Length: 5.90 m
+      OddWallNumber: ceil(TotalNum / 2) - 1
       SedTankConnecting_Height: 0.88 m
       SedTankConnecting_Width: 0.43 m
       TotalNum: '4'
       TunnelHeight: 0.6 m
       TunnelWidth: 0.2 m
       WallThickness: 0.150 m
-      Width: 0.6 m
-  EntFlocBaffleSupport:
+      Width: 0.55 m
+  EntFlocBaffle_Supported:
     BottomBaffle:
-      BottomBaffle:1:
+      BottomBaffleB:1:
         dp:
           Height: 1.31 m
           Thickness: 0.002 m
@@ -159,19 +177,19 @@ Flocculator:
         Width: 0.55 m
     FlocBaffleBottomStartSpacer:
       dp:
-        floc_bottom_startspacerlength: 390 mm
+        floc_bottom_startspacerlength: 211.68 mm
         id: 1 in
         od: id / ( 1 - 2 / sdr )
         sdr: '26'
     FlocBaffleBottomTopSpacers:
       dp:
-        floc_bottomtop_spacerlength: 379.263 mm
+        floc_bottomtop_spacerlength: 392 mm
         id: 1 in
         od: id / ( 1 - 2 / sdr )
         sdr: '26'
-    FlocBaffleMidSpacer:
+    FlocBaffleObstacleSpacer:
       dp:
-        floc_spacerlength: 64 mm
+        floc_spacerlength: 59.5 mm
         id: 1 in
         od: id / ( 1 - 2 / sdr )
         sdr: '26'
@@ -188,7 +206,7 @@ Flocculator:
         socket_depth: od / 2.5
     FlocBaffleSupportEntLengthpipe:
       dp:
-        floc_bafflesupport_entlengthpipe: 4034.317 mm
+        floc_bafflesupport_entlengthpipe: 3977 mm
         od: 1 in
         sdr: '26'
     FlocBaffleSupportTee:
@@ -199,24 +217,24 @@ Flocculator:
         socket_depth: od / 2.5
     FlocBaffleSupportTop:
       dp:
-        floc_bafflesupport_top: 1.9 * ( 2 / 3 ) * 1 m
+        floc_bafflesupport_top: 1.8 * ( 2 / 3 ) * 1 m
         od: 1 in
         sdr: '26'
     FlocBaffleTopEndSpacer:
       dp:
-        floc_topendspacerlength: 190.631 mm
+        floc_topendspacerlength: 197 mm
         id: 1 in
         od: id / ( 1 - 2 / sdr )
         sdr: '26'
     FlocBaffleTopMidStartSpacer:
       dp:
-        floc_topmidstartspacerlength: 199.369 mm
+        floc_topmidstartspacerlength: 14.68 mm
         id: 1 in
         od: id / ( 1 - 2 / sdr )
         sdr: '26'
-    FlocObstacleCenterSpacer:
+    FlocMidObstacleSpacer:
       dp:
-        floc_spacerlength: 50.631 mm
+        floc_spacerlength: 66 mm
         id: 1 in
         od: id / ( 1 - 2 / sdr )
         sdr: '26'
@@ -233,7 +251,7 @@ Flocculator:
         Thickness: 0.004 m
         Width: 0.55 m
     TopBaffle:
-      TopBaffle:1:
+      TopBaffleB:1:
         dp:
           Height: 1.84 m
           Thickness: 0.002 m
@@ -244,24 +262,24 @@ Flocculator:
         Width: 0.55 m
     dp:
       bafflethickness: 0.002 m
-      bottomtopspacerlength_mm: floc_bottomtop_spacerlength
+      bottomstartspacerlength_auto: exposedlength - ( floc_bottomtop_spacerlength
+        + bafflethickness ) * numberbaffles / 2 - bafflethickness
+      bottomtopspacerlength_auto: ( exposedlength - floc_bottomstartspacerlength -
+        bafflethickness ) / ( numberbaffles / 2 ) - bafflethickness
       exposedlength: floc_bafflesupport_lengthpipe - 2 * socket_depth
       floc_bafflesupport_entlengthpipe: floc_topmidstartspacerlength + bafflethickness
         + ( floc_midgrouplength + bafflethickness ) * ( numberentbaffles - 1 ) + 2
         * socket_depth
       floc_bafflesupport_lengthpipe: 5.75 m
-      floc_bottomstartspacerlength: 390 mm
-      floc_bottomtop_spacerlength: ( exposedlength - floc_bottomstartspacerlength
-        - bafflethickness ) / ( numberbaffles / 2 ) - bafflethickness
+      floc_bottomstartspacerlength: bottomstartspacerlength_auto
+      floc_bottomtop_spacerlength: 392 mm
       floc_midgrouplength: ( floc_bottomtop_spacerlength - bafflethickness ) / 2
       floc_obstaclecenterspacerlength: floc_midgrouplength - 2 * obstaclespacing -
         2 * floc_obstaclesidespacerlength
       floc_obstaclesidespacerlength: 40 mm
-      floc_topendspacerlength: exposedlength - ( floc_topmidstartspacerlength + bafflethickness
-        ) - ( numberbaffles / 2 ) * ( floc_bottomtop_spacerlength + bafflethickness
-        )
-      floc_topmidstartspacerlength: floc_bottomstartspacerlength - ( floc_midgrouplength
-        + bafflethickness )
+      floc_topendspacerlength: floc_midgrouplength + bafflethickness
+      floc_topmidstartspacerlength: exposedlength - ( floc_bottomtop_spacerlength
+        + bafflethickness ) * numberbaffles / 2 - bafflethickness - floc_topendspacerlength
       numberbaffles: '28'
       numberentbaffles: '21'
       obstaclespacing: 0.005 m
@@ -272,19 +290,19 @@ Flocculator:
   MainFlocBaffleSupport:
     FlocBaffleBottomStartSpacer:
       dp:
-        floc_bottom_startspacerlength: 390 mm
+        floc_bottom_startspacerlength: 211.68 mm
         id: 1 in
         od: id / ( 1 - 2 / sdr )
         sdr: '26'
     FlocBaffleBottomTopSpacers:
       dp:
-        floc_bottomtop_spacerlength: 379.263 mm
+        floc_bottomtop_spacerlength: 392 mm
         id: 1 in
         od: id / ( 1 - 2 / sdr )
         sdr: '26'
-    FlocBaffleMidSpacer:
+    FlocBaffleObstacleSpacer:
       dp:
-        floc_spacerlength: 64 mm
+        floc_spacerlength: 59.5 mm
         id: 1 in
         od: id / ( 1 - 2 / sdr )
         sdr: '26'
@@ -312,24 +330,24 @@ Flocculator:
         socket_depth: od / 2.5
     FlocBaffleSupportTop:
       dp:
-        floc_bafflesupport_top: 1.9 * ( 2 / 3 ) * 1 m
+        floc_bafflesupport_top: 1.8 * ( 2 / 3 ) * 1 m
         od: 1 in
         sdr: '26'
     FlocBaffleTopEndSpacer:
       dp:
-        floc_topendspacerlength: 190.631 mm
+        floc_topendspacerlength: 197 mm
         id: 1 in
         od: id / ( 1 - 2 / sdr )
         sdr: '26'
     FlocBaffleTopMidStartSpacer:
       dp:
-        floc_topmidstartspacerlength: 199.369 mm
+        floc_topmidstartspacerlength: 14.68 mm
         id: 1 in
         od: id / ( 1 - 2 / sdr )
         sdr: '26'
-    FlocObstacleCenterSpacer:
+    FlocMidObstacleSpacer:
       dp:
-        floc_spacerlength: 50.631 mm
+        floc_spacerlength: 66 mm
         id: 1 in
         od: id / ( 1 - 2 / sdr )
         sdr: '26'
@@ -378,7 +396,7 @@ Flocculator:
       Width: 0.55 m
   TopBaffles_Assembly:
     TopBaffle:
-      TopBaffle:1:
+      TopBaffleB:1:
         dp:
           Height: 1.84 m
           Thickness: 0.002 m
@@ -388,9 +406,9 @@ Flocculator:
         Thickness: 0.002 m
         Width: 0.55 m
     dp:
-      Num_Exit: '28'
-      Num_Inlet: '21'
-      Spacing: 0.195 m
+      EntTank_Length: 1.622 m
+      Length: 5.9 m
+      Spacing: 0.3 m
       Thickness: 0.002 m
       TotalNum: '4'
       WallThickness: 0.15 m
