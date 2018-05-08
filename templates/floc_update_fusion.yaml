@@ -6,8 +6,8 @@ Flocculator:
       Width: 0.3134 meter
     EntTank_Length: 2.2 meter
     Length: 7.35 meter
-    Num_Exit: 18
-    Num_Inlet: 26
+    Num_Exit: 26
+    Num_Inlet: 18
     Spacing: 0.272 meter
     Thickness: 2 millimeter
     TotalNum: 2
@@ -77,12 +77,12 @@ Flocculator:
       Thickness: 2 millimeter
       Width: 0.3134 meter
     bafflethickness: 2 millimeter
-    numberbaffles: 18
-    numberentbaffles: 26
+    numberbaffles: 26
+    numberentbaffles: 18
   MainFlocBaffleSupport:
     bafflethickness: 2 millimeter
-    numberbaffles: 18
-    numberentbaffles: 26
+    numberbaffles: 26
+    numberentbaffles: 18
   Obstacles_Assembly:
     Num_Exit: 26
     Num_Inlet: 18

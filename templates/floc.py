@@ -192,10 +192,10 @@ class Flocculator:
         # calculate baffle spacing and number of baffles in the flocculator
         self.baffle_spacing_ = HP(self.baffle_spacing(q, self.temp, self.W_chan, self.hl,
                                               self.coll_pot, self.ratio_HS_max).magnitude, u.m)
-        self.num_baffles_chan_1 = HP(self.num_baffles(q, self.temp, self.W_chan, self.L_sed,
+        self.num_baffles_chan_n = HP(self.num_baffles(q, self.temp, self.W_chan, self.L_sed,
                                                    self.hl, self.coll_pot,
                                                    self.ratio_HS_max, self.baffle_thickness))
-        self.num_baffles_chan_n = HP(self.num_baffles(q, self.temp, self.W_chan,
+        self.num_baffles_chan_1 = HP(self.num_baffles(q, self.temp, self.W_chan,
                                                    self.L_sed - self.L_ent_tank_max,
                                                    self.hl, self.coll_pot,
                                                    self.ratio_HS_max, self.baffle_thickness))
