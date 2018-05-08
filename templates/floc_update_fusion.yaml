@@ -1,42 +1,108 @@
-BottomBaffles_Assembly:
-  EntTank_Length: 2.2 meter
-  Length: 7.35 m
-  Num_Exit: 28
-  Num_Inlet: 26
-  Spacing: 0.272 meter
-  Thickness: 2 millimeter
-  TotalNum: 2
-  WallThickness: 0.15 meter
-  Width: 0.3134 meter
-ConcreteChannels:
-  EntTank_Length: 2.2 meter
-  FirstLength: 5.786 meter
-  FloorThickness: 0.2 meter
-  Height: 2.5 meter
-  Length: 7.35 meter
-  TotalNum: 2
-  WallThickness: 0.15 meter
-  Width: 0.3134 meter
-EntFlocBaffle_Supported:
-  bafflethickness: 2 millimeter
-  numberbaffles: 28
-  numberentbaffles: 26
-MainFlocBaffleSupport:
-  bafflethickness: 2 millimeter
-  numberbaffles: 28
-  numberentbaffles: 26
-Obstacles_Assembly:
-  Num_Exit: 26
-  Num_Inlet: 28
-  Spacing: 0.272 meter
-  Thickness: 2 millimeter
-  TotalNum: 2
-  WallThickness:  0.15 meter
-  Width:  0.3134 meter
-TopBaffles_Assembly:
-  Spacing: 0.272 meter
-  Thickness: 2 millimeter
-  TotalNum: 2
-  WallThickness: 0.15 meter
-  Width: 0.3134 meter
-numberrows: 1
+Flocculator:
+  BottomBaffles_Assembly:
+    BottomBaffle:
+      Height: 1.728 meter
+      Thickness: 2 millimeter
+      Width: 0.3134 meter
+    EntTank_Length: 2.2 meter
+    Length: 7.35 meter
+    Num_Exit: 18
+    Num_Inlet: 26
+    Spacing: 0.272 meter
+    Thickness: 2 millimeter
+    TotalNum: 2
+    WallThickness: 0.15 meter
+    Width: 0.3134 meter
+  ConcreteChannels:
+    Channel:
+      EntTank_Length: 2.2 meter
+      FirstLength: 5.786 meter
+      FloorThickness: 0.2 meter
+      Height: 2.5 meter
+      Length: 7.35 meter
+      TotalNum: 2
+      WallThickness: 0.15 meter
+      Width: 0.3134 meter
+    EntTank_Length: 2.2 meter
+    EvenWall:
+      EntTank_Length: 2.2 meter
+      FirstLength: 5.786 meter
+      FloorThickness: 0.2 meter
+      Height: 2.5 meter
+      Length: 7.35 meter
+      TotalNum: 2
+      WallThickness: 0.15 meter
+      Width: 0.3134 meter
+    FirstChannel:
+      EntTank_Length: 2.2 meter
+      FirstLength: 5.786 meter
+      FloorThickness: 0.2 meter
+      Height: 2.5 meter
+      Length: 7.35 meter
+      TotalNum: 2
+      WallThickness: 0.15 meter
+      Width: 0.3134 meter
+    FirstLength: 5.786 meter
+    FloorThickness: 0.2 meter
+    Height: 2.5 meter
+    LastChannel:
+      EntTank_Length: 2.2 meter
+      FirstLength: 5.786 meter
+      FloorThickness: 0.2 meter
+      Height: 2.5 meter
+      Length: 7.35 meter
+      TotalNum: 2
+      WallThickness: 0.15 meter
+      Width: 0.3134 meter
+    Length: 7.35 meter
+    OddWall:
+      EntTank_Length: 2.2 meter
+      FirstLength: 5.786 meter
+      FloorThickness: 0.2 meter
+      Height: 2.5 meter
+      Length: 7.35 meter
+      TotalNum: 2
+      WallThickness: 0.15 meter
+      Width: 0.3134 meter
+    TotalNum: 2
+    WallThickness: 0.15 meter
+    Width: 0.3134 meter
+  EntFlocBaffleSupport:
+    BottomBaffle:
+      Height: 1.728 meter
+      Thickness: 2 millimeter
+      Width: 0.3134 meter
+    TopBaffle:
+      Height: 2.228 meter
+      Thickness: 2 millimeter
+      Width: 0.3134 meter
+    bafflethickness: 2 millimeter
+    numberbaffles: 18
+    numberentbaffles: 26
+  MainFlocBaffleSupport:
+    bafflethickness: 2 millimeter
+    numberbaffles: 18
+    numberentbaffles: 26
+  Obstacles_Assembly:
+    Num_Exit: 26
+    Num_Inlet: 18
+    Obstacle:
+      Width: 0.3134 meter
+    Spacing: 0.272 meter
+    Thickness: 2 millimeter
+    TotalNum: 2
+    WallThickness: 0.15 meter
+    Width: 0.3134 meter
+  TopBaffles_Assembly:
+    EntTank_Length: 2.2 meter
+    Length: 7.35 meter
+    Spacing: 0.272 meter
+    Thickness: 2 millimeter
+    TopBaffle:
+      Height: 2.228 meter
+      Thickness: 2 millimeter
+      Width: 0.3134 meter
+    TotalNum: 2
+    WallThickness: 0.15 meter
+    Width: 0.3134 meter
+  numberrows: 1
