@@ -91,8 +91,8 @@ class Flocculator:
     >>> dump(floc_design_dict)
     "BottomBaffles_Assembly: {Num_Exit: !DP '18 ', Num_Inlet: !DP '26 ', Spacing: !DP '0.272\n    meter', Thickness: !DP '2 millimeter', TotalNum: !DP '2 ', WallThickness: !DP '0.15\n    meter', Width: !DP '0.3134 meter'}\nConcreteChannels: {EntTank_Length: !DP '2.2 meter', FirstLength: !DP '5.786 meter',\n  FloorThickness: !DP '0.2 meter', Height: !DP '2.5 meter', Length: !DP '7.35 meter',\n  TotalNum: !DP '2 ', WallThickness: !DP '0.15 meter', Width: !DP '0.3134 meter'}\nEntFlocBaffleSupport: {bafflethickness: !DP '2 millimeter', numberbaffles: !DP '18 ',\n  numberentbaffles: !DP '26 '}\nMainFlocBaffleSupport: {bafflethickness: !DP '2 millimeter', numberbaffles: !DP '18 ',\n  numberentbaffles: !DP '26 '}\nObstacles_Assembly: {Num_Exit: !DP '26 ', Num_Inlet: !DP '18 ', Spacing: !DP '0.272\n    meter', Thickness: !DP '2 millimeter', TotalNum: !DP '2 ', WallThickness: !DP '0.15\n    meter', Width: !DP '0.3134 meter'}\nTopBaffles_Assembly: {Num_Exit: !DP '18 ', Num_Inlet: !DP '26 ', Spacing: !DP '0.272\n    meter', Thickness: !DP '2 millimeter', TotalNum: !DP '2 ', WallThickness: !DP '0.15\n    meter', Width: !DP '0.3134 meter'}\nnumberrows: !DP '1 '\n"
 
-    stream = open('floc_update_fusion.yaml', 'w+')
-    dump(floc_design_dict, stream, default_flow_style=False)
+    >>> #stream = open('floc_update_fusion.yaml', 'w+')
+    >>> #dump(floc_design_dict, stream, default_flow_style=False)
 
     """
 
@@ -213,9 +213,10 @@ class Flocculator:
         else:
             self.obstacles_bool = HP(1)
 
-        self.BottomBaffles_Assembly = dict(vars(BottomBaffles_Assembly(self.L_bottom_baffle,
-            self.baffle_thickness, self.W_chan, self.num_chan, self.num_baffles_chan_1,
-            self.num_baffles_chan_n, self.baffle_spacing_, self.wall_thickness)))
+        self.BottomBaffles_Assembly = dict(vars(BottomBaffles_Assembly(self.L_ent_tank_max,
+            self.L_sed, self.L_bottom_baffle, self.baffle_thickness, self.W_chan,
+            self.num_chan, self.num_baffles_chan_1, self.num_baffles_chan_n,
+            self.baffle_spacing_, self.wall_thickness)))
 
         self.ConcreteChannels = dict(vars(ConcreteChannels(self.num_chan, self.L_ent_tank_max,
             self.h_chan, self.L_sed, self.W_chan, self.ent_tank_overhang_length,
@@ -232,8 +233,8 @@ class Flocculator:
             self.baffle_thickness, self.W_chan, self.num_chan, self.num_baffles_chan_1,
             self.num_baffles_chan_n, self.baffle_spacing_, self.wall_thickness)))
 
-        self.TopBaffles_Assembly = dict(vars(TopBaffles_Assembly(self.L_top_baffle,
-            self.baffle_thickness, self.W_chan, self.num_chan, self.num_baffles_chan_1,
-            self.num_baffles_chan_n, self.baffle_spacing_, self.wall_thickness)))
+        self.TopBaffles_Assembly = dict(vars(TopBaffles_Assembly(self.L_ent_tank_max,
+            self.L_sed, self.L_top_baffle, self.baffle_thickness, self.W_chan,
+            self.num_chan, self.baffle_spacing_, self.wall_thickness)))
 
         self.numberrows = DP(self.num_chan.magnitude - 1)

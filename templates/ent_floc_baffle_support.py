@@ -44,7 +44,9 @@ class EntFlocBaffleSupport:
         self.numberbaffles = DP(num_baffles_chan_n.magnitude)
         self.numberentbaffles = DP(num_baffles_chan_1.magnitude)
 
-        self.BottomBaffle = BottomBaffle(L_bottom_baffle, baffle_thickness,
-                                         W_chan)
+        self.BottomBaffle = dict(vars(BottomBaffle(L_bottom_baffle,
+                                                   baffle_thickness,
+                                                   W_chan)))
 
-        self.TopBaffle = TopBaffle(L_top_baffle, baffle_thickness, W_chan)
+        self.TopBaffle = dict(vars(TopBaffle(L_top_baffle,
+                                             baffle_thickness, W_chan)))
