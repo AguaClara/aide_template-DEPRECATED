@@ -55,4 +55,4 @@ class Obstacles_Assembly:
         self.WallThickness = DP(wall_thickness.magnitude, wall_thickness.units)
         self.Width = DP(W_chan.magnitude, W_chan.units)
 
-        self.Obstacle = Obstacle(W_chan)
+        self.Obstacle = dict(vars(Obstacle(W_chan)))
