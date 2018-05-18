@@ -22,3 +22,6 @@ Emma Sung (hs699)
 
 ## Symposium
 https://docs.google.com/presentation/d/1xEBxtsFOj9Vg3OqsJGKg5XGnLqnIBJ-bhff2sCJpQ-Q/edit?usp=sharing
+
+## Final Presentation
+https://docs.google.com/presentation/d/1Wkr5UVobI0_qREkohgd2Pfmd97fylJNqvvzmdIT-oUc/edit?usp=sharing
