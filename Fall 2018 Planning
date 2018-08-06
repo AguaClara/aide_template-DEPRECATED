@@ -1,0 +1,38 @@
+##TEMPLATE PLANNING
+
+Things to keep in mind:
+- The naming convention for the variables
+- Team size approx. 6 including team lead
+  - We are downsizing to emphasize the cohesiveness of all CAD models and everyone knows what everyone else is working on.
+  - Last semester, the two groups didn't work together leading to confusion on both parties about some of the CAD models
+  -Ideally all 6 people can work at the same lab time/ that's the goal for downsizing
+  - Monroe wants the 1L/s plant in CAD form (does not need to parameterized) so maybe two people can work on that in the beginning of the semester
+- One person (hopefully the team lead) can look over all the CAD models as they are being built and when CAD model is finished. This is to insure that all CAD models are made consistently with variables that are properly named.
+- make sure with members that the CAD is completed or review improvements consistently throughout the semester
+- please work with AIDE Design to make sure all the variable names are consistent with their codes.
+
+Must Learn things:
+- Sketching
+- Extrude and other 3D functions
+- Configuration panel
+- Joints (probably just rigid joints)
+- Parts studio vs assembly
+
+
+To Make:
+- Sedimentation tank
+- concrete structures
+- flocculator
+- filter entrance tank
+- pipe gallery
+- filter tank
+- Chemical tank
+
+Recommended Tutorials for newcomers:
+- Self paced courses:
+  - Navigating Onshape
+  - Introduction to Sketching
+  - Part Design Using Part Studios
+  - Multi-Part Part Studios
+  - Onshape Assemblies
+  - Introduction to Part Configeration
